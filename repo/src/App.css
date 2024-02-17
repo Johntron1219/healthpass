@@ -1,4 +1,4 @@
-/* App.css */
+/* Combined App.css */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
 body {
@@ -129,4 +129,44 @@ p {
 
 .edit-button:hover {
   background-color: #e0a800; /* Slightly darker on hover */
+}
+
+/* Provider Profile Styles */
+.provider-profile {
+  background-color: #ffffff; /* White background for sections */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 700px;
+  margin: 30px auto;
+  text-align: left;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.Profile-photo {
+  width: 120px; /* Adjusted for provider profile */
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  color: #0056b3;
+  margin: 0;
+}
+
+.profile-details {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.profile-details strong {
+  color: #333;
+  margin-right: 5px;
 }

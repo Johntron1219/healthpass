@@ -46,12 +46,12 @@ function ProviderScreen({ setCurrentScreen }) {
     <div className="provider-screen">
       {screen}
       <div className="provider-screen-footer">
-        <button className="small-blue-button" onClick={() => switchScreen('home')}>Home</button>
-        <button className="small-blue-button" onClick={() => switchScreen('edit')}>Patient Edit</button>
-        <button className="small-blue-button" onClick={() => switchScreen('profile')}>Profile</button>
-        <button className="small-blue-button" onClick={() => switchScreen('requests')}>Requests</button>
+        <button className="Small-blue-button" onClick={() => switchScreen('home')}>Home</button>
+        <button className="Small-blue-button" onClick={() => switchScreen('edit')}>Patient Edit</button>
+        <button className="Small-blue-button" onClick={() => switchScreen('profile')}>Profile</button>
+        <button className="Small-blue-button" onClick={() => switchScreen('requests')}>Requests</button>
       </div>
-      <button className="home-button" onClick={() => setCurrentScreen('main')}>Back to Main Home</button>
+      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
     </div>
   );
 }
