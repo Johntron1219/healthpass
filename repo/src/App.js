@@ -1,9 +1,8 @@
 // App.js
 import React, { useState } from 'react';
 import './App.css';
-import placeholderImage from './logo.svg';
-import PatientScreen from './PatientScreen';
-import ProviderScreen from './ProviderScreen';
+import PatientScreen from './patient/Views/patientScreen';
+import ProviderScreen from './provider/View/ProviderScreen';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
