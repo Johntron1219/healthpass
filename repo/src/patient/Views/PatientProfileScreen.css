@@ -1,91 +1,111 @@
 /* PatientProfileScreen.css */
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #f0f2f5;
-  color: #4a4a4a;
-  line-height: 1.6;
+  font-family: 'Roboto', sans-serif;
+  background-color: #e5e5ea;
   margin: 0;
-  padding: 20px 0;
+  padding: 0;
+  color: #1a1a1a;
 }
 
 .patient-profile {
-  width: 90%;
-  max-width: 800px;
+  width: 100%;
+  max-width: 600px;
   margin: 20px auto;
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 20px;
+  box-sizing: border-box;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .profile-photo {
-  display: block;
   width: 120px;
   height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 20px; /* Center the photo and add space below */
   object-fit: cover;
-  border-radius: 60px;
-  margin: 0 auto 20px;
-}
-
-.profile-item:not(:last-child) {
-  border-bottom: 1px solid #eeeeee;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
+  display: block;
 }
 
 .profile-name {
-  color: #333;
-  font-size: 26px;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 5px;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px; /* Adjust the bottom margin as needed */
 }
 
-.edit-date, .profile-item p {
-  font-size: 14px;
-  color: #777;
-  text-align: center;
+.edit-date {
+  color: #5f6368;
+  font-size: 15px;
+  margin-bottom: 20px; /* Space between date and the next section */
 }
 
-.profile-section h2 {
+.profile-details, .profile-section {
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.section-title {
   font-size: 20px;
-  color: #ffffff;
-  background-color: #007bff;
-  padding: 10px 15px;
-  margin: 10px -20px; /* Aligns with the padding of the parent */
-  cursor: pointer;
-  border-radius: 0;
-  transition: background-color 0.3s ease;
-}
-
-.profile-section h2:hover {
-  background-color: #0056b3;
+  color: #1a73e8;
+  margin-bottom: 10px;
 }
 
 .section-content {
-  padding: 10px 0 0 20px;
-}
-
-.insurance {
-  background-color: #e9ecef;
-  color: #333;
-  padding: 15px;
-  border-radius: 5px;
   font-size: 16px;
+  color: #666;
 }
 
-/* Improve spacing and visibility for section content */
-.section-content p {
-  padding: 5px 0;
+.section-item:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-/* Responsive Design Enhancements */
-@media (max-width: 600px) {
+.section-item p {
+  margin: 0;
+  cursor: pointer;
+  color: #000;
+  font-weight: 500;
+}
+
+.section-item p:hover {
+  text-decoration: underline;
+}
+
+.section-item div {
+  padding-top: 10px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
   .patient-profile {
-    padding: 15px;
+    width: 90%;
+    margin: 20px auto;
   }
 
-  .profile-section h2 {
-    margin: 10px -15px; /* Adjust according to the padding of the parent */
+  .profile-header, .profile-details, .profile-section {
+    padding: 10px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .section-content {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .patient-profile {
+    width: 95%;
   }
 }

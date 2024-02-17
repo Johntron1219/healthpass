@@ -1,63 +1,63 @@
-// PatientProfileScreen.js
 import React, { useState } from 'react';
-
-// Assuming a simple CSS import for styling
-import './PatientProfileScreen.css'; // Ensure this path matches your CSS file's location
+import './PatientProfileScreen.css'; // Ensure this path is correctly set to your CSS file
 
 function PatientProfileScreen({ profile }) {
-  const [showSection, setShowSection] = useState({
-    conditions: false,
-    allergies: false,
-    medications: false,
-    procedures: false,
-    immunizations: false,
-    labRecords: false,
-  });
+  const [visibleDetail, setVisibleDetail] = useState({});
 
-  const toggleSection = (section) => {
-    setShowSection(prevState => ({ ...prevState, [section]: !prevState[section] }));
+  const toggleDetail = (section, index) => {
+    const key = `${section}-${index}`;
+    setVisibleDetail(prevState => ({
+      ...prevState,
+      [key]: !prevState[key],
+    }));
   };
 
-  // Function to format section names for display
   const formatSectionName = (section) => {
     if (section === 'labRecords') return 'Lab Records';
-    return section.charAt(0).toUpperCase() + section.slice(1);
+    return section.charAt(0).toUpperCase() + section.slice(1).replace(/([A-Z])/g, ' $1').trim();
   };
 
   return (
     <div className="patient-profile">
-      <img src={profile.photo} className="Profile-photo" alt="profile" />
-      <div className="profile-item">
+      <div className="profile-header">
+        <img src={profile.photo} className="profile-photo" alt="profile" />
         <h1 className="profile-name">{profile.name}</h1>
-        <p className="edit-date">Last updated: {profile.lastEditDate}</p>
+        <p className="edit-date">Last updated: {profile.lastEditDate}</p> {/* This now appears below the name */}
       </div>
-      <div className="profile-item">
+      <div className="profile-details">
         <p>Address: {profile.address}</p>
-      </div>
-      <div className="profile-item">
         <p>Email: {profile.email}</p>
       </div>
-      {/* Displaying insurance information at all times */}
-      <div className="profile-item">
-        <h2>Insurance</h2>
-        <p>Policy Number: {profile.insurancePolicyNumber}</p>
-        <p>Plan: {profile.insurancePlan}</p>
+      <div className="profile-section insurance">
+        <h2 className="section-title">Insurance</h2>
+        <div className="section-content">
+          <p>Policy Number: {profile.insurancePolicyNumber}</p>
+          <p>Plan: {profile.insurancePlan}</p>
+        </div>
       </div>
-      {['conditions', 'allergies', 'medications', 'procedures', 'immunizations', 'labRecords'].map(section => (
-        <section key={section} className="profile-section">
-          <h2 onClick={() => toggleSection(section)}>{formatSectionName(section)}</h2>
-          {showSection[section] && profile[section] && (
-            <div>
-              {profile[section].map((item, index) => (
-                <div className="profile-item" key={index}>
-                  {Object.keys(item).map((key) => (
-                    <p key={key}>{`${key.charAt(0).toUpperCase() + key.slice(1)}: ${item[key]}`}</p>
-                  ))}
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
+      {['conditions', 'allergies', 'medications', 'procedures', 'immunizations', 'labRecords'].map((section) => (
+        <div key={section} className="profile-section">
+          <h2 className="section-title">{formatSectionName(section)}</h2>
+          <div className="section-content">
+            {(profile[section] || []).map((item, index) => (
+              <div key={index} className="section-item">
+                <p onClick={() => toggleDetail(section, index)} style={{ cursor: 'pointer' }}>
+                  {item.name || item}
+                </p>
+                {visibleDetail[`${section}-${index}`] && (
+                  <div>
+                    {Object.keys(item).map((key) => {
+                      if (key === 'name') return null; // Do not repeat the name
+                      return (
+                        <p key={key}><strong>{`${key.charAt(0).toUpperCase() + key.slice(1)}:`}</strong> {item[key]}</p>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
       ))}
     </div>
   );
