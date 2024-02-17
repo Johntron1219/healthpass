@@ -11,6 +11,7 @@ function PatientScreen({ setCurrentScreen }) {
   const profile = {
     name: "John Doe",
     lastEditDate: "2024-02-17", // Add last edit date
+    dob: "1800-02-18",
     address: "123 Main St, Anytown, AN 12345",
     photo: placeholderImage,
     email: "john.doe@example.com",
