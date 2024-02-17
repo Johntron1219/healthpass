@@ -44,3 +44,5 @@ function ProviderPatientEditScreen({ patientProfiles = [], switchScreen }) {
 }
 
 export default ProviderPatientEditScreen;
+
+//TODO: data adjustment, working for editting patient data, login system, sending system
