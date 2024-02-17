@@ -1,11 +1,9 @@
-// ProviderScreen.js
 import React, { useState } from 'react';
 import ProviderHomeScreen from './ProviderHomeScreen';
 import ProviderProfileScreen from './ProviderProfileScreen';
 import ProviderPatientEditScreen from './ProviderPatientEditScreen';
 import RequestsScreen from './RequestsScreen';
-import placeholderImage from './Doctor_Strange_-_Profile.webp'
-import './Provider.css'; // Assuming a separate CSS file for provider styles
+import placeholderImage from './Doctor_Strange_-_Profile.webp';
 
 function ProviderScreen({ setCurrentScreen }) {
   const [providerScreen, setProviderScreen] = useState('home');
@@ -15,7 +13,7 @@ function ProviderScreen({ setCurrentScreen }) {
     address: "123 Main St, Anytown, AN 12345",
     photo: placeholderImage,
     email: "jose.doe@example.com",
-    NPI: "1234567890", // Assuming NPI is needed for the profile
+    NPI: "1234567890",
   };
 
   const switchScreen = (screen) => {
@@ -25,19 +23,22 @@ function ProviderScreen({ setCurrentScreen }) {
   let screen;
   switch (providerScreen) {
     case 'home':
-      screen = <ProviderHomeScreen switchScreen={switchScreen} />;
+      // Pass the profile as a prop to the ProviderHomeScreen
+      screen = <ProviderHomeScreen profile={profile} switchScreen={switchScreen} />;
       break;
     case 'edit':
+      // Ensure profile is also passed to ProviderPatientEditScreen
       screen = <ProviderPatientEditScreen profile={profile} switchScreen={switchScreen} />;
       break;
     case 'profile':
+      // Pass profile to ProviderProfileScreen
       screen = <ProviderProfileScreen profile={profile} />;
       break;
     case 'requests':
       screen = <RequestsScreen />;
       break;
     default:
-      screen = <ProviderHomeScreen switchScreen={switchScreen} />;
+      screen = <ProviderHomeScreen profile={profile} switchScreen={switchScreen} />;
       break;
   }
 
