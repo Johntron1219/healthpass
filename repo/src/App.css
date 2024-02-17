@@ -94,34 +94,24 @@ code {
   color: #6c757d; /* Grey color for less prominence */
 }
 
-.patient-profile, .approvals-screen {
+.patient-profile, .approvals-screen, .patient-info, .joke-column {
   background-color: #ffffff; /* White background for sections */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
   border-radius: 10px; /* Rounded corners */
   padding: 20px;
   max-width: 600px; /* Limiting width for better readability */
-  margin: 20px auto; /* Centering profile */
+  margin: 20px auto; /* Centering profile and columns */
 }
 
-.profile-name {
-  color: #0056b3; /* Deep blue for names */
+.profile-name, h1, h2 {
+  color: #0056b3; /* Deep blue for names and headers */
 }
 
-.profile-section, .approval-item {
-  border-top: 2px solid #eee; /* Subtle separation */
-  padding-top: 10px;
-  margin-top: 10px;
+p {
+  color: #555; /* Slightly lighter text for regular paragraphs */
 }
 
-.approval-item, .request-item, .approval-history-item {
-  background-color: #f8f9fa; /* Slightly off-white background for items */
-  border: 1px solid #dee2e6; /* Light grey border */
-  border-radius: 5px; /* Softened corners */
-  padding: 10px;
-  margin: 10px 0; /* Space between items */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-.approval-item h2 {
-  color: #007bff; /* Bootstrap primary blue for headings */
+.joke-column {
+  background-color: #f0f9ff; /* Lighter background for the joke column */
+  border: 1px solid #bde0fe; /* Light blue border for emphasis */
 }
