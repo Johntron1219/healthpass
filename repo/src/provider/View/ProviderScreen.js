@@ -94,7 +94,7 @@ function ProviderScreen({ setCurrentScreen }) {
       break;
     case 'edit':
       // Ensure profile is also passed to ProviderPatientEditScreen
-      screen = <ProviderPatientEditScreen patientProfile={patientProfiles[0]} switchScreen={switchScreen} />;
+      screen = <ProviderPatientEditScreen patientProfiles={patientProfiles} switchScreen={switchScreen} />;
       break;
     case 'profile':
       // Pass profile to ProviderProfileScreen
