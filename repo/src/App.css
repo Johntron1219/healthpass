@@ -59,6 +59,7 @@ code {
 }
 
 .A-pink-button {
+  background-color: #C31818; /* Pink */
   border: none;
   color: white;
   padding: 15px 32px; /* Same padding as Home-button for similar size */
