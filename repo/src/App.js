@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import placeholderImage from './placeholder-image.svg';
+import placeholderImage from './logo.svg';
 
 function App() {
   // State to toggle between different screens
@@ -30,7 +30,7 @@ function App() {
   const renderHomeScreen = () => {
     return (
       <div className="home-screen">
-        <h1>Welcome to the Health Portal</h1>
+        <h1>Welcome to the Health Pass</h1>
         <div className="buttons-container">
           <button onClick={() => setCurrentScreen('patient')}>Patient Side</button>
           <button onClick={() => setCurrentScreen('provider')}>Provider Side</button>
