@@ -1,11 +1,27 @@
 // PatientProfileScreen.js
 import React, { useState } from 'react';
 
+// Assuming a simple CSS import for styling
+import './PatientProfileScreen.css'; // Ensure this path matches your CSS file's location
+
 function PatientProfileScreen({ profile }) {
-  const [showSection, setShowSection] = useState({});
+  const [showSection, setShowSection] = useState({
+    conditions: false,
+    allergies: false,
+    medications: false,
+    procedures: false,
+    immunizations: false,
+    labRecords: false,
+  });
 
   const toggleSection = (section) => {
-    setShowSection({ ...showSection, [section]: !showSection[section] });
+    setShowSection(prevState => ({ ...prevState, [section]: !prevState[section] }));
+  };
+
+  // Function to format section names for display
+  const formatSectionName = (section) => {
+    if (section === 'labRecords') return 'Lab Records';
+    return section.charAt(0).toUpperCase() + section.slice(1);
   };
 
   return (
@@ -21,100 +37,28 @@ function PatientProfileScreen({ profile }) {
       <div className="profile-item">
         <p>Email: {profile.email}</p>
       </div>
-      <section className="profile-section">
-        <h2 onClick={() => toggleSection('insurance')}>Insurance</h2>
-        {showSection['insurance'] && (
-          <>
-            <p>Policy Number: {profile.insurancePolicyNumber}</p>
-            <p>Plan: {profile.insurancePlan}</p>
-          </>
-        )}
-      </section>
-      <section className="profile-section">
-        <h2 onClick={() => toggleSection('conditions')}>Conditions</h2>
-        {showSection['conditions'] && (
-          <>
-            {profile.conditions.map((condition, index) => (
-              <div className="profile-item" key={index}>
-                <p>Name: {condition.name}</p>
-                <p>Provider: {condition.provider}</p>
-                <p>Date: {condition.date}</p>
-              </div>
-            ))}
-          </>
-        )}
-      </section>
-      <section className="profile-section">
-        <h2 onClick={() => toggleSection('allergies')}>Allergies</h2>
-        {showSection['allergies'] && (
-          <>
-            {profile.allergies.map((allergy, index) => (
-              <div className="profile-item" key={index}>
-                <p>Name: {allergy.name}</p>
-                <p>Severity: {allergy.severity}</p>
-                <p>Provider: {allergy.provider}</p>
-              </div>
-            ))}
-          </>
-        )}
-      </section>
-      <section className="profile-section">
-        <h2 onClick={() => toggleSection('medications')}>Medications</h2>
-        {showSection['medications'] && (
-          <>
-            {profile.medications.map((medication, index) => (
-              <div className="profile-item" key={index}>
-                <p>Name: {medication.name}</p>
-                <p>Dosage: {medication.dosage}</p>
-                <p>Provider: {medication.provider}</p>
-              </div>
-            ))}
-          </>
-        )}
-      </section>
-      <section className="profile-section">
-        <h2 onClick={() => toggleSection('procedures')}>Procedures</h2>
-        {showSection['procedures'] && (
-          <>
-            {profile.procedures.map((procedure, index) => (
-              <div className="profile-item" key={index}>
-                <p>Name: {procedure.name}</p>
-                <p>Date: {procedure.date}</p>
-                <p>Provider: {procedure.provider}</p>
-              </div>
-            ))}
-          </>
-        )}
-      </section>
-      <section className="profile-section">
-        <h2 onClick={() => toggleSection('immunizations')}>Immunizations</h2>
-        {showSection['immunizations'] && (
-          <>
-            {profile.immunizations.map((immunization, index) => (
-              <div className="profile-item" key={index}>
-                <p>Name: {immunization.name}</p>
-                <p>Date: {immunization.date}</p>
-                <p>Provider: {immunization.provider}</p>
-              </div>
-            ))}
-          </>
-        )}
-      </section>
-      <section className="profile-section">
-        <h2 onClick={() => toggleSection('labRecords')}>Lab Records</h2>
-        {showSection['labRecords'] && (
-          <>
-            {profile.labRecords.map((labRecord, index) => (
-              <div className="profile-item" key={index}>
-                <p>Name: {labRecord.name}</p>
-                <p>Value: {labRecord.value}</p>
-                <p>Date: {labRecord.date}</p>
-                <p>Provider: {labRecord.provider}</p>
-              </div>
-            ))}
-          </>
-        )}
-      </section>
+      {/* Displaying insurance information at all times */}
+      <div className="profile-item">
+        <h2>Insurance</h2>
+        <p>Policy Number: {profile.insurancePolicyNumber}</p>
+        <p>Plan: {profile.insurancePlan}</p>
+      </div>
+      {['conditions', 'allergies', 'medications', 'procedures', 'immunizations', 'labRecords'].map(section => (
+        <section key={section} className="profile-section">
+          <h2 onClick={() => toggleSection(section)}>{formatSectionName(section)}</h2>
+          {showSection[section] && profile[section] && (
+            <div>
+              {profile[section].map((item, index) => (
+                <div className="profile-item" key={index}>
+                  {Object.keys(item).map((key) => (
+                    <p key={key}>{`${key.charAt(0).toUpperCase() + key.slice(1)}: ${item[key]}`}</p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      ))}
     </div>
   );
 }
