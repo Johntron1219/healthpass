@@ -21,8 +21,10 @@ function PatientProfileScreen({ profile }) {
     <div className="patient-profile">
       <div className="profile-header">
         <img src={profile.photo} className="profile-photo" alt="profile" />
-        <h1 className="profile-name">{profile.name}</h1>
-        <p className="edit-date">Last updated: {profile.lastEditDate}</p> {/* This now appears below the name */}
+        <div className="name-and-date">
+          <h1 className="profile-name">{profile.name}</h1>
+          <p className="edit-date">Last updated: {profile.lastEditDate}</p>
+        </div>
       </div>
       <div className="profile-details">
         <p>Address: {profile.address}</p>
