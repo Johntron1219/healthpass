@@ -22,21 +22,34 @@ function PatientScreen({ setCurrentScreen }) {
     medicalConditions: ["Asthma"],
     insurancePolicyNumber: "XYZ123456789",
     insurancePlan: "Basic Health Plan",
+    // Including edit dates for each profile item
+    editDates: {
+      name: "2024-02-01",
+      address: "2024-02-02",
+      email: "2024-02-03",
+      healthConditions: "2024-02-04",
+      allergies: "2024-02-05",
+      medications: "2024-02-06",
+      immunization: "2024-02-07",
+      labRecords: "2024-02-08",
+      medicalHistory: "2024-02-09",
+      medicalConditions: "2024-02-10",
+      insurancePolicy: "2024-02-11"
+    }
   };
 
-  // Placeholder data for provider authorization requests
+  // Placeholder data for provider authorization requests and past medical record access approvals
   const providerAuthorizationRequests = [
     { id: 1, providerName: "Dr. Smith", requestDate: "2024-02-15" },
     { id: 2, providerName: "Dr. Johnson", requestDate: "2024-02-14" }
   ];
 
-  // Placeholder data for past medical record access approvals
   const pastMedicalRecordAccessApprovals = [
     { id: 1, patientName: "John Doe", approvalDate: "2023-12-01" },
     { id: 2, patientName: "Jane Doe", approvalDate: "2023-11-25" }
   ];
 
-  // Define functions to handle approvals and creating access links
+  // Functions to handle approvals and creating access links
   const handleApproveProvider = () => {
     console.log("Approving provider...");
   };
