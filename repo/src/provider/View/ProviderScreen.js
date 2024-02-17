@@ -10,7 +10,7 @@ function ProviderScreen({ setCurrentScreen }) {
   const [providerScreen, setProviderScreen] = useState('home');
 
   const profile = {
-    name: "John Doe",
+    name: "Jose Doe",
     address: "123 Main St, Anytown, AN 12345",
     photo: placeholderImage,
     email: "john.doe@example.com",
@@ -27,7 +27,7 @@ function ProviderScreen({ setCurrentScreen }) {
     case 'profile':
       screen = <ProviderProfileScreen profile={profile} />;
       break;
-    case 'approvals':
+    case 'requests':
       screen = <RequestsScreen/>;
       break;
     default:
@@ -41,7 +41,7 @@ function ProviderScreen({ setCurrentScreen }) {
       <div className="provider-screen-footer">
         <button className="Small-blue-button" onClick={() => setProviderScreen('home')}>Home</button>
         <button className="Small-blue-button" onClick={() => setProviderScreen('profile')}>Profile</button>
-        <button className="Small-blue-button" onClick={() => setProviderScreen('approvals')}>Approvals</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('requests')}>Requests</button>
       </div>
       <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
     </div>
