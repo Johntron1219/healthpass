@@ -1,6 +1,20 @@
+/* App.css */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
 .App {
   text-align: center;
-  font-family: 'Arial', sans-serif; /* Choose a font that fits your design */
 }
 
 .App-logo {
@@ -8,14 +22,8 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34; /* Or any color that matches your design */
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -29,47 +37,62 @@
   color: #61dafb;
 }
 
-.Button-group {
-  display: flex;
-  flex-direction: column;
+.home-screen, .patient-screen, .provider-screen, .patient-home, .patient-profile, .approvals {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 .Home-button {
-  background-color: #4CAF50; /* A pleasant green, change as you like */
-  color: white;
+  background-color: #4CAF50; /* Green */
   border: none;
-  border-radius: 5px;
-  padding: 15px 30px;
-  margin: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 4px #999;
+  border-radius: 4px;
 }
 
-.Home-button:hover {
-  background-color: #45a049; /* Darker shade for hover state */
+.A-pink-button {
+  background-color: #FFC0CB; /* Pink */
+  border: none;
+  color: white;
+  padding: 15px 32px; /* Same padding as Home-button for similar size */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; /* Same font size as Home-button */
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-.Home-button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 2px #666;
-  transform: translateY(2px);
+.Small-blue-button {
+  background-color: #008CBA; /* Blue */
+  border: none;
+  color: white;
+  padding: 10px 20px; /* Smaller padding */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px; /* Slightly smaller font size */
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-/* Optionally, you can add a focus style for accessibility */
-.Home-button:focus {
-  outline: none;
-  border: 2px solid #fff;
+.Profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.patient-screen-footer, .buttons-container {
+  margin-top: 20px;
 }

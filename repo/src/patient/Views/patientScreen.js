@@ -44,9 +44,9 @@ function PatientScreen({ setCurrentScreen }) {
     <div className="patient-screen">
       {screen}
       <div className="patient-screen-footer">
-        <button className="Footer-button" onClick={() => setPatientScreen('home')}>Home</button>
-        <button className="Footer-button" onClick={() => setPatientScreen('profile')}>Profile</button>
-        <button className="Footer-button" onClick={() => setPatientScreen('approvals')}>Approvals</button>
+        <button className="Small-blue-button" onClick={() => setPatientScreen('home')}>Home</button>
+        <button className="Small-blue-button" onClick={() => setPatientScreen('profile')}>Profile</button>
+        <button className="Small-blue-button" onClick={() => setPatientScreen('approvals')}>Approvals</button>
       </div>
       <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
     </div>
