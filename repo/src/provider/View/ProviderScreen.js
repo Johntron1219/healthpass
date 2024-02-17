@@ -21,7 +21,6 @@ function ProviderScreen({ setCurrentScreen }) {
     {
       name: "John Doe",
       address: "456 Elm St, Somewhere, CA 67890",
-      photo: placeholderImage,
       email: "john.doe@example.com",
       insurancePolicyNumber: "ABC123",
       insurancePlan: "Health Plan A",
@@ -50,7 +49,6 @@ function ProviderScreen({ setCurrentScreen }) {
     {
       name: "Jane Smith",
       address: "789 Oak Ave, Nowhere, TX 54321",
-      photo: placeholderImage,
       email: "jane.smith@example.com",
       insurancePolicyNumber: "XYZ456",
       insurancePlan: "Health Plan B",
