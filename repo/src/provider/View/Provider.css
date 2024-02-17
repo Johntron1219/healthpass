@@ -1,0 +1,18 @@
+/* Provider.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+.edit-button {
+    background-color: #ffc107; /* Yellow color for visibility */
+    color: black; /* Black text for contrast */
+    border: none;
+    padding: 5px 10px; /* Smaller than primary action buttons */
+    margin-left: 10px; /* Space from the text */
+    font-size: 0.8rem; /* Smaller font size */
+    cursor: pointer;
+    border-radius: 4px; /* Consistent with other buttons */
+  }
+  
+  .edit-button:hover {
+    background-color: #e0a800; /* Slightly darker on hover */
+  }
+  
