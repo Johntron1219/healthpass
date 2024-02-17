@@ -1,6 +1,6 @@
 // PatientScreen.js
 import React, { useState } from 'react';
-import placeholderImage from './logo.svg';
+import placeholderImage from './Elf.webp';
 import PatientHomeScreen from './PatientHomeScreen';
 import PatientProfileScreen from './PatientProfileScreen';
 import ApprovalsScreen from './ApprovalsScreen';
@@ -24,6 +24,31 @@ function PatientScreen({ setCurrentScreen }) {
     insurancePlan: "Basic Health Plan",
   };
 
+  // Placeholder data for provider authorization requests
+  const providerAuthorizationRequests = [
+    { id: 1, providerName: "Dr. Smith", requestDate: "2024-02-15" },
+    { id: 2, providerName: "Dr. Johnson", requestDate: "2024-02-14" }
+  ];
+
+  // Placeholder data for past medical record access approvals
+  const pastMedicalRecordAccessApprovals = [
+    { id: 1, patientName: "John Doe", approvalDate: "2023-12-01" },
+    { id: 2, patientName: "Jane Doe", approvalDate: "2023-11-25" }
+  ];
+
+  // Define functions to handle approvals and creating access links
+  const handleApproveProvider = () => {
+    console.log("Approving provider...");
+  };
+
+  const handleApproveRecords = () => {
+    console.log("Approving records access...");
+  };
+
+  const handleCreateAccessLink = () => {
+    console.log("Creating access link...");
+  };
+
   let screen;
   switch (patientScreen) {
     case 'home':
@@ -33,7 +58,13 @@ function PatientScreen({ setCurrentScreen }) {
       screen = <PatientProfileScreen profile={profile} />;
       break;
     case 'approvals':
-      screen = <ApprovalsScreen />;
+      screen = <ApprovalsScreen 
+                providerAuthorizationRequests={providerAuthorizationRequests} 
+                pastMedicalRecordAccessApprovals={pastMedicalRecordAccessApprovals}
+                onApproveProvider={handleApproveProvider} 
+                onApproveRecords={handleApproveRecords} 
+                onCreateAccessLink={handleCreateAccessLink}
+                />;
       break;
     default:
       screen = <PatientHomeScreen profile={profile} />;
