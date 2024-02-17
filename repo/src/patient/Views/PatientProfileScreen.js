@@ -28,6 +28,7 @@ function PatientProfileScreen({ profile }) {
       </div>
       <div className="profile-details">
         <p>Address: {profile.address}</p>
+        <p>Date of Birth: {profile.dob}</p>
         <p>Email: {profile.email}</p>
       </div>
       <div className="profile-section insurance">

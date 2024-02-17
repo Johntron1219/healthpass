@@ -72,12 +72,74 @@ function PatientScreen({ setCurrentScreen }) {
       });
     }
 
+<<<<<<< HEAD
     fetchData();
   }, []);
 
   if (!profile) {
     return <div>Loading...</div>;
   }
+=======
+  const profile = {
+    name: "John Doe",
+    lastEditDate: "2024-02-17", // Add last edit date
+    dob: "1800-02-18",
+    address: "123 Main St, Anytown, AN 12345",
+    photo: placeholderImage,
+    email: "john.doe@example.com",
+    insurancePolicyNumber: "XYZ123456789",
+    insurancePlan: "Basic Health Plan",
+    conditions: [
+      {
+        name: "Hypertension",
+        provider: "Dr. Smith",
+        date: "2023-01-15"
+      }
+    ],
+    allergies: [
+      {
+        name: "Pollen",
+        severity: "Mild",
+        provider: "Dr. Johnson"
+      }
+    ],
+    medications: [
+      {
+        name: "Lisinopril",
+        dosage: "10 mg",
+        provider: "Dr. Smith"
+      }
+    ],
+    procedures: [
+      {
+        name: "Appendectomy",
+        date: "2015-05-20",
+        provider: "Dr. Brown"
+      }
+    ],
+    immunizations: [
+      {
+        name: "Influenza",
+        date: "2022-10-01",
+        provider: "Dr. Lee"
+      }
+    ],
+    labRecords: [
+      {
+        name: "CBC",
+        value: "Normal",
+        date: "2024-01-10",
+        provider: "LabCorp"
+      },
+      {
+        name: "Cholesterol",
+        value: "Slightly High",
+        date: "2023-12-15",
+        provider: "Quest Diagnostics"
+      }
+    ]
+  };
+>>>>>>> 693edea05b4e47aa089729c12329adfeff378bcd
 
   const providerAuthorizationRequests = [
     { id: 1, providerName: "Dr. Smith", requestDate: "2024-02-15" },
