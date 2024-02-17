@@ -1,18 +1,18 @@
-// ApprovalsScreen.js
+// RequestsScreen.js
 import React from 'react';
 
-function RequestsScreen({ onApproveProvider, onApproveRecords }) {
+function RequestsScreen({ onAuthorizePatient, onRequestRecords }) {
   // Function to handle provider authorization approval
-  const handleProviderAuthorization = () => {
-    console.log("Provider authorization approved.");
-    if (onApproveProvider) onApproveProvider();
+  const handleAuthorizePatient = () => {
+    console.log("Patient authorized.");
+    if (onAuthorizePatient) onAuthorizePatient();
     // Further logic to approve provider authorization can be added here
   };
 
   // Function to handle medical records access approval
-  const handleMedicalRecordsAccess = () => {
-    console.log("Medical records access approved.");
-    if (onApproveRecords) onApproveRecords();
+  const handleRequestRecords = () => {
+    console.log("Requested patient records.");
+    if (onRequestRecords) onRequestRecords();
     // Further logic to approve pulling medical records can be added here
   };
 
@@ -20,8 +20,8 @@ function RequestsScreen({ onApproveProvider, onApproveRecords }) {
     <div className="requests-screen">
       <h1>Approvals</h1>
       <div className="requests-buttons">
-        <button className="A-pink-button" onClick={handleProviderAuthorization}>Authorize Patient Data</button>
-        <button className="A-pink-button" onClick={handleMedicalRecordsAccess}>Request Patient Records</button>
+        <button className="A-pink-button" onClick={handleAuthorizePatient}>Authorize Patient Data</button>
+        <button className="A-pink-button" onClick={handleRequestRecords}>Request Patient Records</button>
       </div>
     </div>
   );

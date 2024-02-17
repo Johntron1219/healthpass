@@ -1,15 +1,15 @@
 // PatientHomeScreen.js
 import React from 'react';
 
-function PatientHomeScreen({ profile }) {
+function ProviderHomeScreen({ profile }) {
   return (
-    <div className="patient-home">
+    <div className="provider-home">
       <h1>Patient Home</h1>
       <p>Welcome back, {profile.name}!</p>
-      {/* Additional content for the patient home screen can be added here */}
+      {/* Additional content for the provider home screen can be added here */}
     </div>
   );
 }
 
-export default PatientHomeScreen;
+export default ProviderHomeScreen;
 
