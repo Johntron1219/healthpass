@@ -64,6 +64,7 @@ code {
 .A-pink-button {
   background-color: #C31818; /* Pink */
   font-size: 16px; /* Same font size as Home-button */
+  margin-top: 20px; /* Extra margin above buttons for spacing */
 }
 
 .Small-blue-button {
@@ -83,8 +84,8 @@ code {
   margin-top: 20px;
 }
 
-/* New Styles for Enhanced User Friendliness */
-.profile-item p, .profile-item h1, .profile-item h2 {
+/* Enhanced User Friendliness */
+.profile-item p, .profile-item h1, .profile-item h2, .request-item, .approval-history-item {
   margin: 5px 0; /* Reduced margin for a tighter look */
 }
 
@@ -93,7 +94,7 @@ code {
   color: #6c757d; /* Grey color for less prominence */
 }
 
-.patient-profile {
+.patient-profile, .approvals-screen {
   background-color: #ffffff; /* White background for sections */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
   border-radius: 10px; /* Rounded corners */
@@ -106,8 +107,21 @@ code {
   color: #0056b3; /* Deep blue for names */
 }
 
-.profile-section {
+.profile-section, .approval-item {
   border-top: 2px solid #eee; /* Subtle separation */
   padding-top: 10px;
   margin-top: 10px;
+}
+
+.approval-item, .request-item, .approval-history-item {
+  background-color: #f8f9fa; /* Slightly off-white background for items */
+  border: 1px solid #dee2e6; /* Light grey border */
+  border-radius: 5px; /* Softened corners */
+  padding: 10px;
+  margin: 10px 0; /* Space between items */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.approval-item h2 {
+  color: #007bff; /* Bootstrap primary blue for headings */
 }
