@@ -10,32 +10,61 @@ function PatientScreen({ setCurrentScreen }) {
 
   const profile = {
     name: "John Doe",
+    lastEditDate: "2024-02-17", // Add last edit date
     address: "123 Main St, Anytown, AN 12345",
     photo: placeholderImage,
     email: "john.doe@example.com",
-    healthConditions: ["Hypertension"],
-    allergies: ["Pollen"],
-    medications: ["Lisinopril"],
-    immunization: ["Influenza"],
-    labRecords: ["CBC: Normal", "Cholesterol: Slightly High"],
-    medicalHistory: ["Appendectomy: 2015"],
-    medicalConditions: ["Asthma"],
     insurancePolicyNumber: "XYZ123456789",
     insurancePlan: "Basic Health Plan",
-    // Including edit dates for each profile item
-    editDates: {
-      name: "2024-02-01",
-      address: "2024-02-02",
-      email: "2024-02-03",
-      healthConditions: "2024-02-04",
-      allergies: "2024-02-05",
-      medications: "2024-02-06",
-      immunization: "2024-02-07",
-      labRecords: "2024-02-08",
-      medicalHistory: "2024-02-09",
-      medicalConditions: "2024-02-10",
-      insurancePolicy: "2024-02-11"
-    }
+    conditions: [
+      {
+        name: "Hypertension",
+        provider: "Dr. Smith",
+        date: "2023-01-15"
+      }
+    ],
+    allergies: [
+      {
+        name: "Pollen",
+        severity: "Mild",
+        provider: "Dr. Johnson"
+      }
+    ],
+    medications: [
+      {
+        name: "Lisinopril",
+        dosage: "10 mg",
+        provider: "Dr. Smith"
+      }
+    ],
+    procedures: [
+      {
+        name: "Appendectomy",
+        date: "2015-05-20",
+        provider: "Dr. Brown"
+      }
+    ],
+    immunizations: [
+      {
+        name: "Influenza",
+        date: "2022-10-01",
+        provider: "Dr. Lee"
+      }
+    ],
+    labRecords: [
+      {
+        name: "CBC",
+        value: "Normal",
+        date: "2024-01-10",
+        provider: "LabCorp"
+      },
+      {
+        name: "Cholesterol",
+        value: "Slightly High",
+        date: "2023-12-15",
+        provider: "Quest Diagnostics"
+      }
+    ]
   };
 
   // Placeholder data for provider authorization requests and past medical record access approvals
