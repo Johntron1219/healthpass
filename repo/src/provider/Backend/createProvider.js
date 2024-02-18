@@ -1,9 +1,9 @@
-import { firestore } from './firebase';
+import { database } from '../../firebase';
 
 // Function to check if a document exists in a Firestore collection
 const checkIfDocumentExists = async (collectionName, documentId) => {
     try {
-      const documentRef = firestore.collection(collectionName).doc(documentId);
+      const documentRef = database.collection(collectionName).doc(documentId);
       const documentSnapshot = await documentRef.get();
       return documentSnapshot.exists;
     } catch (error) {
@@ -13,22 +13,27 @@ const checkIfDocumentExists = async (collectionName, documentId) => {
   };
 
 // Function to add a document to a Firestore collection
-const addDocumentToCollection = async (collectionName, data) => {
+const addDocumentToCollection = async (collectionName, documentID, data) => {
   try {
-    const collectionRef = firestore.collection(collectionName);
-    await collectionRef.add(data);
+    const docRef = database.collection(collectionName).doc(documentID);
+    await docRef.set(data);
     console.log('Document added successfully');
   } catch (error) {
     console.error('Error adding document: ', error);
   }
 };
 
-// Function to create a provider if they do not already exist in the Firestore database
-export const createProvider = async (providerData) => {
-    const exists = await checkIfDocumentExists('providers', providerData.id);
-    if (!exists) {
-        await addDocumentToCollection('providers', providerData);
-    } else {
-        console.log('Provider already exists.');
-    }
+const createProvider = async (providerNPI, password) => {
+  const providerData = {
+    NPI: providerNPI,
+    password: password,
+    incomingrequests: [],
+    AuthorizedPatients: [],
+  };
+
+  await addDocumentToCollection('providers', providerNPI, providerData);
+
+  return providerData;
 };
+
+export { createProvider, checkIfDocumentExists };

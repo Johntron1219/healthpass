@@ -1,23 +1,37 @@
 import React, { useState } from 'react';
 import './providerCSS/ProviderLoginPage.css'; // Assuming ProviderLoginPage will use the same styles
+import { checkIfDocumentExists } from '../Backend/loginAuthorization';
 
 export const ProviderLoginPage = ({ setCurrentScreen, setCurrentID}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) {
       setErrorMessage('Please enter both username and password');
       return;
     }
-    // Additional login logic for providers...
-    setCurrentScreen('provider');
-    setCurrentID(username)
-    setUsername('');
-    setPassword('');
-    setErrorMessage('');
+    try {
+      const documentExists = await checkIfDocumentExists(username);
+      if (documentExists) {
+        console.log('Logging in with username:', username, 'and password:', password);
+        setCurrentScreen('provider');
+        setCurrentID(username);
+        // Reset form fields
+      } else {
+        setErrorMessage('Invalid login');
+        return;
+      }
+      setUsername('');
+      setPassword('');
+      setErrorMessage('');
+    } catch (error) {
+        console.error('Error checking document:', error);
+        setErrorMessage('An error occurred while checking login');
+    }
+    // Additional login logic for providers...\
   };
 
   const handleBack = () => {
@@ -26,7 +40,7 @@ export const ProviderLoginPage = ({ setCurrentScreen, setCurrentID}) => {
 
   const handleRegister = () => {
     // Redirect to registration logic for providers
-    console.log('Redirect to provider registration screen');
+    setCurrentScreen('providerRegister');
   };
 
   return (

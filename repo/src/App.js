@@ -7,6 +7,7 @@ import ProviderLoginPage from './provider/View/ProviderLoginPage';
 import LoginPage from './patient/Views/PatientLoginPage';
 import PatientRegisterPage from './patient/Views/PatientRegisterPage';
 import logo from './public/Logo.png'; // Import the logo image
+import ProviderRegisterPage from './provider/View/ProviderRegisterPage';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -41,6 +42,7 @@ function App() {
       {currentScreen === 'provider' && <ProviderScreen setCurrentScreen={setCurrentScreen} providerNPI={currentID}/>}
       {currentScreen === 'patient' && <PatientScreen setCurrentScreen={setCurrentScreen} patientID={currentID} />}
       {currentScreen === 'patientRegister' && <PatientRegisterPage setCurrentScreen={setCurrentScreen}/>}
+      {currentScreen === 'providerRegister' && <ProviderRegisterPage setCurrentScreen={setCurrentScreen} providerNPI={currentID}/>}
     </div>
   );
 }
