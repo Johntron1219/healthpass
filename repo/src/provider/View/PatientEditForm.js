@@ -10,9 +10,8 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     const { name, value } = event.target;
     const updatedSubarray = [...patientData[subarrayName]];
     updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
-    await setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
-    console.log(patientData.pt);
-    await updatePatientField(parseInt(patientData.pt), subarrayName, updatedSubarray);
+    setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
+    updatePatientField(parseInt(patientData.pt), subarrayName, updatedSubarray);
   };
 
   const handleAddNewItem = (subarrayName) => {
@@ -33,8 +32,8 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    onSave(patientData);
+    event.preventDefault(); // Prevents the default form submission
+    onSave(patientData); // This will call the `handleSavePatient` function passed as a prop
   };
 
   const renderSubArrayFields = (subArrayName) => {

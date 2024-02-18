@@ -13,6 +13,8 @@ import getMedications from '../Backend/getRecords/getMedications';
 import getProcedures from '../Backend/getRecords/getProcedures';
 import getImmunizations from '../Backend/getRecords/getImmunizations';
 import getLabRecords from '../Backend/getRecords/getLabRecords';
+import { updatePatientField } from '../../patient/Backend/updatePatientField';
+
 function ProviderScreen({ setCurrentScreen, providerNPI }) {
   const [providerScreen, setProviderScreen] = useState('home');
   const [selectedPatient, setSelectedPatient] = useState(null);
@@ -61,9 +63,10 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
     setProviderScreen('patientEdit');
   };
 
-  const handleSavePatient = (updatedPatient) => {
+  const handleSavePatient = async (updatedPatient) => {
+    // Update the local state first
     setPatientProfiles((prevProfiles) => {
-      const index = prevProfiles.findIndex(profile => profile.email === updatedPatient.email);
+      const index = prevProfiles.findIndex(profile => profile.pt === updatedPatient.pt);
       if (index !== -1) {
         const newProfiles = [...prevProfiles];
         newProfiles[index] = updatedPatient;
@@ -71,11 +74,20 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       }
       return prevProfiles;
     });
-
+  
     // Update the selectedPatient state to reflect the changes immediately
     setSelectedPatient(updatedPatient);
-
-    console.log('Patient data saved', updatedPatient);
+  
+    // Here you should call a function to update the patient in Firebase
+    try {
+      // Assuming 'pt' is the patient ID and it is a string. If it's not, you should convert it accordingly.
+      await updatePatientField(updatedPatient.pt, updatedPatient);
+      console.log('Patient data updated successfully in Firebase');
+    } catch (error) {
+      console.error('Failed to update patient data in Firebase', error);
+    }
+  
+    // Go back to the patient detail screen
     setProviderScreen('patientDetail');
   };
 
