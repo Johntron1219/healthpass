@@ -41,7 +41,7 @@ function PatientListScreen({ onPatientSelect }) {
     const authorizedPatientIDs = getAuthorizedPatients(NPI); // Replace this with the array of authorized patient IDs
     const fetchPatientData = async () => {
       try {
-        const patientDataList = await fetchAuthorizedPatientsData(providerProfile["AuthorizedPatients"]);
+        const patientDataList = await fetchAuthorizedPatientsData(authorizedPatientIDs);
         setPatientProfiles(patientDataList);
       } catch (error) {
         console.error('Error fetching patient data:', error);
