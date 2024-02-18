@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import fetchAuthorizedPatientsData from '../../Backend/fetchPatientData'; // Corrected import path
+import fetchAuthorizedPatientsData from '../Backend/fetchPatientData'; // Corrected import path
 
 function PatientListScreen({ onPatientSelect }) {
   const [patientProfiles, setPatientProfiles] = useState([]);
