@@ -3,13 +3,7 @@ import placeholderImage from '../../public/Elf.webp';
 import PatientHomeScreen from './PatientHomeScreen';
 import PatientProfileScreen from './PatientProfileScreen';
 import ApprovalsScreen from './ApprovalsScreen';
-import getPatientData, { getAllPatientData } from '../Backend/getRecords/getPatientData'; // Correct import
-import getConditions from '../Backend/getRecords/getConditions';
-import getAllergies from '../Backend/getRecords/getAllergies';
-import getMedications from '../Backend/getRecords/getMedications';
-import getProcedures from '../Backend/getRecords/getProcedures';
-import getImmunizations from '../Backend/getRecords/getImmunizations';
-import getLabRecords from '../Backend/getRecords/getLabRecords';
+import { getAllPatientData } from '../Backend/getRecords/getPatientData'; // Correct import
 function PatientScreen({ setCurrentScreen, patientID}) {
   const [patientScreen, setPatientScreen] = useState('home');
   const [profile, setProfile] = useState(null);
@@ -27,6 +21,7 @@ function PatientScreen({ setCurrentScreen, patientID}) {
         authorizedNPIs: patientData.authorizedNPIs,
         incomingRequests: patientData.incomingRequests,
         metadata: patientData.metadata,
+        photo: placeholderImage,
       });
     }
 
