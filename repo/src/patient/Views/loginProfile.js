@@ -29,11 +29,15 @@ export const LoginPage = ({setCurrentScreen}) => {
     setErrorMessage('');
   };
 
+  const handleReset = (e) => {
+    setCurrentScreen('home');
+  }
+ 
   return (
     <div>
       <h2>Login Page</h2>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      <form onSubmit={handleSubmit}>
+      {errorMessage && <p>{errorMessage}</p>}
+      <form onSubmit={handleSubmit} onReset={handleReset}>
         <label>
           Username:
           <input
@@ -53,6 +57,7 @@ export const LoginPage = ({setCurrentScreen}) => {
         </label>
         <br />
         <button type="submit">Login</button>
+        <button type="reset">Back</button>
       </form>
     </div>
   );
