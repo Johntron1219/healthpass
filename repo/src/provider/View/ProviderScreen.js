@@ -6,6 +6,7 @@ import PatientDetailScreen from './PatientDetailScreen';
 import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
 import Pic from '../../public/DTS.webp';
+import { getProviderData } from '../Backend/getProviderData'; // Import the function to fetch provider data
 import { getAllPatientData } from '../Backend/getRecords/getPatientData'; // Correct import
 import getConditions from '../Backend/getRecords/getConditions';
 import getAllergies from '../Backend/getRecords/getAllergies';
@@ -18,19 +19,16 @@ import { updatePatientField } from '../../patient/Backend/updatePatientField';
 function ProviderScreen({ setCurrentScreen, providerNPI }) {
   const [providerScreen, setProviderScreen] = useState('home');
   const [selectedPatient, setSelectedPatient] = useState(null);
-  const profile = {
-    name: "Jose Doe",
-    address: "123 Main St, Anytown, AN 12345",
-    photo: Pic,
-    phone: "12345678",
-    email: "jose.doe@example.com",
-    NPI: "1234567890",
-  };
+  const [providerProfile, setProviderProfile] = useState(null); // State to store provider profile
   const [patientProfiles, setPatientProfiles] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch provider profile
+        const providerData = await getProviderData(providerNPI);
+        setProviderProfile(providerData);
+
         // Fetch all patients
         const patientsData = await getAllPatientData();
         
@@ -90,12 +88,12 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
   
         setPatientProfiles(filteredProfiles);
       } catch (error) {
-        console.error('Error fetching patient data:', error);
+        console.error('Error fetching data:', error);
       }
     };
   
     fetchData();
-  }, []);
+  }, [providerNPI]);
 
   const handleSelectPatient = (patient) => {
     setSelectedPatient(patient);
@@ -146,10 +144,10 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
   let screenComponent;
   switch (providerScreen) {
     case 'home':
-      screenComponent = <ProviderHomeScreen profile={profile} />;
+      screenComponent = <ProviderHomeScreen profile={providerProfile} />;
       break;
     case 'profile':
-      screenComponent = <ProviderProfileScreen profile={profile} />;
+      screenComponent = <ProviderProfileScreen profile={providerProfile} />;
       break;
     case 'patientList':
       screenComponent = <PatientListScreen patientProfiles={patientProfiles} onPatientSelect={handleSelectPatient} />;
@@ -164,7 +162,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       screenComponent = <RequestsScreen providerNPI={providerNPI} />;
       break;
     default:
-      screenComponent = <ProviderHomeScreen profile={profile} />;
+      screenComponent = <ProviderHomeScreen profile={providerProfile} />;
   }
 
   return (
