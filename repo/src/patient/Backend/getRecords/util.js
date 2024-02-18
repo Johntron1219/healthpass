@@ -1,5 +1,5 @@
 // Function to retrieve provider name by NPI
-async function getClinicalTables(npi, field) {
+export default async function getClinicalTables(npi, field) {
     // const baseUrl = "https://npiregistry.cms.hhs.gov/api/";
     // const endpoint = "retrieveNPIRegistry";
     // const params = new URLSearchParams({ number: npi });
@@ -15,7 +15,4 @@ async function getClinicalTables(npi, field) {
     } catch (error) {
         return null;
     }
-}
-
-
-export {getClinicalTables};
+};

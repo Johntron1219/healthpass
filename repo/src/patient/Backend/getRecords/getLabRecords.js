@@ -1,3 +1,5 @@
+import getClinicalTables from './util.js'
+
 export async function getLabRecords(data) {
             if (data && data.metadata && data.metadata.labrecords) {
                 // console.log( await getClinicalTables(data.metadata.labrecords[0].HCPCS, "hcpcs") )

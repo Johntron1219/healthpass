@@ -1,3 +1,5 @@
+import getClinicalTables from './util.js'
+
 export async function getMedications(data) {
     if (data && data.metadata && data.metadata.medications) {
         return await Promise.all(data.metadata.medications.map(async (medications) => ({

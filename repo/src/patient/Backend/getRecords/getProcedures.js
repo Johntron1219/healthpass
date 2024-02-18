@@ -1,3 +1,5 @@
+import getClinicalTables from './util.js'
+
 export async function getProcedures(data) {
             if (data && data.metadata && data.metadata.procedures) {
                 return await Promise.all(data.metadata.procedures.map(async (procedures) => ({

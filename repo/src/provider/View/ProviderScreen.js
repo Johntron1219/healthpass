@@ -6,13 +6,14 @@ import PatientDetailScreen from './PatientDetailScreen';
 import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
 import Pic from '../../public/DTS.webp';
-import { getAllPatientData } from '../Backend/getRecords/getPatientData'; // Correct import
-import getConditions from '../Backend/getRecords/getConditions';
-import getAllergies from '../Backend/getRecords/getAllergies';
-import getMedications from '../Backend/getRecords/getMedications';
-import getProcedures from '../Backend/getRecords/getProcedures';
-import getImmunizations from '../Backend/getRecords/getImmunizations';
-import getLabRecords from '../Backend/getRecords/getLabRecords';
+import { getAllPatientData } from '../../patient/Backend/getRecords/getPatientData'; // Correct import
+
+import getConditions from '../../patient/Backend/getRecords/getConditions';
+import getAllergies from '../../patient/Backend/getRecords//getAllergies';
+import getMedications from '../../patient/Backend/getRecords//getMedications';
+import getProcedures from '../../patient/Backend/getRecords//getProcedures';
+import getImmunizations from '../../patient/Backend/getRecords/getImmunizations';
+import getLabRecords from '../../patient/Backend/getRecords/getLabRecords';
 import { getProviderData } from '../Backend/getProviderData';
 import { updatePatientField } from '../../patient/Backend/updatePatientField';
 
