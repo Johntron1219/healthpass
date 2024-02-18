@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import PatientScreen from './patient/Views/patientScreen';
 import ProviderScreen from './provider/View/ProviderScreen';
-import logo from './Logo.png'; // Import the logo image
+import logo from './public/Logo.png'; // Import the logo image
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');

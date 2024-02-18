@@ -26,6 +26,10 @@ const addDocumentToCollection = async (collectionName, data) => {
   }
 };
 
+/* patient data - 
+
+*/
+
 export const createPatient = (patientData) => {
 
     if (checkIfDocumentExists('patients', patientData.id)) {
