@@ -1,23 +1,24 @@
+// ProviderScreen.js
 import React, { useState } from 'react';
 import ProviderHomeScreen from './ProviderHomeScreen';
 import ProviderProfileScreen from './ProviderProfileScreen';
 import ProviderPatientEditScreen from './ProviderPatientEditScreen';
+import Pic from './Doctor_Strange_-_Profile.webp';
 import RequestsScreen from './RequestsScreen';
-import placeholderImage from './Doctor_Strange_-_Profile.webp';
 
 function ProviderScreen({ setCurrentScreen }) {
   const [providerScreen, setProviderScreen] = useState('home');
+  const [selectedPatientProfile, setSelectedPatientProfile] = useState(null);
 
   const profile = {
     name: "Jose Doe",
     address: "123 Main St, Anytown, AN 12345",
-    photo: placeholderImage,
+    photo: Pic,
     phone: "12345678",
     email: "jose.doe@example.com",
     NPI: "1234567890",
   };
 
-  // Placeholder patient profiles
   const patientProfiles = [
     {
       name: "John Doe",
@@ -129,35 +130,40 @@ function ProviderScreen({ setCurrentScreen }) {
         }
       ]
     }
-    // Add additional patient profiles as needed...
   ];
 
-  // Function to handle authorization of patient health records
   const handleAuthorizeRecords = () => {
     console.log("Patient health records authorized.");
     // Implement the logic to authorize patient health records
   };
 
-  const switchScreen = (screen) => {
+  const switchScreen = (screen, patientProfile) => {
+    if (patientProfile) {
+      setSelectedPatientProfile(patientProfile); // Set the selected patient profile when a patient is clicked
+    }
     setProviderScreen(screen);
   };
 
   let screen;
   switch (providerScreen) {
     case 'home':
-      // Pass the profile as a prop to the ProviderHomeScreen
-      screen = <ProviderHomeScreen profile={profile} switchScreen={switchScreen} />;
+      screen = <ProviderHomeScreen 
+                 profile={profile} 
+                 switchScreen={switchScreen} 
+                 patientProfiles={patientProfiles} // Pass the patient profiles to the home screen
+               />;
       break;
     case 'edit':
-      // Ensure profile is also passed to ProviderPatientEditScreen
-      screen = <ProviderPatientEditScreen patientProfiles={patientProfiles} switchScreen={switchScreen} />;
+      screen = <ProviderPatientEditScreen 
+                  patientProfiles={patientProfiles} 
+                  selectedPatientProfile={selectedPatientProfile} 
+                  switchScreen={switchScreen} 
+                />;
       break;
     case 'profile':
-      // Pass profile to ProviderProfileScreen
       screen = <ProviderProfileScreen profile={profile} />;
       break;
     case 'requests':
-      // Placeholder data for Patient Health Record Requests and Requested Medical Records
       const patientHealthRecordRequests = [
         { id: 1, patientName: "John Doe", requestDate: "2024-02-17" },
         { id: 2, patientName: "Jane Smith", requestDate: "2024-02-16" },
