@@ -1,7 +1,6 @@
 import React from 'react';
 
 function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick }) {
-  
   const formatItemList = (items) => {
     return items.map((item, index) => (
       <div key={index} className="profile-item-detail">
@@ -17,9 +16,7 @@ function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick 
 
   return (
     <div className="patient-profile">
-      <button className="Small-orange-button" 
-        onClick={handleBackClick}
-      >
+      <button onClick={onBackClick}>
         Back to Patient List
       </button>
       <h1 className="profile-name">{selectedPatientProfile.name}</h1>
@@ -47,13 +44,11 @@ function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick 
       <h2>Lab Records</h2>
       {formatItemList(selectedPatientProfile.labRecords)}
 
-      <button className="Small-orange-button" 
-        onClick={handleEditClick}
-      >
+      <button onClick={onEditClick}>
         Edit Profile
       </button>
     </div>
   );
-  }
+}
 
 export default PatientDetailScreen;
