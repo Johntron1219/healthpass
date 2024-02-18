@@ -17,8 +17,10 @@ export const ApprovalsScreen = ({ patientID }) => {
   const fetchData = async (patientID) => {
     try {
       const response = await getAllPatientData(patientID);
+      
       setAuthData(response['incomingrequests']);
-      setProviderList(response['AuthorizedNPIs']);
+      setProviderList(response['authorizedNPIs']);
+      console.log(authData)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -45,8 +47,10 @@ export const ApprovalsScreen = ({ patientID }) => {
     fetchData(patientID); // Refresh the data after action
   };
 
+  console.log(authData)
+
   return (
-    <div className="approvals-screen">
+    Array.isArray(authData) ? (<div className="approvals-screen">
       <h1>Approvals</h1>
       
       <section className="authorization-requests">
@@ -81,7 +85,7 @@ export const ApprovalsScreen = ({ patientID }) => {
         />
         <button onClick={handleInitiateRequest}>Submit</button>
       </section>
-    </div>
+    </div>): null
   );
 }
 

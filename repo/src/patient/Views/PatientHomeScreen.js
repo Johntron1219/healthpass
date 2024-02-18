@@ -53,9 +53,7 @@ function PatientHomeScreen({ profile }) {
     // Select a random joke
     const joke = jokes[Math.floor(Math.random() * jokes.length)];
     setRandomJoke(joke);
-  }, []);
-
-  console.log(profile.metadata["labRecords"]);
+  }, [])
 
   return (
     <div className="patient-home">

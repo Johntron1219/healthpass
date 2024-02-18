@@ -35,7 +35,7 @@ const addDocumentToCollection = async (collectionName, documentID, data) => {
 
 const createPatient = async (email, password, name, DOB) => {
   // Generate a random 5-digit number for the PID and document ID
-  const pid = Math.floor(10000 + Math.random() * 90000);
+  const pid = Math.floor(100 + Math.random() * 900);
 
   const patientData = {
     PID: pid,
@@ -44,7 +44,7 @@ const createPatient = async (email, password, name, DOB) => {
     password: password,
     DOB: DOB,
     authorizedNPIs: [],
-    incomingRequests: [],
+    incomingrequests: [],
     metadata: {
       pastNPIs: [{ NPI: "" }],
       medications: [{ NDC: "", dose: "", medNPI: "" }],
@@ -58,6 +58,8 @@ const createPatient = async (email, password, name, DOB) => {
   };
 
   await addDocumentToCollection('patients', pid.toString() ,patientData);
+
+  alert('REMEMBER YOUR UNIQUE ID: ' + pid)
 
   return patientData;
 };

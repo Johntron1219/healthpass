@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { updatePatientField } from '../../patient/Backend/updatePatientField';
-import { addPatientField } from '../../patient/Backend/addPatientField';
-import { deletePatientField } from '../../patient/Backend/deletePatientField';
 
 
 /*
@@ -15,10 +12,8 @@ import { deletePatientField } from '../../patient/Backend/deletePatientField';
 
 - inputs - broadPatientData (selectedPatientProfile), setPatientProfile, s
 */
-function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
-  const [patientData, setPatientData] = useState({ ...selectedPatientProfile });
-
-  const [unsavedPatientData, setUnsavedPatientData] = useState(selectedPatientProfile)
+function PatientEditForm({ patientData, onSave, onCancel }) {
+  const [unsavedPatientData, setUnsavedPatientData] = useState(patientData)
 
   const handleInputChange = async (event, subarrayName, index) => {
     
@@ -48,9 +43,9 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     // deletePatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevents the default form submission
-    onSave(unsavedPatientData); // This will call the `handleSavePatient` function passed as a prop
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await onSave(unsavedPatientData); // This will call the `handleSavePatient` function passed as a prop
   };
 
   const renderSubArrayFields = (subArrayName) => {

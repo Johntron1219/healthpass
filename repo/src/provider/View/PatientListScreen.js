@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import {fetchAuthorizedPatientsData} from '../Backend/fetchPatientData';
 
 function PatientListScreen({ providerProfile, onPatientSelect, patientProfiles, setPatientProfiles}) {
@@ -6,8 +6,8 @@ function PatientListScreen({ providerProfile, onPatientSelect, patientProfiles, 
   useEffect(() => {
     const fetchPatientData = async () => {
       try {
-        console.log(providerProfile)
         const patientDataList = await fetchAuthorizedPatientsData(providerProfile["AuthorizedPatients"]);
+        console.log(providerProfile);
         setPatientProfiles(patientDataList);
       } catch (error) {
         console.error('Error fetching patient data:', error);

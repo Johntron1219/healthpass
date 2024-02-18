@@ -7,7 +7,7 @@ import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
 import Pic from '../../public/DTS.webp';
 import { getProviderData } from '../Backend/getProviderData';
-import { updatePatientField } from '../../patient/Backend/updatePatientField';
+import { savePatientEdits } from '../Backend/savePatientEdits';
 
 function ProviderScreen({ setCurrentScreen, providerNPI }) {
   const [providerScreen, setProviderScreen] = useState('home');
@@ -48,7 +48,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
   };
 
   const handleSavePatient = async (updatedPatient) => {
-    setPatientProfiles((prevProfiles) => {
+    const update = ((prevProfiles) => {
       const index = prevProfiles.findIndex(profile => profile.pt === updatedPatient.pt);
       if (index !== -1) {
         const newProfiles = [...prevProfiles];
@@ -56,12 +56,12 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
         return newProfiles;
       }
       return prevProfiles;
-    });
-
+    }) 
     setSelectedPatient(updatedPatient);
+    setPatientProfiles(update(patientProfiles));
 
     try {
-      await updatePatientField(updatedPatient.pt, updatedPatient);
+      await savePatientEdits(updatedPatient.PID, updatedPatient)
       console.log('Patient data updated successfully in Firebase');
     } catch (error) {
       console.error('Failed to update patient data in Firebase', error);
@@ -94,7 +94,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       screenComponent = <PatientDetailScreen selectedPatientProfile={selectedPatient} onBackClick={handleBackToList} onEditClick={handleEditPatient} />;
       break;
     case 'patientEdit':
-      screenComponent = <PatientEditForm selectedPatientProfile={selectedPatient} onSave={handleSavePatient} onCancel={handleCancelEdit} />;
+      screenComponent = <PatientEditForm patientData={selectedPatient} onSave={handleSavePatient} onCancel={handleCancelEdit} />;
       break;
     case 'requests':
       screenComponent = <RequestsScreen providerNPI={providerNPI} />;
