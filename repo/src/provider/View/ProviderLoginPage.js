@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './ProviderLoginPage.css'; // Assuming you have a separate CSS file for login page styles
 
 export const ProviderLoginPage = ({setCurrentScreen}) => {
   const [username, setUsername] = useState('');
@@ -31,30 +32,31 @@ export const ProviderLoginPage = ({setCurrentScreen}) => {
   }
 
   return (
-    <div>
-      <h2>Provider Login Page</h2>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      <form onSubmit={handleSubmit} onReset={handleReset}>
-        <label>
-          Username:
+    <div className="login-container">
+      <h2 className="login-title">Login Page</h2>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="input-group">
+          <label>Username:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-        </label>
-        <br />
-        <label>
-          Password:
+        </div>
+        <div className="input-group">
+          <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
-        <br />
-        <button type="submit">Login</button>
-        <button type="reset">Back</button>
+        </div>
+        <div className="buttons-group">
+          <button type="submit" className="login-button">Login</button>
+          <button type="button" className="back-button" onClick={handleBack}>Back</button>
+          <button type="button" className="register-button" onClick={handleRegister}>Register</button>
+        </div>
       </form>
     </div>
   );
