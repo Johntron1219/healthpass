@@ -21,11 +21,6 @@ function ProviderPatientEditScreen({ patientProfiles, selectedPatientProfile, sw
     // The actual editing logic would go here
   };
 
-  const handleBackClick = () => {
-    // This will clear the selected patient profile and go back to the list
-    switchScreen('edit');
-  };
-
   if (!selectedPatientProfile) {
     return (
       <div>
@@ -47,7 +42,7 @@ function ProviderPatientEditScreen({ patientProfiles, selectedPatientProfile, sw
   return (
     <div className="patient-profile">
       <button className="Small-orange-button" 
-        onClick={handleBackClick}
+         onClick={() => switchScreen('edit')}
       >
         Back to Patient List
       </button>
