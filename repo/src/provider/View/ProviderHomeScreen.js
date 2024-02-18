@@ -53,6 +53,11 @@ function ProviderHomeScreen({ profile }) {
     setRandomJoke(joke);
   }, []);
 
+  // Check if the profile object is null before accessing its properties
+  if (!profile) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="provider-home">
       <h1>Welcome back, {profile.name}!</h1>
