@@ -40,7 +40,10 @@ const jokes = [
   "I would tell you a joke about an invisible man, but I can't see it being funny.",
   "What do you call a fish wearing a crown? A king salmon.",
   "How do you organize a space party? You planet.",
-  "What’s orange and sounds like a parrot? A carrot."
+  "What’s orange and sounds like a parrot? A carrot.", 
+  "I told my wife she was drawing her eyebrows too high. She looked surprised.", 
+  "Why did the chicken go to the séance? To talk to the other side.", 
+  "The future, the present, and the past walked into a bar. Things got a little tense."
 ];
 
 function PatientHomeScreen({ profile }) {
