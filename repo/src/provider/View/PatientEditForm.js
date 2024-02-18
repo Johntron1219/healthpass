@@ -3,16 +3,14 @@ import React, { useState } from 'react';
 function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
   const [patientData, setPatientData] = useState({ ...selectedPatientProfile });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event, subarrayName, index) => {
     const { name, value } = event.target;
-    const subarray = event.target.getAttribute('data-subarray');
-    const index = event.target.getAttribute('data-index');
 
-    // Update subarray fields
-    if (subarray) {
-      const updatedSubarray = [...patientData[subarray]];
+    if (subarrayName) {
+      // Update subarray fields
+      const updatedSubarray = [...patientData[subarrayName]];
       updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
-      setPatientData({ ...patientData, [subarray]: updatedSubarray });
+      setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
     } else {
       // Update regular fields
       setPatientData({ ...patientData, [name]: value });
@@ -24,55 +22,80 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     onSave(patientData);
   };
 
-  // Define renderSubArrayFields function here
+  // Renders fields for subarray items
   const renderSubArrayFields = (subArrayName) => {
     return patientData[subArrayName].map((item, index) => (
-      <div key={index}>
-        <label>{subArrayName.slice(0, -1)} Name:</label>
+      <div key={index} className={`subarray-fields ${subArrayName}`}>
+        <label>{`${subArrayName.slice(0, -1)} Name:`}</label>
         <input
           type="text"
           name="name"
-          data-subarray={subArrayName}
-          data-index={index}
           value={item.name}
-          onChange={handleInputChange}
+          onChange={(e) => handleInputChange(e, subArrayName, index)}
         />
-        {/* Additional fields for subarray items can be added here */}
+
+        {/* Additional fields for subarray items, like provider, date, etc. */}
+        <label>Provider:</label>
+        <input
+          type="text"
+          name="provider"
+          value={item.provider}
+          onChange={(e) => handleInputChange(e, subArrayName, index)}
+        />
+
+        <label>Date:</label>
+        <input
+          type="date"
+          name="date"
+          value={item.date}
+          onChange={(e) => handleInputChange(e, subArrayName, index)}
+        />
+
+        {item.dosage !== undefined && (
+          <>
+            <label>Dosage:</label>
+            <input
+              type="text"
+              name="dosage"
+              value={item.dosage}
+              onChange={(e) => handleInputChange(e, subArrayName, index)}
+            />
+          </>
+        )}
+
+        {item.severity !== undefined && (
+          <>
+            <label>Severity:</label>
+            <input
+              type="text"
+              name="severity"
+              value={item.severity}
+              onChange={(e) => handleInputChange(e, subArrayName, index)}
+            />
+          </>
+        )}
+
+        {item.value !== undefined && (
+          <>
+            <label>Value:</label>
+            <input
+              type="text"
+              name="value"
+              value={item.value}
+              onChange={(e) => handleInputChange(e, subArrayName, index)}
+            />
+          </>
+        )}
+
+        {/* Button to delete a subarray item (optional) */}
+        {/* <button type="button" onClick={() => handleDeleteSubArrayItem(subArrayName, index)}>Delete</button> */}
       </div>
     ));
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name:</label>
-      <input
-        id="name"
-        type="text"
-        name="name"
-        value={patientData.name}
-        onChange={handleInputChange}
-      />
-
-      {/* Repeat for other attributes */}
-      <label htmlFor="dob">Date of Birth:</label>
-      <input
-        id="dob"
-        type="date"
-        name="dob"
-        value={patientData.dob}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="address">Address:</label>
-      <input
-        id="address"
-        type="text"
-        name="address"
-        value={patientData.address}
-        onChange={handleInputChange}
-      />
-
-      {/* ... Repeat for other attributes ... */}
+      {/* ... existing code for the main patient attributes ... */}
 
       {/* Render sub-array fields like conditions, allergies, etc. */}
       <fieldset>
@@ -80,6 +103,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
         {renderSubArrayFields('conditions')}
       </fieldset>
 
+      {/* ... repeat for other subarrays ... */}
       <fieldset>
         <legend>Allergies</legend>
         {renderSubArrayFields('allergies')}
@@ -90,6 +114,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
         {renderSubArrayFields('medications')}
       </fieldset>
 
+      {/* ... repeat for other subarrays ... */}
       <fieldset>
         <legend>Procedures</legend>
         {renderSubArrayFields('procedures')}
