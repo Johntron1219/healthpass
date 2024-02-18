@@ -3,7 +3,7 @@ import placeholderImage from '../../public/Elf.webp';
 import PatientHomeScreen from './PatientHomeScreen';
 import PatientProfileScreen from './PatientProfileScreen';
 import ApprovalsScreen from './ApprovalsScreen';
-import fetchPtData from '../Backend/fetchptdata'; // Correct import
+import getPatientData from '../Backend/getPatientData'; // Correct import
 
 function PatientScreen({ setCurrentScreen }) {
   const [patientScreen, setPatientScreen] = useState('home');
@@ -12,14 +12,14 @@ function PatientScreen({ setCurrentScreen }) {
   useEffect(() => {
     async function fetchData() {
       setProfile({
-        name: await fetchPtData(pt, "metadata.firstname")+" "+await fetchPtData(pt, "metadata.middlename")+" "+await fetchPtData(pt, "metadata.lastname"),
+        name: await getPatientData(pt, "metadata.firstname")+" "+await getPatientData(pt, "metadata.middlename")+" "+await getPatientData(pt, "metadata.lastname"),
         lastEditDate: "2024-02-17",
-        address: await fetchPtData(pt, "metadata.address")+", "+await fetchPtData(pt, "metadata.city")+", "+await fetchPtData(pt, "metadata.state") +" "+await fetchPtData(pt, "metadata.zip"),
+        address: await getPatientData(pt, "metadata.address")+", "+await getPatientData(pt, "metadata.city")+", "+await getPatientData(pt, "metadata.state") +" "+await getPatientData(pt, "metadata.zip"),
         photo: placeholderImage,
-        dob:await fetchPtData(pt, "metadata.monthofbirth")+"/"+await fetchPtData(pt, "metadata.dayofbirth")+"/"+await fetchPtData(pt, "metadata.yearofbirth"),
-        email: await fetchPtData(pt, "email"),
-        insurancePolicyNumber: await fetchPtData(pt, "metadata.insurancename"),
-        insurancePlan: await fetchPtData(pt, "metadata.insurancenum"),
+        dob:await getPatientData(pt, "metadata.monthofbirth")+"/"+await getPatientData(pt, "metadata.dayofbirth")+"/"+await getPatientData(pt, "metadata.yearofbirth"),
+        email: await getPatientData(pt, "email"),
+        insurancePolicyNumber: await getPatientData(pt, "metadata.insurancename"),
+        insurancePlan: await getPatientData(pt, "metadata.insurancenum"),
         conditions: [
           {
             name: "Hypertension",
