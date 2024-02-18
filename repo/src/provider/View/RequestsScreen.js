@@ -23,6 +23,9 @@ function RequestsScreen({ providerNPI }) {
       setPatientList(response?.AuthorizedPatients || []);
     } catch (error) {
       console.error('Error fetching data:', error);
+      // Set authData and patientList to empty arrays in case of error
+      setAuthData([]);
+      setPatientList([]);
     }
   };
 
@@ -53,7 +56,7 @@ function RequestsScreen({ providerNPI }) {
 
       <section className="request-item">
         <h2>Patient Requests</h2>
-        {authData.map((request) => (
+        {Array.isArray(authData) && authData.map((request) => (
           <div key={request.PID} className="request-item">
             <span>{request.patientName} - {new Date(request.requestDate).toLocaleDateString()}</span>
             <button onClick={() => handleApprove(request.PID)}>Approve</button>
@@ -64,7 +67,7 @@ function RequestsScreen({ providerNPI }) {
       
       <section className="authorized-providers">
         <h2>List of Authorized Patients</h2>
-        {patientList.map((PID) => (
+        {Array.isArray(patientList) && patientList.map((PID) => (
           <div key={PID} className="provider-item">
             <span>{PID}</span>
             <button onClick={() => handleRemove(PID)}>Remove</button>
