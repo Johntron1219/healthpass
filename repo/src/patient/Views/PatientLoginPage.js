@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PatientLoginPage.css'; // Assuming you have a separate CSS file for login page styles
+import database from '../../firebase'
+import {checkIfDocumentExists} from '../Backend/loginAuthorization'
 
-export const PatientLoginPage = ({ setCurrentScreen }) => {
+export const PatientLoginPage = ({ setCurrentScreen, setCurrentID}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Replace the following with your actual login logic
-    if (!username || !password) {
-      setErrorMessage('Please enter both username and password');
-      return;
+      // Replace the following with your actual login logic
+      if (!username || !password) {
+        setErrorMessage('Please enter both username and password');
+        return;
+      }
+
+    try {
+      const documentExists = await checkIfDocumentExists(username);
+      if (documentExists) {
+        console.log('Logging in with username:', username, 'and password:', password);
+        setCurrentScreen('patient');
+        setCurrentID(username);
+        // Reset form fields
+      } else {
+        setErrorMessage('Invalid login');
+        return;
+      }
+      setUsername('');
+      setPassword('');
+      setErrorMessage('');
+    } catch (error) {
+        console.error('Error checking document:', error);
+        setErrorMessage('An error occurred while checking login');
     }
-    console.log('Logging in with username:', username, 'and password:', password);
-    setCurrentScreen('patient');
-    // Reset form fields
-    setUsername('');
-    setPassword('');
-    setErrorMessage('');
   };
 
   const handleBack = () => {
