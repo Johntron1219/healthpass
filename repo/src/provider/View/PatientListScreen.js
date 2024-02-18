@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import getAllPatientData from '../../patient/Backend/getRecords/getPatientData';
-import getProviderData from '../Backend/getProviderData'
+import { fetchAuthorizedPatientsData } from '../../path/to/fetchAuthorizedPatientsData'; // Import the function to fetch patient data
 
-/* 
+function PatientListScreen({ onPatientSelect }) {
+  const [patientProfiles, setPatientProfiles] = useState([]);
 
-get names of all the patients we have
-store data of all patients in initial query call
+  useEffect(() => {
+    const authorizedPatientIDs = []; // Replace this with the array of authorized patient IDs
+    const fetchPatientData = async () => {
+      try {
+        const patientDataList = await fetchAuthorizedPatientsData(authorizedPatientIDs);
+        setPatientProfiles(patientDataList);
+      } catch (error) {
+        console.error('Error fetching patient data:', error);
+      }
+    };
 
-if use clicks patient, load in patient data into that component
-*/
+    fetchPatientData();
 
-function PatientListScreen({ patientProfiles, onPatientSelect }) {
+    // Cleanup function
+    return () => {
+      // Perform any cleanup if necessary
+    };
+  }, []); // Empty dependency array ensures that this effect runs only once on component mount
+
   return (
     <div>
       <h2>Select a patient to edit:</h2>
