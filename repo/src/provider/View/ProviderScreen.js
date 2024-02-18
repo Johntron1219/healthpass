@@ -27,15 +27,11 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
   };
   const [patientProfiles, setPatientProfiles] = useState([]);
     const fetchData = async () => {
-      const pt = "0002";
-      const name = await getPatientData(pt, "metadata.firstname") + " " + await getPatientData(pt, "metadata.middlename") + " " + await getPatientData(pt, "metadata.lastname");
-      const address = await getPatientData(pt, "metadata.address") + ", " + await getPatientData(pt, "metadata.city") + ", " + await getPatientData(pt, "metadata.state") + " " + await getPatientData(pt, "metadata.zip");
-
       const data = {
-        pt,
-        name,
+        pt: "0002",
+        name: await getPatientData(pt, "metadata.firstname") + " " + await getPatientData(pt, "metadata.middlename") + " " + await getPatientData(pt, "metadata.lastname"),
         lastEditDate: "2024-02-17",
-        address,
+        address: await getPatientData(pt, "metadata.address") + ", " + await getPatientData(pt, "metadata.city") + ", " + await getPatientData(pt, "metadata.state") + " " + await getPatientData(pt, "metadata.zip"),
         dob: await getPatientData(pt, "metadata.monthofbirth") + "/" + await getPatientData(pt, "metadata.dayofbirth") + "/" + await getPatientData(pt, "metadata.yearofbirth"),
         email: await getPatientData(pt, "email"),
         insurancePolicyNumber: await getPatientData(pt, "metadata.insurancename"),

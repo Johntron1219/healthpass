@@ -6,13 +6,13 @@ import { deletePatientField } from '../../patient/Backend/deletePatientField';
 function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
   const [patientData, setPatientData] = useState({ ...selectedPatientProfile });
 
-  const handleInputChange = (event, subarrayName, index) => {
+  const handleInputChange = async (event, subarrayName, index) => {
     const { name, value } = event.target;
     const updatedSubarray = [...patientData[subarrayName]];
     updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
-    setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
+    await setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
     console.log(patientData.pt);
-    updatePatientField(patientData.pt, subarrayName, index);
+    await updatePatientField(parseInt(patientData.pt), subarrayName, updatedSubarray);
   };
 
   const handleAddNewItem = (subarrayName) => {
@@ -22,14 +22,14 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     }
     const updatedSubarray = [...(patientData[subarrayName] || []), newItem];
     setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
-    addPatientField(patientData.pt, subarrayName);
+    addPatientField(parseInt(patientData.pt), subarrayName);
   };
 
   const handleDeleteItem = (subarrayName, index) => {
     const updatedSubarray = [...patientData[subarrayName]];
     updatedSubarray.splice(index, 1);
     setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
-    deletePatientField(patientData.pt, subarrayName);
+    deletePatientField(parseInt(patientData.pt), subarrayName);
   };
 
   const handleSubmit = (event) => {
