@@ -12,7 +12,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
     setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
     console.log(patientData.pt);
-    updatePatientField(patientData.pt, subarrayName, value);
+    updatePatientField(patientData.pt, subarrayName, index);
   };
 
   const handleAddNewItem = (subarrayName) => {
@@ -22,7 +22,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     }
     const updatedSubarray = [...(patientData[subarrayName] || []), newItem];
     setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
-    addPatientField(patientData.pt, subarrayName, newItem);
+    addPatientField(patientData.pt, subarrayName);
   };
 
   const handleDeleteItem = (subarrayName, index) => {

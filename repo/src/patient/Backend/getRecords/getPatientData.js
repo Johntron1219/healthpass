@@ -26,11 +26,9 @@ const getPatientData = async (pt, path) => {
       const value = getValueByPath(jsonData, path);
       return value;
     } else {
-      console.log('No such document!');
       return null;
     }
   } catch (error) {
-    console.log('Error getting document:', error);
     return null;
   }
 };
