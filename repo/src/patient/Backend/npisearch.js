@@ -1,3 +1,4 @@
+//takes npi and returns name of provider
 export async function translateNpiToName(npi) {
   const apiUrl = `https://clinicaltables.nlm.nih.gov/api/npi_org/v3/search?terms=${npi}`;
 
