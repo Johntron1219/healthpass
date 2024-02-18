@@ -137,26 +137,28 @@ function ProviderScreen({ setCurrentScreen }) {
     // Implement the logic to authorize patient health records
   };
 
-  const switchScreen = (screen) => {
+  const switchScreen = (screen, patientProfile) => {
+    if (patientProfile) {
+      setSelectedPatientProfile(patientProfile); // Set the selected patient profile when a patient is clicked
+    }
     setProviderScreen(screen);
-  };
-
-  const switchToEditScreen = (patientProfile) => {
-    setSelectedPatientProfile(patientProfile); // Set the selected profile
-    setProviderScreen('edit'); // Switch to edit screen
   };
 
   let screen;
   switch (providerScreen) {
     case 'home':
-      screen = <ProviderHomeScreen profile={profile} switchScreen={switchScreen} switchToEditScreen={switchToEditScreen} />;
+      screen = <ProviderHomeScreen 
+                 profile={profile} 
+                 switchScreen={switchScreen} 
+                 patientProfiles={patientProfiles} // Pass the patient profiles to the home screen
+               />;
       break;
     case 'edit':
-      if (!selectedPatientProfile) {
-        screen = <div>Select a patient to edit.</div>; // Handle no selection case
-      } else {
-        screen = <ProviderPatientEditScreen patientProfiles={patientProfiles} selectedPatientProfile={selectedPatientProfile} switchScreen={switchScreen} />;
-      }
+      screen = <ProviderPatientEditScreen 
+                  patientProfiles={patientProfiles} 
+                  selectedPatientProfile={selectedPatientProfile} 
+                  switchScreen={switchScreen} 
+                />;
       break;
     case 'profile':
       screen = <ProviderProfileScreen profile={profile} />;
