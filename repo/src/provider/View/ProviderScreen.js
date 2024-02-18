@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import ProviderHomeScreen from './ProviderHomeScreen';
 import ProviderProfileScreen from './ProviderProfileScreen';
 import ProviderPatientEditScreen from './ProviderPatientEditScreen';
-import Pic from './Doctor_Strange_-_Profile.webp'
+import Pic from './Doctor_Strange_-_Profile.webp';
 import RequestsScreen from './RequestsScreen';
 
 function ProviderScreen({ setCurrentScreen }) {
   const [providerScreen, setProviderScreen] = useState('home');
-  const [selectedPatientProfile, setSelectedPatientProfile] = useState(null); // State to hold the selected patient profile
+  const [selectedPatientProfile, setSelectedPatientProfile] = useState(null);
 
   const profile = {
     name: "Jose Doe",
@@ -141,8 +141,8 @@ function ProviderScreen({ setCurrentScreen }) {
     setProviderScreen(screen);
   };
 
-  const switchToEditScreen = (patientProfiles) => {
-    setSelectedPatientProfile(patientProfiles); // Set the selected profile
+  const switchToEditScreen = (patientProfile) => {
+    setSelectedPatientProfile(patientProfile); // Set the selected profile
     setProviderScreen('edit'); // Switch to edit screen
   };
 
@@ -155,7 +155,7 @@ function ProviderScreen({ setCurrentScreen }) {
       if (!selectedPatientProfile) {
         screen = <div>Select a patient to edit.</div>; // Handle no selection case
       } else {
-        screen = <ProviderPatientEditScreen patientProfiles={selectedPatientProfile} switchScreen={switchScreen} />;
+        screen = <ProviderPatientEditScreen patientProfiles={patientProfiles} selectedPatientProfile={selectedPatientProfile} switchScreen={switchScreen} />;
       }
       break;
     case 'profile':

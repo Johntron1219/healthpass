@@ -1,3 +1,4 @@
+// ProviderPatientEditScreen.js
 import React from 'react';
 
 function ProviderPatientEditScreen({ selectedPatientProfile, switchScreen }) {
@@ -33,22 +34,22 @@ function ProviderPatientEditScreen({ selectedPatientProfile, switchScreen }) {
       <p className="profile-insurance-plan">Plan: {selectedPatientProfile.insurancePlan}</p>
       
       <h2>Conditions</h2>
-      {selectedPatientProfile.conditions && formatItemList(selectedPatientProfile.conditions)}
+      {formatItemList(selectedPatientProfile.conditions)}
       
       <h2>Allergies</h2>
-      {selectedPatientProfile.allergies && formatItemList(selectedPatientProfile.allergies)}
+      {formatItemList(selectedPatientProfile.allergies)}
       
       <h2>Medications</h2>
-      {selectedPatientProfile.medications && formatItemList(selectedPatientProfile.medications)}
+      {formatItemList(selectedPatientProfile.medications)}
       
       <h2>Procedures</h2>
-      {selectedPatientProfile.procedures && formatItemList(selectedPatientProfile.procedures)}
+      {formatItemList(selectedPatientProfile.procedures)}
       
       <h2>Immunizations</h2>
-      {selectedPatientProfile.immunizations && formatItemList(selectedPatientProfile.immunizations)}
+      {formatItemList(selectedPatientProfile.immunizations)}
       
       <h2>Lab Records</h2>
-      {selectedPatientProfile.labRecords && formatItemList(selectedPatientProfile.labRecords)}
+      {formatItemList(selectedPatientProfile.labRecords)}
 
       <button onClick={handleEditClick}>Edit Profile</button>
     </div>
