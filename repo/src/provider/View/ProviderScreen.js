@@ -6,10 +6,11 @@ import PatientListScreen from './PatientListScreen';
 import PatientDetailScreen from './PatientDetailScreen';
 import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
-import Pic from './DTS.webp'
+import Pic from './DTS.webp';
 
-function ProviderScreen({ setMainScreen }) { // Renamed prop to avoid conflict
-  const [currentScreen, setCurrentScreen] = useState('home');
+// Correct the props destructuring here
+function ProviderScreen({ setCurrentScreen }) { // Corrected props destructuring
+  const [providerScreen, setProviderScreen] = useState('home');
   const [selectedPatient, setSelectedPatient] = useState(null);
 
   const profile = {
@@ -136,30 +137,29 @@ function ProviderScreen({ setMainScreen }) { // Renamed prop to avoid conflict
 
   const handleSelectPatient = (patient) => {
     setSelectedPatient(patient);
-    setCurrentScreen('patientDetail');
+    setProviderScreen('patientDetail');
   };
 
   const handleEditPatient = () => {
-    setCurrentScreen('patientEdit');
+    setProviderScreen('patientEdit');
   };
 
   const handleSavePatient = (updatedPatient) => {
-    // Here you should update the patient's data in your state or database
     console.log('Patient data saved', updatedPatient);
-    setCurrentScreen('patientDetail');
+    setProviderScreen('patientDetail');
   };
 
   const handleCancelEdit = () => {
-    setCurrentScreen('patientDetail');
+    setProviderScreen('patientDetail');
   };
 
   const handleBackToList = () => {
     setSelectedPatient(null);
-    setCurrentScreen('patientList');
+    setProviderScreen('patientList');
   };
 
   let screenComponent;
-  switch (currentScreen) {
+  switch (providerScreen) {
     case 'home':
       screenComponent = <ProviderHomeScreen profile={profile} />;
       break;
@@ -188,12 +188,13 @@ function ProviderScreen({ setMainScreen }) { // Renamed prop to avoid conflict
     <div className="provider-screen">
       {screenComponent}
       <div className="navigation-buttons">
-        <button onClick={() => setCurrentScreen('home')}>Home</button>
-        <button onClick={() => setCurrentScreen('patientList')}>Patient Edit</button>
-        <button onClick={() => setCurrentScreen('profile')}>Profile</button>
-        <button onClick={() => setCurrentScreen('requests')}>Requests</button>
+        <button onClick={() => setProviderScreen('home')}>Home</button>
+        <button onClick={() => setProviderScreen('patientList')}>Patient Edit</button>
+        <button onClick={() => setProviderScreen('profile')}>Profile</button>
+        <button onClick={() => setProviderScreen('requests')}>Requests</button>
       </div>
-      <button className="Home-button" onClick={() => setMainScreen('home')}>Back to Main Home</button> {/* Use setMainScreen here */}
+      {/* This button will now correctly call the setCurrentScreen function passed from App.js */}
+      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
     </div>
   );
 }
