@@ -1,39 +1,36 @@
 import React, { useState } from 'react';
-import './ProviderLoginPage.css'; // Assuming you have a separate CSS file for login page styles
+import './ProviderLoginPage.css'; // Assuming ProviderLoginPage will use the same styles
 
-export const ProviderLoginPage = ({setCurrentScreen}) => {
+export const ProviderLoginPage = ({ setCurrentScreen }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simple validation
     if (!username || !password) {
       setErrorMessage('Please enter both username and password');
       return;
     }
-    
-    // This is where you could add additional logic specific to provider login if necessary
-    if (username && password) {
-        // Assuming you have a way to differentiate screens for providers
-        setCurrentScreen('provider');
-    }
-    console.log('Logging in with username:', username, 'and password:', password);
-    // Reset form
+    // Additional login logic for providers...
+    setCurrentScreen('provider');
     setUsername('');
     setPassword('');
     setErrorMessage('');
   };
 
-  const handleReset = (e) => {
-    // Assuming 'home' is a common screen for choosing between patient or provider login
+  const handleBack = () => {
     setCurrentScreen('home');
-  }
+  };
+
+  const handleRegister = () => {
+    // Redirect to registration logic for providers
+    console.log('Redirect to provider registration screen');
+  };
 
   return (
     <div className="login-container">
-      <h2 className="login-title">Login Page</h2>
+      <h2 className="login-title">Provider Login Page</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <form onSubmit={handleSubmit} className="login-form">
         <div className="input-group">
