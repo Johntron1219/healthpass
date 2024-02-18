@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { updatePatientField } from '../../patient/Backend/updatePatientField';
+import { addPatientField } from '../../patient/Backend/addPatientField';
+import { deletePatientField } from '../../patient/Backend/deletePatientField';
 
 function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
   const [patientData, setPatientData] = useState({ ...selectedPatientProfile });
@@ -8,6 +11,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     const updatedSubarray = [...patientData[subarrayName]];
     updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
     setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
+    updatePatientField(patientData.pt, subarrayName, value);
   };
 
   const handleAddNewItem = (subarrayName) => {
@@ -17,12 +21,14 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     }
     const updatedSubarray = [...(patientData[subarrayName] || []), newItem];
     setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
+    addPatientField(patientData.pt, subarrayName, newItem);
   };
 
   const handleDeleteItem = (subarrayName, index) => {
     const updatedSubarray = [...patientData[subarrayName]];
     updatedSubarray.splice(index, 1);
     setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
+    deletePatientField(patientData.pt, subarrayName);
   };
 
   const handleSubmit = (event) => {

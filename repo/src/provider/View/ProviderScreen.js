@@ -32,6 +32,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       const address = await getPatientData(pt, "metadata.address") + ", " + await getPatientData(pt, "metadata.city") + ", " + await getPatientData(pt, "metadata.state") + " " + await getPatientData(pt, "metadata.zip");
 
       const data = {
+        pt,
         name,
         lastEditDate: "2024-02-17",
         address,
