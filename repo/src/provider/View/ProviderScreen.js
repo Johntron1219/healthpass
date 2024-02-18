@@ -31,13 +31,15 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
     try {
       const response = await getProviderData(NPI);
       const providerProfile = {
-        name: response?.name || "Jose Doe",
-        address: response?.address || "123 Main St, Anytown, AN 12345",
+        name: response.name,
         photo: Pic,
-        phone: response?.phone || "12345678",
-        email: response?.email || "jose.doe@example.com",
-        NPI: response?.NPI || "1234567890",
+        email: response.email,
+        NPI: response.NPI,
+        password: response.password,
+        incomingrequests: response.incomingrequests,
+        AuthorizedPatients: response.AuthorizedPatients,
       };
+      
       setProfile(providerProfile);
 
       const patientsData = await getAllPatientData();
