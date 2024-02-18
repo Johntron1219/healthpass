@@ -22,10 +22,11 @@ const checkIfDocumentExists = async (collectionName, documentId) => {
   }
 };
 
-const addDocumentToCollection = async (collectionName, documentId, data) => {
+const addDocumentToCollection = async (collectionName, documentID, data) => {
   try {
-    const documentRef = firestore.collection(collectionName).doc(documentId);
-    await documentRef.set(data);
+    console.log(collectionName, documentID, data)
+    const docRef = firestore.collection(collectionName).doc(documentID);
+    await docRef.set(data);
     console.log('Document added successfully');
   } catch (error) {
     console.error('Error adding document: ', error);
@@ -38,10 +39,10 @@ const createPatient = async (email, password) => {
 
   const patientData = {
     PID: pid,
-    authorizedNPIs: [null],
+    authorizedNPIs: [],
     email: email,
     password: password,
-    metadata: [null],
+    metadata: [],
     firstname: null,
     middlename: null,
     lastname: null,
@@ -65,7 +66,7 @@ const createPatient = async (email, password) => {
     labrecords: [{ HCPCS: null, value: null, date: null, labNPI: null }],
   };
 
-  await addDocumentToCollection('patients', pid.toString(), patientData);
+  await addDocumentToCollection('patients', pid.toString() ,patientData);
 
   return patientData;
 };
