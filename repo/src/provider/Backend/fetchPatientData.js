@@ -1,6 +1,6 @@
-import { getAllPatientData } from './path/to/getAllPatientData'; // Import the getAllPatientData function
+import { getAllPatientData } from '../../patient/Backend/getRecords/getPatientData'; // Import the getAllPatientData function
 
-async function fetchAuthorizedPatientsData(authorizedPatientIDs) {
+export async function fetchAuthorizedPatientsData(authorizedPatientIDs) {
     const patientDataList = [];
 
     // Iterate through the list of authorized patient IDs
@@ -18,5 +18,3 @@ async function fetchAuthorizedPatientsData(authorizedPatientIDs) {
 
     return patientDataList; // Return the list of patient data
 }
-
-export default { fetchAuthorizedPatientsData };

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import fetchAuthorizedPatientsData from '../../Backend/fetchPatientData';
+import {fetchAuthorizedPatientsData} from '../Backend/fetchPatientData';
 
-function PatientListScreen({ onPatientSelect }) {
-  const [patientProfiles, setPatientProfiles] = useState([]);
+function PatientListScreen({ providerProfile, onPatientSelect, patientProfiles, setPatientProfiles}) {
 
   useEffect(() => {
-    const authorizedPatientIDs = []; // Replace this with the array of authorized patient IDs
     const fetchPatientData = async () => {
       try {
-        const patientDataList = await fetchAuthorizedPatientsData(authorizedPatientIDs);
+        const patientDataList = await fetchAuthorizedPatientsData(providerProfile["AuthorizedPatients"]);
         setPatientProfiles(patientDataList);
       } catch (error) {
         console.error('Error fetching patient data:', error);
