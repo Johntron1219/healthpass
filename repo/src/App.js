@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import PatientScreen from './patient/Views/patientScreen';
 import ProviderScreen from './provider/View/ProviderScreen';
-import LoginPage from './patient/Views/LoginProfile';
+import LoginPage from './patient/Views/loginProfile';
 import logo from './public/Logo.png'; // Import the logo image
 
 function App() {
