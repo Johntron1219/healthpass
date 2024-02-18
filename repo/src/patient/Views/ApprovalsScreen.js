@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 
-import {approveProviderHandler, denyProviderHandler} from '../Backend/authorizationRequestHandler';
+import {approveProviderHandler, denyProviderHandler, initiateRequestHandler, removeAuthorizationHandler} from '../Backend/authorizationRequestHandler';
 import createAccessLink from '../Backend/createAccessLink';
 import { getAllPatientData } from '../Backend/getPatientData';
 
@@ -17,12 +17,10 @@ if user clicks approve --> call backend approval function
 if user denies --> call backend deny function
 */
 
-// Functions to handle approvals and creating access links
-
-
-const approveProvider = ({setConfirmAuth}) => {
-  
-}
+/* TODO
+- add ability to cancel existing connections
+- add confirmation messages for all actions
+*/
 
 export const ApprovalsScreen = ({patientID}) => {
 
@@ -33,8 +31,6 @@ export const ApprovalsScreen = ({patientID}) => {
 
   useEffect(() => {
     fetchData(patientID);
-
-    // Unsubscribe from real-time updates when component unmounts
   }, []);
 
   const fetchData = async (patientID) => {
@@ -46,10 +42,6 @@ export const ApprovalsScreen = ({patientID}) => {
       console.error('Error fetching data:', error);
     }
   };
-
-  const initiateAuthRequest = (e) => {
-    setInitiateRequestNPI('')
-  }
 
   //use this for confirmation message const [confirmAuth, setConfirmAuth] = useState(true); 
 
@@ -70,14 +62,19 @@ export const ApprovalsScreen = ({patientID}) => {
           ))}
         </div>
         </div> 
-        <div style={{display: 'block'}} className="provider-list">
+        <div className="provider-list" style ={{display: 'block'}}>
           <h2>List of Authorized Providers</h2>
-          {providerList.map((NPI) => (<p> {NPI} </p>))}
+          {providerList.map((NPI) => (
+            <div key={NPI} style={{display: 'inline'}}> 
+              <p> 
+                {NPI} 
+                <button onClick={() => removeAuthorizationHandler(patientID, NPI)}>Remove</button>
+              </p> 
+            </div>))}
         </div>
-        <button className="A-pink-button" onClick={createAccessLink}>Create Access Link</button>
+
         <div className="provider-list">
-          
-          <form onSubmit={initiateAuthRequest}>
+          <div>
           <label>Connect with provider NPI: 
             <input
                 type="text"
@@ -85,9 +82,9 @@ export const ApprovalsScreen = ({patientID}) => {
                 onChange={(e) => setInitiateRequestNPI(e.target.value)}
                 placeholder="Enter text..."
             />
-            <button type="submit">Submit</button>
+            <button onClick={() => initiateRequestHandler(patientID, initiateRequestNPI)}>Submit</button>
           </label>
-          </form>
+          </div>
           
         </div>
     </div>) : null
