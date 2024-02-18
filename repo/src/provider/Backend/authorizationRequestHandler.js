@@ -15,11 +15,11 @@ export const approvePatientHandler = async (NPI, patientID) => {
         if (doc.exists) {
             const array = doc.data()['incomingrequests'];
             const newRequestQueue = array.filter(obj => obj.PID !== patientID);
-            const newPatients = doc.data()['AuthorizedPatients']
-            newPatients.push(patientID)
+            const newPatientList = doc.data()['AuthorizedPatients']
+            newPatientList.push(patientID)
             await docRef.update({
-                incomingauthrequests: newRequestQueue,
-                AuthorizedPatients: newPatients
+                incomingrequests: newRequestQueue,
+                AuthorizedPatients: newPatientList
             });
         }
       } catch (error) {
@@ -36,7 +36,7 @@ export const denyPatientHandler = async (NPI, patientID) => {
             const array = doc.data()['incomingrequests'];
             const newRequestQueue = array.filter(obj => obj.PID !== patientID);
             await docRef.update({
-                incomingauthrequests: newRequestQueue,
+                incomingrequests: newRequestQueue,
             });
         }
       } catch (error) {
@@ -54,15 +54,17 @@ export const initiateRequestHandler = async (NPI, patientID) => {
     const docRef = database.collection('patients').doc(patientID);
     const doc = await docRef.get();
     if (doc.exists) {
-        const requestQueue = doc.data()['incomingauthrequests'];
+        const requestQueue = doc.data()['incomingrequests'];
         if (!requestQueue || requestQueue.filter(obj => obj.NPI === NPI).length === 0) {
-          const reqObj = {
+            const currentDate = new Date();
+            const timestamp = currentDate.toLocaleDateString();
+            const reqObj = {
             NPI: NPI,
             providerName: 'billy',
-            requestDate: new Date(),
-          }
-          requestQueue.push(reqObj)
-          await docRef.update({
+            requestDate: timestamp,
+            }
+            requestQueue.push(reqObj)
+            await docRef.update({
             incomingrequests: requestQueue,
         });
         } else {
@@ -82,7 +84,7 @@ export const removeAuthorizationHandler = async (NPI, patientID) => {
         const array = doc.data()['AuthorizedPatients'];
         const newPatientList = array.filter(obj => obj !== patientID);
         await docRef.update({
-            AuthorizedNPIs: newPatientList
+            AuthorizedPatients: newPatientList
         });
     }
   } catch (error) {
