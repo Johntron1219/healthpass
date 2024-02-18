@@ -28,8 +28,9 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
     NPI: "1234567890",
   };
   const [patientProfiles, setPatientProfiles] = useState([]);
+  useEffect( () =>{
     const fetchData = async () => {
-      const data = {
+      setPatientProfiles({
         pt: "0002",
         name: await getPatientData(pt, "metadata.firstname") + " " + await getPatientData(pt, "metadata.middlename") + " " + await getPatientData(pt, "metadata.lastname"),
         lastEditDate: "2024-02-17",
@@ -44,15 +45,11 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
         procedures: await getProcedures(pt),
         immunizations: await getImmunizations(pt),
         labRecords: await getLabRecords(pt)
-      };
-
-      return data;
+      });
     };
 
-    fetchData().then((data) => {
-      setPatientProfiles([data]);
-    });
-    ; // Empty dependency array ensures this effect runs only once, similar to componentDidMount
+    fetchData();
+  }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
 
   const handleSelectPatient = (patient) => {
     setSelectedPatient(patient);
