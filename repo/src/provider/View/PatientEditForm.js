@@ -5,14 +5,16 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    // If the input is part of a sub-array, handle that case differently
-    if(event.target.getAttribute('data-subarray')) {
-      const subarray = event.target.getAttribute('data-subarray');
-      const index = event.target.getAttribute('data-index');
+    const subarray = event.target.getAttribute('data-subarray');
+    const index = event.target.getAttribute('data-index');
+
+    // Update subarray fields
+    if (subarray) {
       const updatedSubarray = [...patientData[subarray]];
       updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
       setPatientData({ ...patientData, [subarray]: updatedSubarray });
     } else {
+      // Update regular fields
       setPatientData({ ...patientData, [name]: value });
     }
   };
@@ -22,7 +24,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     onSave(patientData);
   };
 
-  // Render input fields for sub-arrays like conditions, allergies, etc.
+  // Define renderSubArrayFields function here
   const renderSubArrayFields = (subArrayName) => {
     return patientData[subArrayName].map((item, index) => (
       <div key={index}>
@@ -35,7 +37,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
           value={item.name}
           onChange={handleInputChange}
         />
-        {/* Add more fields for each attribute in the subarray if needed */}
+        {/* Additional fields for subarray items can be added here */}
       </div>
     ));
   };
@@ -51,6 +53,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
         onChange={handleInputChange}
       />
 
+      {/* Repeat for other attributes */}
       <label htmlFor="dob">Date of Birth:</label>
       <input
         id="dob"
@@ -69,34 +72,9 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
         onChange={handleInputChange}
       />
 
-      <label htmlFor="email">Email:</label>
-      <input
-        id="email"
-        type="email"
-        name="email"
-        value={patientData.email}
-        onChange={handleInputChange}
-      />
+      {/* ... Repeat for other attributes ... */}
 
-      <label htmlFor="insurancePolicyNumber">Insurance Policy Number:</label>
-      <input
-        id="insurancePolicyNumber"
-        type="text"
-        name="insurancePolicyNumber"
-        value={patientData.insurancePolicyNumber}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="insurancePlan">Insurance Plan:</label>
-      <input
-        id="insurancePlan"
-        type="text"
-        name="insurancePlan"
-        value={patientData.insurancePlan}
-        onChange={handleInputChange}
-      />
-
-      {/* Sub-array fields for Conditions, Allergies, Medications, etc. */}
+      {/* Render sub-array fields like conditions, allergies, etc. */}
       <fieldset>
         <legend>Conditions</legend>
         {renderSubArrayFields('conditions')}
@@ -127,8 +105,8 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
         {renderSubArrayFields('labRecords')}
       </fieldset>
 
-      <button type="submit" className="save-button">Save</button>
-      <button type="button" className="cancel-button" onClick={onCancel}>Cancel</button>
+      <button type="submit">Save Changes</button>
+      <button type="button" onClick={onCancel}>Cancel</button>
     </form>
   );
 }

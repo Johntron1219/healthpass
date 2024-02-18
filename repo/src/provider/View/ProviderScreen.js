@@ -2,13 +2,15 @@
 import React, { useState } from 'react';
 import ProviderHomeScreen from './ProviderHomeScreen';
 import ProviderProfileScreen from './ProviderProfileScreen';
-import ProviderPatientEditScreen from './ProviderPatientEditScreen';
-import Pic from './Doctor_Strange_-_Profile.webp';
+import PatientListScreen from './PatientListScreen';
+import PatientDetailScreen from './PatientDetailScreen';
+import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
+import Pic from './DTS.webp'
 
-function ProviderScreen({ setCurrentScreen }) {
-  const [providerScreen, setProviderScreen] = useState('home');
-  const [selectedPatientProfile, setSelectedPatientProfile] = useState(null);
+function ProviderScreen({ setMainScreen }) { // Renamed prop to avoid conflict
+  const [currentScreen, setCurrentScreen] = useState('home');
+  const [selectedPatient, setSelectedPatient] = useState(null);
 
   const profile = {
     name: "Jose Doe",
@@ -132,68 +134,66 @@ function ProviderScreen({ setCurrentScreen }) {
     }
   ];
 
-  const handleAuthorizeRecords = () => {
-    console.log("Patient health records authorized.");
-    // Implement the logic to authorize patient health records
+  const handleSelectPatient = (patient) => {
+    setSelectedPatient(patient);
+    setCurrentScreen('patientDetail');
   };
 
-  const switchScreen = (screen, patientProfile) => {
-    if (patientProfile) {
-      setSelectedPatientProfile(patientProfile); // Set the selected patient profile when a patient is clicked
-    }
-    setProviderScreen(screen);
+  const handleEditPatient = () => {
+    setCurrentScreen('patientEdit');
   };
 
-  let screen;
-  switch (providerScreen) {
+  const handleSavePatient = (updatedPatient) => {
+    // Here you should update the patient's data in your state or database
+    console.log('Patient data saved', updatedPatient);
+    setCurrentScreen('patientDetail');
+  };
+
+  const handleCancelEdit = () => {
+    setCurrentScreen('patientDetail');
+  };
+
+  const handleBackToList = () => {
+    setSelectedPatient(null);
+    setCurrentScreen('patientList');
+  };
+
+  let screenComponent;
+  switch (currentScreen) {
     case 'home':
-      screen = <ProviderHomeScreen 
-                 profile={profile} 
-                 switchScreen={switchScreen} 
-                 patientProfiles={patientProfiles} // Pass the patient profiles to the home screen
-               />;
-      break;
-    case 'edit':
-      screen = <ProviderPatientEditScreen 
-                  patientProfiles={patientProfiles} 
-                  selectedPatientProfile={selectedPatientProfile} 
-                  switchScreen={switchScreen} 
-                />;
+      screenComponent = <ProviderHomeScreen profile={profile} />;
       break;
     case 'profile':
-      screen = <ProviderProfileScreen profile={profile} />;
+      screenComponent = <ProviderProfileScreen profile={profile} />;
+      break;
+    case 'patientList':
+      screenComponent = <PatientListScreen patientProfiles={patientProfiles} onPatientSelect={handleSelectPatient} />;
+      break;
+    case 'patientDetail':
+      screenComponent = <PatientDetailScreen selectedPatientProfile={selectedPatient} onBackClick={handleBackToList} onEditClick={handleEditPatient} />;
+      break;
+    case 'patientEdit':
+      screenComponent = <PatientEditForm selectedPatientProfile={selectedPatient} onSave={handleSavePatient} onCancel={handleCancelEdit} />;
       break;
     case 'requests':
-      const patientHealthRecordRequests = [
-        { id: 1, patientName: "John Doe", requestDate: "2024-02-17" },
-        { id: 2, patientName: "Jane Smith", requestDate: "2024-02-16" },
-      ];
-      const requestedMedicalRecords = [
-        { id: 1, patientName: "Alice Johnson", requestDate: "2024-02-15" },
-        { id: 2, patientName: "Bob Brown", requestDate: "2024-02-14" },
-      ];
-      screen = <RequestsScreen 
-                  patientHealthRecordRequests={patientHealthRecordRequests} 
-                  requestedMedicalRecords={requestedMedicalRecords} 
-                  onAuthorizeRecords={handleAuthorizeRecords} 
-                  onRequestRecords={() => {}} 
-                  onCreateShareLink={() => {}} />;
+      screenComponent = <RequestsScreen 
+        // ... props for RequestsScreen
+      />;
       break;
     default:
-      screen = <ProviderHomeScreen profile={profile} switchScreen={switchScreen} />;
-      break;
+      screenComponent = <ProviderHomeScreen profile={profile} />;
   }
 
   return (
     <div className="provider-screen">
-      {screen}
-      <div className="provider-screen-footer">
-        <button className="Small-blue-button" onClick={() => switchScreen('home')}>Home</button>
-        <button className="Small-blue-button" onClick={() => switchScreen('edit')}>Patient Edit</button>
-        <button className="Small-blue-button" onClick={() => switchScreen('profile')}>Profile</button>
-        <button className="Small-blue-button" onClick={() => switchScreen('requests')}>Requests</button>
+      {screenComponent}
+      <div className="navigation-buttons">
+        <button onClick={() => setCurrentScreen('home')}>Home</button>
+        <button onClick={() => setCurrentScreen('patientList')}>Patient Edit</button>
+        <button onClick={() => setCurrentScreen('profile')}>Profile</button>
+        <button onClick={() => setCurrentScreen('requests')}>Requests</button>
       </div>
-      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
+      <button className="Home-button" onClick={() => setMainScreen('home')}>Back to Main Home</button> {/* Use setMainScreen here */}
     </div>
   );
 }
