@@ -5,7 +5,7 @@ function PatientListScreen({ patientProfiles, onPatientSelect }) {
     <div>
       <h2>Select a patient to edit:</h2>
       <div className="patient-list">
-        {patientProfiles.map((profile, index) => (
+        {Array.isArray(patientProfiles) && patientProfiles.map((profile, index) => (
           <button
             className="Small-orange-button"
             key={index}
