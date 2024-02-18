@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import PatientScreen from './patient/Views/patientScreen';
 import ProviderScreen from './provider/View/ProviderScreen';
+import ProviderLoginPage from './provider/View/ProviderLoginPage';
 import LoginPage from './patient/Views/PatientLoginPage';
 import logo from './public/Logo.png'; // Import the logo image
 
@@ -17,7 +18,7 @@ function App() {
         <h1>Welcome to Health Pass</h1>
         <div className="buttons-container">
           <button className="Home-button" onClick={() => setCurrentScreen('patientLogin')}>Login as a Patient</button>
-          <button className="Home-button" onClick={() => setCurrentScreen('provider')}>Login as a Provider</button>
+          <button className="Home-button" onClick={() => setCurrentScreen('providerLogin')}>Login as a Provider</button>
         </div>
       </div>
     );
@@ -27,7 +28,7 @@ function App() {
     <div className="App">
       {currentScreen === 'home' && renderHomeScreen()}
       {currentScreen === 'patientLogin' && <LoginPage setCurrentScreen={setCurrentScreen}/>}
-      {currentScreen === 'patient' && <PatientScreen setCurrentScreen={setCurrentScreen} />}
+      {currentScreen === 'providerLogin' && <ProviderLoginPage setCurrentScreen={setCurrentScreen} />}
       {currentScreen === 'provider' && <ProviderScreen setCurrentScreen={setCurrentScreen} />}
     </div>
   );
