@@ -1,3 +1,5 @@
+import getClinicalTables from  "util"
+
 export async function getAllergies(data) {
             if (data && data.metadata && data.metadata.allergies) {
                 return await Promise.all(data.metadata.allergies.map(async (allergies) => ({
