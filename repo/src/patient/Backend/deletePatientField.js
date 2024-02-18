@@ -1,5 +1,4 @@
 import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyC_NG3Tgcy5BfhLGpNtT5aJSXIxoFj3SXY",
@@ -15,18 +14,24 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const firestore = firebase.firestore();
-
 const deletePatientField = async (pid, field) => {
     try {
-      const documentRef = firestore.collection('patients').doc(pid.toString());
-      const fieldValue = {};
-      fieldValue[field] = firestore.FieldValue.delete();
-      await documentRef.update(fieldValue);
-      console.log('Document field deleted successfully');
+        const documentRef = firebase.firestore().collection('patients').doc(pid.toString());
+
+        // Check if the document exists before attempting to update it
+        const docSnapshot = await documentRef.get();
+        if (!docSnapshot.exists) {
+            throw new Error('Document does not exist'); // Handle the case where the document doesn't exist
+        }
+
+        // Proceed with deleting the field
+        const fieldValue = {};
+        fieldValue[field] = firebase.firestore.FieldValue.delete();
+        await documentRef.update(fieldValue);
+        console.log('Document field deleted successfully');
     } catch (error) {
-      console.error('Error deleting document field: ', error);
+        console.error('Error deleting document field: ', error);
     }
-  };
-  
-  export { deletePatientField };
+};
+
+export { deletePatientField };

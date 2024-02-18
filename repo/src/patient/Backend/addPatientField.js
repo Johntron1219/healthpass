@@ -21,9 +21,15 @@ const addPatientField = async (pid, field, value) => {
     try {
       const documentRef = firestore.collection('patients').doc(pid.toString());
       const fieldValue = {};
-      fieldValue[field] = value; // Assign the value you want to set for the field
-      await documentRef.update(fieldValue);
-      console.log('Document field added successfully');
+  
+      // Check if the value is undefined before updating the field
+      if (value !== undefined) {
+        fieldValue[field] = value;
+        await documentRef.update(fieldValue);
+        console.log('Document field added successfully');
+      } else {
+        console.warn('Skipping update for field', field, 'because the value is undefined');
+      }
     } catch (error) {
       console.error('Error adding document field: ', error);
     }

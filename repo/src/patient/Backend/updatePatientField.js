@@ -17,13 +17,15 @@ if (!firebase.apps.length) {
 
 const firestore = firebase.firestore();
 
-const updatePatientField = async (pid, patientData) => {
+const updatePatientField = async (pid, field, value) => {
   try {
-    const documentRef = firestore.collection('patients').doc(pid);
-    await documentRef.set(patientData, { merge: true }); // Use set with merge to update the document
-    console.log('Document updated successfully');
+      const documentRef = firebase.firestore().collection('patients').doc(pid.toString());
+      await documentRef.update({
+          [field]: value
+      });
+      console.log('Document field updated successfully');
   } catch (error) {
-    console.error('Error updating document: ', error);
+      console.error('Error updating document field: ', error);
   }
 };
 
