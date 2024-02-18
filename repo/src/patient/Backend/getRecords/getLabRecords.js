@@ -24,9 +24,9 @@ export async function getLabRecords(pt) {
             if (data && data.metadata && data.metadata.labrecords) {
                 // console.log( await getClinicalTables(data.metadata.labrecords[0].HCPCS, "hcpcs") )
                 return await Promise.all(data.metadata.labrecords.map(async (labrecords) => {
-                    // ((await getClinicalTables(labrecords.HCPCS, "hcpcs"))[1])
+                    let data = (await getClinicalTables(labrecords.HCPCS, "hcpcs"));
                     return  {
-                        name: "test" || "",
+                        name: data ? data[1] : labrecords.HCPCS,
                         provider: (await getClinicalTables(labrecords.NPI, "npi_org"))[0] || "",
                         date: labrecords.date || "", 
                         value: labrecords.value || ""
