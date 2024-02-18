@@ -148,6 +148,20 @@ code {
   font-weight: bold;
 }
 
+.Smaller-blue-button {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 2px 2px;
+  background-color: #251dc5; /* Blue */
+  padding: 8px 10px; /* Smaller padding */
+  font-size: 10px; /* Slightly smaller font size */
+}
+
 .Small-orange-button {
   background-color: #de9c0d; /* Blue */
   padding: 10px 20px; /* Smaller padding */
