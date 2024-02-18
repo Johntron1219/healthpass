@@ -1,4 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import getAllPatientData from '../../patient/Backend/getRecords/getPatientData';
+import getProviderData from '../Backend/getProviderData'
+
+/* 
+
+get names of all the patients we have
+store data of all patients in initial query call
+
+if use clicks patient, load in patient data into that component
+*/
 
 function PatientListScreen({ patientProfiles, onPatientSelect }) {
   return (
