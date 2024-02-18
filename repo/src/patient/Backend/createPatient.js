@@ -26,9 +26,7 @@ const addDocumentToCollection = async (collectionName, data) => {
   }
 };
 
-/* patient data - 
-
-*/
+/* patientData - {email: String, password: String, PID: Number} */
 
 export const createPatient = (patientData) => {
 
