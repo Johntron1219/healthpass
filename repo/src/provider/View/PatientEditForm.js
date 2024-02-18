@@ -15,10 +15,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
   };
 
   const handleAddNewItem = (subarrayName) => {
-    const newItem = {};
-    Object.keys(patientData.metadata[subarrayName][0]).forEach(key => {
-      newItem[key] = '';
-    });
+    const newItem = { NPI: '' }; // Initialize with an empty NPI field
     const updatedSubarray = [...patientData.metadata[subarrayName], newItem];
     setPatientData({ ...patientData, metadata: { ...patientData.metadata, [subarrayName]: updatedSubarray } });
     addPatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
