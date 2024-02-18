@@ -1,64 +1,61 @@
-
-/* login page after user has selected 'login as patient'
-- offers fields to input username and login
-- button to click submit to check authorization of user
-*/
-
 import React, { useState } from 'react';
+import './PatientLoginPage.css'; // Assuming you have a separate CSS file for login page styles
 
-export const PatientLoginPage = ({setCurrentScreen}) => {
+export const PatientLoginPage = ({ setCurrentScreen }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simple validation
+    // Replace the following with your actual login logic
     if (!username || !password) {
       setErrorMessage('Please enter both username and password');
       return;
     }
-    
-    if (username && password) {
-        setCurrentScreen('patient');
-    }
     console.log('Logging in with username:', username, 'and password:', password);
-    // Reset form
+    setCurrentScreen('patient');
+    // Reset form fields
     setUsername('');
     setPassword('');
     setErrorMessage('');
   };
 
-  const handleReset = (e) => {
-
+  const handleBack = () => {
     setCurrentScreen('home');
-  }
- 
+  };
+
+  const handleRegister = () => {
+    // Implement or redirect to registration logic
+    console.log('Redirect to registration screen');
+  };
+
   return (
-    <div>
-      <h2>Login Page</h2>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      <form onSubmit={handleSubmit} onReset={handleReset}>
-        <label>
-          Username:
+    <div className="login-container">
+      <h2 className="login-title">Login Page</h2>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="input-group">
+          <label>Username:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-        </label>
-        <br />
-        <label>
-          Password:
+        </div>
+        <div className="input-group">
+          <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
-        <br />
-        <button type="submit">Login</button>
-        <button type="reset">Back</button>
+        </div>
+        <div className="buttons-group">
+          <button type="submit" className="login-button">Login</button>
+          <button type="button" className="back-button" onClick={handleBack}>Back</button>
+          <button type="button" className="register-button" onClick={handleRegister}>Register</button>
+        </div>
       </form>
     </div>
   );
