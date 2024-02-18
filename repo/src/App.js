@@ -5,6 +5,7 @@ import PatientScreen from './patient/Views/patientScreen';
 import ProviderScreen from './provider/View/ProviderScreen';
 import ProviderLoginPage from './provider/View/ProviderLoginPage';
 import LoginPage from './patient/Views/PatientLoginPage';
+import PatientRegisterPage from './patient/Views/PatientRegisterPage';
 import logo from './public/Logo.png'; // Import the logo image
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       {currentScreen === 'providerLogin' && <ProviderLoginPage setCurrentScreen={setCurrentScreen} />}
       {currentScreen === 'provider' && <ProviderScreen setCurrentScreen={setCurrentScreen} />}
       {currentScreen === 'patient' && <PatientScreen setCurrentScreen={setCurrentScreen} patientID={currentID} />}
+      {currentScreen === 'patientRegister' && <PatientRegisterPage setCurrentScreen={setCurrentScreen}/>}
     </div>
   );
 }

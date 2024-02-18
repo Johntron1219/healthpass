@@ -42,7 +42,7 @@ export const PatientLoginPage = ({ setCurrentScreen, setCurrentID}) => {
 
   const handleRegister = () => {
     // Implement or redirect to registration logic
-    console.log('Redirect to registration screen');
+    setCurrentScreen('patientRegister')
   };
 
   return (
