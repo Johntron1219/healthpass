@@ -1,0 +1,45 @@
+.provider-profile-card {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .profile-card-header {
+    margin-bottom: 2rem;
+    padding: 2rem;
+  }
+  
+  .profile-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 80%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+  }
+  
+  .profile-name {
+    margin: 1rem 0;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .profile-card-details {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .profile-detail {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+  
+  .profile-detail strong {
+    color: #007bff;
+  }
