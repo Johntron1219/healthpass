@@ -10,6 +10,8 @@ import logo from './public/Logo.png'; // Import the logo image
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
 
+  const [currentID, setCurrentID] = useState(null);
+
   const renderHomeScreen = () => {
     return (
       <div className="home-screen">
@@ -33,10 +35,10 @@ function App() {
   return (
     <div className="App">
       {currentScreen === 'home' && renderHomeScreen()}
-      {currentScreen === 'patientLogin' && <LoginPage setCurrentScreen={setCurrentScreen}/>}
+      {currentScreen === 'patientLogin' && <LoginPage setCurrentScreen={setCurrentScreen} setCurrentID={setCurrentID}/>}
       {currentScreen === 'providerLogin' && <ProviderLoginPage setCurrentScreen={setCurrentScreen} />}
       {currentScreen === 'provider' && <ProviderScreen setCurrentScreen={setCurrentScreen} />}
-      {currentScreen === 'patient' && <PatientScreen setCurrentScreen={setCurrentScreen} />}
+      {currentScreen === 'patient' && <PatientScreen setCurrentScreen={setCurrentScreen} patientID={currentID} />}
     </div>
   );
 }

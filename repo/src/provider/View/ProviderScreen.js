@@ -5,7 +5,7 @@ import PatientListScreen from './PatientListScreen';
 import PatientDetailScreen from './PatientDetailScreen';
 import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
-import Pic from './DTS.webp';
+import Pic from '../../public/DTS.webp';
 
 function ProviderScreen({ setCurrentScreen }) {
   const [providerScreen, setProviderScreen] = useState('home');

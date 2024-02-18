@@ -10,10 +10,10 @@ import getMedications from '../Backend/getRecords/getMedications';
 import getProcedures from '../Backend/getRecords/getProcedures';
 import getImmunizations from '../Backend/getRecords/getImmunizations';
 import getLabRecords from '../Backend/getRecords/getLabRecords';
-function PatientScreen({ setCurrentScreen }) {
+function PatientScreen({ setCurrentScreen, patientID}) {
   const [patientScreen, setPatientScreen] = useState('home');
   const [profile, setProfile] = useState(null);
-  const pt = "0002";
+  const pt = patientID;
   useEffect(() => {
     async function fetchData() {
       setProfile({
