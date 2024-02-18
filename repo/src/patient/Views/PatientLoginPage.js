@@ -6,7 +6,7 @@
 
 import React, { useState } from 'react';
 
-export const LoginPage = ({setCurrentScreen}) => {
+export const PatientLoginPage = ({setCurrentScreen}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -30,13 +30,14 @@ export const LoginPage = ({setCurrentScreen}) => {
   };
 
   const handleReset = (e) => {
+
     setCurrentScreen('home');
   }
  
   return (
     <div>
       <h2>Login Page</h2>
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       <form onSubmit={handleSubmit} onReset={handleReset}>
         <label>
           Username:
@@ -63,4 +64,4 @@ export const LoginPage = ({setCurrentScreen}) => {
   );
 };
 
-export default LoginPage;
+export default PatientLoginPage;

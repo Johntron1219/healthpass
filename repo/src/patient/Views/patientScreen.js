@@ -79,29 +79,6 @@ function PatientScreen({ setCurrentScreen }) {
     return <div>Loading...</div>;
   }
 
-  const providerAuthorizationRequests = [
-    { id: 1, providerName: "Dr. Smith", requestDate: "2024-02-15" },
-    { id: 2, providerName: "Dr. Johnson", requestDate: "2024-02-14" }
-  ];
-
-  const pastMedicalRecordAccessApprovals = [
-    { id: 1, patientName: "John Doe", approvalDate: "2023-12-01" },
-    { id: 2, patientName: "Jane Doe", approvalDate: "2023-11-25" }
-  ];
-
-
-  // Functions to handle approvals and creating access links
-  const handleApproveProvider = () => {
-    console.log("Approving provider...");
-  };
-
-  const handleApproveRecords = () => {
-    console.log("Approving records access...");
-  };
-
-  const handleCreateAccessLink = () => {
-    console.log("Creating access link...");
-  };
 
   let screen;
   switch (patientScreen) {
@@ -112,13 +89,7 @@ function PatientScreen({ setCurrentScreen }) {
       screen = <PatientProfileScreen profile={profile} />;
       break;
     case 'approvals':
-      screen = <ApprovalsScreen 
-                providerAuthorizationRequests={providerAuthorizationRequests} 
-                pastMedicalRecordAccessApprovals={pastMedicalRecordAccessApprovals}
-                onApproveProvider={handleApproveProvider} 
-                onApproveRecords={handleApproveRecords} 
-                onCreateAccessLink={handleCreateAccessLink}
-                />;
+      screen = <ApprovalsScreen/>;
       break;
     default:
       screen = <PatientHomeScreen profile={profile} />;
@@ -133,7 +104,7 @@ function PatientScreen({ setCurrentScreen }) {
         <button className="Small-blue-button" onClick={() => setPatientScreen('profile')}>Profile</button>
         <button className="Small-blue-button" onClick={() => setPatientScreen('approvals')}>Approvals</button>
       </div>
-      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
+      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Logout</button>
     </div>
   );
 }
