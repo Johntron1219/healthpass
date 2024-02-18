@@ -38,7 +38,7 @@ function PatientListScreen({ onPatientSelect }) {
   const [patientProfiles, setPatientProfiles] = useState([]);
 
   useEffect(() => {
-    const authorizedPatientIDs = getAuthorizedPatients(NPI); // Replace this with the array of authorized patient IDs
+    const authorizedPatientIDs = getAuthorizedPatients(profile.NPI); // Replace this with the array of authorized patient IDs
     const fetchPatientData = async () => {
       try {
         const patientDataList = await fetchAuthorizedPatientsData(authorizedPatientIDs);
