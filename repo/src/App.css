@@ -1,4 +1,3 @@
-/* Combined App.css */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
 /* Reset some default styles and fonts */
@@ -28,50 +27,51 @@ body {
 
 /* Home Screen */
 .home-screen {
-  padding: 20px;
+  padding: 40px; /* Increased padding */
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 500px;
-  margin: 20px;
+  max-width: 600px; /* Increased max-width */
+  margin: 20px auto; /* Centered margin for auto left and right */
 }
 
 .logo-container {
-  margin-bottom: 20px;
+  margin-bottom: 40px; /* Increased margin */
 }
 
 .logo {
-  max-width: 150px; /* Adjust logo size as needed */
+  max-width: 200px; /* Increased logo size */
   height: auto;
 }
 
 .welcome-text {
   color: #333;
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 30px; /* Increased font size */
+  margin-bottom: 20px; /* Increased margin */
 }
 
 .tagline {
   color: #555;
-  margin-bottom: 30px;
+  margin-bottom: 40px; /* Increased margin */
 }
 
 .buttons-container {
   display: flex;
-  gap: 10px;
+  gap: 20px; /* Increased gap */
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .login-button {
-  padding: 10px 20px;
+  padding: 15px 30px; /* Increased padding */
   border: none;
-  border-radius: 20px;
+  border-radius: 25px; /* Slightly more rounded */
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px; /* Increased font size */
   color: white;
   transition: background-color 0.3s;
+  margin: 10px; /* Added margin to separate buttons */
 }
 
 .login-button.patient {
@@ -83,7 +83,7 @@ body {
 }
 
 .login-button:hover {
-  opacity: 0.9;
+  opacity: 0.85; /* Slightly less transparent on hover for a subtle effect */
 }
 
 code {
