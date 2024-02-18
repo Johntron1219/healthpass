@@ -130,8 +130,8 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
         {renderSubArrayFields('labRecords')}
       </fieldset>
 
-      <button type="submit">Save Changes</button>
-      <button type="button" onClick={onCancel}>Cancel</button>
+      <button className="Small-orange-button" type="submit">Save Changes</button>
+      <button className="Small-orange-button" type="button" onClick={onCancel}>Cancel</button>
     </form>
   );
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import PatientScreen from './patient/Views/patientScreen';
 import ProviderScreen from './provider/View/ProviderScreen';
-import PatientLoginPage from './patient/Views/PatientLoginPage.js';
+import LoginPage from './patient/Views/PatientLoginPage';
 import logo from './public/Logo.png'; // Import the logo image
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App">
       {currentScreen === 'home' && renderHomeScreen()}
-      {currentScreen === 'patientLogin' && <PatientLoginPage setCurrentScreen={setCurrentScreen}/>}
+      {currentScreen === 'patientLogin' && <LoginPage setCurrentScreen={setCurrentScreen}/>}
       {currentScreen === 'patient' && <PatientScreen setCurrentScreen={setCurrentScreen} />}
       {currentScreen === 'provider' && <ProviderScreen setCurrentScreen={setCurrentScreen} />}
     </div>

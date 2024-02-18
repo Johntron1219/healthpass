@@ -7,7 +7,7 @@ function PatientListScreen({ patientProfiles, onPatientSelect }) {
       <div className="patient-list">
         {patientProfiles.map((profile, index) => (
           <button
-            className="patient-select-button"
+            className="Small-orange-button"
             key={index}
             onClick={() => onPatientSelect(profile)}
           >
