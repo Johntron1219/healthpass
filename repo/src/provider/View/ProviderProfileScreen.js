@@ -1,5 +1,5 @@
 import React from 'react';
-import './ProviderProfileScreen.css'; // Make sure this path is correct
+import './providerCSS/ProviderProfileScreen.css'; // Make sure this path is correct
 
 function ProviderProfileScreen({ profile }) {
   return (
