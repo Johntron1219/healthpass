@@ -188,10 +188,10 @@ function ProviderScreen({ setCurrentScreen }) { // Corrected props destructuring
     <div className="provider-screen">
       {screenComponent}
       <div className="navigation-buttons">
-        <button onClick={() => setProviderScreen('home')}>Home</button>
-        <button onClick={() => setProviderScreen('patientList')}>Patient Edit</button>
-        <button onClick={() => setProviderScreen('profile')}>Profile</button>
-        <button onClick={() => setProviderScreen('requests')}>Requests</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('home')}>Home</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('patientList')}>Patient Edit</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('profile')}>Profile</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('requests')}>Requests</button>
       </div>
       {/* This button will now correctly call the setCurrentScreen function passed from App.js */}
       <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
