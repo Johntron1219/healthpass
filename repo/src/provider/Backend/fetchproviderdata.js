@@ -1,6 +1,6 @@
-import { database } from '../../../firebase'; // Adjust the path as necessary
+import { database } from '../../firebase'; // Adjust the path as necessary
 
-export const getAllPatientData = async (id) => {
+export const getAllProviderData = async (id) => {
     try {
         // Assuming NPI is used as the document ID in the 'providers' collection
         const documentRef = database.collection('patients').doc(id);
@@ -16,8 +16,8 @@ export const getAllPatientData = async (id) => {
     }
 };
 
-const getPatientData = async (pt, path) => {
-  const docRef = database.collection('patients').doc(pt);
+const fetchproviderdata = async (npi, path) => {
+  const docRef = database.collection('providers').doc(npi);
 
   try {
     const doc = await docRef.get();
@@ -49,4 +49,4 @@ const getValueByPath = (object, path) => {
   return value;
 };
 
-export default getPatientData;
+export default fetchproviderdata;
