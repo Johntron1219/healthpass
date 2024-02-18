@@ -23,8 +23,9 @@ const addDocumentToCollection = async (collectionName, documentID, data) => {
   }
 };
 
-const createProvider = async (providerNPI, password) => {
+const createProvider = async (providerNPI, password, name) => {
   const providerData = {
+    name: name,
     NPI: providerNPI,
     password: password,
     incomingrequests: [],
