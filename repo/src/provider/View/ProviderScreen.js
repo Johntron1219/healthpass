@@ -1,4 +1,3 @@
-// ProviderScreen.js
 import React, { useState } from 'react';
 import ProviderHomeScreen from './ProviderHomeScreen';
 import ProviderProfileScreen from './ProviderProfileScreen';
@@ -8,11 +7,9 @@ import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
 import Pic from './DTS.webp';
 
-// Correct the props destructuring here
-function ProviderScreen({ setCurrentScreen }) { // Corrected props destructuring
+function ProviderScreen({ setCurrentScreen }) {
   const [providerScreen, setProviderScreen] = useState('home');
   const [selectedPatient, setSelectedPatient] = useState(null);
-
   const profile = {
     name: "Jose Doe",
     address: "123 Main St, Anytown, AN 12345",
@@ -21,8 +18,7 @@ function ProviderScreen({ setCurrentScreen }) { // Corrected props destructuring
     email: "jose.doe@example.com",
     NPI: "1234567890",
   };
-
-  const patientProfiles = [
+  const [patientProfiles, setPatientProfiles] = useState([
     {
       name: "John Doe",
       lastEditDate: "2024-02-17",
@@ -133,7 +129,7 @@ function ProviderScreen({ setCurrentScreen }) { // Corrected props destructuring
         }
       ]
     }
-  ];
+  ]);
 
   const handleSelectPatient = (patient) => {
     setSelectedPatient(patient);
@@ -145,6 +141,19 @@ function ProviderScreen({ setCurrentScreen }) { // Corrected props destructuring
   };
 
   const handleSavePatient = (updatedPatient) => {
+    setPatientProfiles((prevProfiles) => {
+      const index = prevProfiles.findIndex(profile => profile.email === updatedPatient.email);
+      if (index !== -1) {
+        const newProfiles = [...prevProfiles];
+        newProfiles[index] = updatedPatient;
+        return newProfiles;
+      }
+      return prevProfiles;
+    });
+  
+    // Update the selectedPatient state to reflect the changes immediately
+    setSelectedPatient(updatedPatient);
+  
     console.log('Patient data saved', updatedPatient);
     setProviderScreen('patientDetail');
   };
@@ -176,9 +185,7 @@ function ProviderScreen({ setCurrentScreen }) { // Corrected props destructuring
       screenComponent = <PatientEditForm selectedPatientProfile={selectedPatient} onSave={handleSavePatient} onCancel={handleCancelEdit} />;
       break;
     case 'requests':
-      screenComponent = <RequestsScreen 
-        // ... props for RequestsScreen
-      />;
+      screenComponent = <RequestsScreen />;
       break;
     default:
       screenComponent = <ProviderHomeScreen profile={profile} />;
@@ -188,13 +195,12 @@ function ProviderScreen({ setCurrentScreen }) { // Corrected props destructuring
     <div className="provider-screen">
       {screenComponent}
       <div className="navigation-buttons">
-        <button className="Small-blue-button" onClick={() => setProviderScreen('home')}>Home</button>
-        <button className="Small-blue-button" onClick={() => setProviderScreen('patientList')}>Patient Edit</button>
-        <button className="Small-blue-button" onClick={() => setProviderScreen('profile')}>Profile</button>
-        <button className="Small-blue-button" onClick={() => setProviderScreen('requests')}>Requests</button>
+        <button className ="Small-blue-button" onClick={() => setProviderScreen('home')}>Home</button>
+        <button className ="Small-blue-button" onClick={() => setProviderScreen('patientList')}>Patient Edit</button>
+        <button className ="Small-blue-button" onClick={() => setProviderScreen('profile')}>Profile</button>
+        <button className ="Small-blue-button" onClick={() => setProviderScreen('requests')}>Requests</button>
       </div>
-      {/* This button will now correctly call the setCurrentScreen function passed from App.js */}
-      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
+      <button className ="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
     </div>
   );
 }
