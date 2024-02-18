@@ -73,6 +73,12 @@ code {
   font-size: 14px; /* Slightly smaller font size */
 }
 
+.Small-orange-button {
+  background-color: #de9c0d; /* Blue */
+  padding: 10px 20px; /* Smaller padding */
+  font-size: 14px; /* Slightly smaller font size */
+}
+
 .Profile-photo {
   width: 150px;
   height: 150px;
