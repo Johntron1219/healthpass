@@ -23,15 +23,12 @@ const getPatientData = async (pt, path) => {
     const doc = await docRef.get();
     if (doc.exists) {
       const jsonData = doc.data();
-      console.log(jsonData)
       const value = getValueByPath(jsonData, path);
       return value;
     } else {
-      console.log('No such document!');
       return null;
     }
   } catch (error) {
-    console.log('Error getting document:', error);
     return null;
   }
 };

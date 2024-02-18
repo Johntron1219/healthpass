@@ -11,17 +11,16 @@ if (!firebase.apps.length) {
 
 const firestore = firebase.firestore();
 
-const addPatientField = async (pid, field, value) => {
+const addPatientField = async (pid, field) => {
     try {
       const documentRef = firestore.collection('patients').doc(pid.toString());
       const fieldValue = {};
-      fieldValue[field] = value;
+      fieldValue[field] = firestore.FieldValue.delete();
       await documentRef.update(fieldValue);
       console.log('Document field added successfully');
     } catch (error) {
       console.error('Error adding document field: ', error);
     }
   };
-  
 
 export { addPatientField };
