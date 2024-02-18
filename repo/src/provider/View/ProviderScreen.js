@@ -6,14 +6,6 @@ import PatientDetailScreen from './PatientDetailScreen';
 import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
 import Pic from '../../public/DTS.webp';
-import { getAllPatientData } from '../../patient/Backend/getRecords/getPatientData'; // Correct import
-
-import getConditions from '../../patient/Backend/getRecords/getConditions';
-import getAllergies from '../../patient/Backend/getRecords//getAllergies';
-import getMedications from '../../patient/Backend/getRecords//getMedications';
-import getProcedures from '../../patient/Backend/getRecords//getProcedures';
-import getImmunizations from '../../patient/Backend/getRecords/getImmunizations';
-import getLabRecords from '../../patient/Backend/getRecords/getLabRecords';
 import { getProviderData } from '../Backend/getProviderData';
 import { updatePatientField } from '../../patient/Backend/updatePatientField';
 
@@ -96,7 +88,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       screenComponent = <ProviderProfileScreen profile={profile} />;
       break;
     case 'patientList':
-      screenComponent = <PatientListScreen patientProfiles={patientProfiles} onPatientSelect={handleSelectPatient} />;
+      screenComponent = <PatientListScreen providerProfile={profile} patientProfiles={patientProfiles} onPatientSelect={handleSelectPatient} setPatientProfiles={setPatientProfiles}/>;
       break;
     case 'patientDetail':
       screenComponent = <PatientDetailScreen selectedPatientProfile={selectedPatient} onBackClick={handleBackToList} onEditClick={handleEditPatient} />;

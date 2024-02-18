@@ -16,7 +16,7 @@ const getAuthorizedPatients = async (providerNPI) => {
           // Fetch authorized patient data using the IDs
           const authorizedPatients = await Promise.all(authorizedPatientIDs.map(async (patientID) => {
               try {
-                  return await fetchAuthorizedPatientsData(patientID);
+                  return await fetchPatientData(patientID);
               } catch (error) {
                   console.error(`Error fetching authorized patient data for ID ${patientID}:`, error);
                   return null; // Handle error for individual patient fetch
@@ -38,10 +38,11 @@ function PatientListScreen({ onPatientSelect }) {
   const [patientProfiles, setPatientProfiles] = useState([]);
 
   useEffect(() => {
-    const authorizedPatientIDs = getAuthorizedPatients(NPI); // Replace this with the array of authorized patient IDs
+    const authorizedPatientIDs = getAuthorizedPatients(providerNPI); // Replace this with the array of authorized patient IDs
     const fetchPatientData = async () => {
       try {
-        const patientDataList = await fetchAuthorizedPatientsData(authorizedPatientIDs);
+        console.log(providerProfile)
+        const patientDataList = await fetchAuthorizedPatientsData(providerProfile["AuthorizedPatients"]);
         setPatientProfiles(patientDataList);
       } catch (error) {
         console.error('Error fetching patient data:', error);
