@@ -26,7 +26,7 @@ export async function getProcedures(pt) {
             if (data && data.metadata && data.metadata.procedures) {
                 return await Promise.all(data.metadata.procedures.map(async (procedures) => ({
                     name: procedures.HCPCS || "",
-                    dosage: procedures.dosage || "",
+                    date: procedures.date || "",
                     provider: (await getClinicalTables(procedures.NPI, "npi_org"))[0] || ""
                 })));
             } else {
