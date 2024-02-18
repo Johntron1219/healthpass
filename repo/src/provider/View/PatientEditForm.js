@@ -48,7 +48,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
         </div>
         {/* Optional fields based on subarray type */}
         {/* Delete button for each item */}
-        <button type="button" onClick={() => handleDeleteItem(subArrayName, index)}>Delete</button>
+        <button className="Smaller-blue-button" type="button" onClick={() => handleDeleteItem(subArrayName, index)}>Delete</button>
       </div>
     ));
   };
@@ -60,7 +60,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
         <fieldset key={subArrayName}>
           <legend>{subArrayName.charAt(0).toUpperCase() + subArrayName.slice(1)}</legend>
           {renderSubArrayFields(subArrayName)}
-          <button type="button" onClick={() => handleAddNewItem(subArrayName)}>Add New {subArrayName.slice(0, -1)}</button>
+          <button className="Smaller-blue-button" type="button" onClick={() => handleAddNewItem(subArrayName)}>Add New {subArrayName.slice(0, -1)}</button>
         </fieldset>
       ))}
       <button className="Smaller-orange-button" type="submit">Save Changes</button>

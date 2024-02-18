@@ -1,0 +1,58 @@
+.approvals-screen {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    font-size: 1rem;
+  }
+  
+  .approvals-screen h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .authorization-requests, .authorized-providers, .connect-provider {
+    margin-bottom: 20px;
+  }
+  
+  .request-item, .provider-item {
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .connect-provider {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .connect-provider input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  .approvals-screen button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .approvals-screen button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Add any additional styles you need for other elements */
+  
