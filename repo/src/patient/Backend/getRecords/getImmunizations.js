@@ -1,3 +1,5 @@
+import { getClinicalTables } from "./util";
+
 export async function getImmunizations(data) {
             if (data && data.metadata && data.metadata.immunizations) {
                 return Promise.all(data.metadata.immunizations.map(async (immunizations) => ({

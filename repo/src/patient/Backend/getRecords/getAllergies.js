@@ -1,4 +1,4 @@
-import getClinicalTables from  "util"
+import { getClinicalTables } from "./util";
 
 export async function getAllergies(data) {
             if (data && data.metadata && data.metadata.allergies) {
