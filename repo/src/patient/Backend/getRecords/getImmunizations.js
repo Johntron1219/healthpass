@@ -29,11 +29,9 @@ export async function getImmunizations(pt) {
                     provider: (await getClinicalTables(immunizations.NPI, "npi_org"))[0] || ""
                 })));
             } else {
-                console.log("No conditions data found for the patient.");
                 return [];
             }
         } else {
-            console.log("Document does not exist");
             return [];
         }
     } catch (error) {
