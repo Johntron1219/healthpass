@@ -6,7 +6,7 @@ import PatientDetailScreen from './PatientDetailScreen';
 import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
 import Pic from '../../public/DTS.webp';
-import getPatientData from '../Backend/getRecords/getPatientData'; // Correct import
+import { getAllPatientData } from '../Backend/getRecords/getPatientData'; // Correct import
 import getConditions from '../Backend/getRecords/getConditions';
 import getAllergies from '../Backend/getRecords/getAllergies';
 import getMedications from '../Backend/getRecords/getMedications';
@@ -18,7 +18,6 @@ import { updatePatientField } from '../../patient/Backend/updatePatientField';
 function ProviderScreen({ setCurrentScreen, providerNPI }) {
   const [providerScreen, setProviderScreen] = useState('home');
   const [selectedPatient, setSelectedPatient] = useState(null);
-  const pt = "0002";
   const profile = {
     name: "Jose Doe",
     address: "123 Main St, Anytown, AN 12345",
@@ -31,34 +30,70 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const patientData = await getPatientData(pt, "metadata");
-      const conditions = await getConditions(pt);
-      const allergies = await getAllergies(pt);
-      const medications = await getMedications(pt);
-      const procedures = await getProcedures(pt);
-      const immunizations = await getImmunizations(pt);
-      const labRecords = await getLabRecords(pt);
-
-      const updatedPatientProfile = {
-        pt: "0002",
-        name: `${patientData.firstname} ${patientData.middlename} ${patientData.lastname}`,
-        lastEditDate: "2024-02-17",
-        address: `${patientData.address}, ${patientData.city}, ${patientData.state} ${patientData.zip}`,
-        dob: `${patientData.monthofbirth}/${patientData.dayofbirth}/${patientData.yearofbirth}`,
-        email: patientData.email,
-        insurancePolicyNumber: patientData.insurancename,
-        insurancePlan: patientData.insurancenum,
-        conditions,
-        allergies,
-        medications,
-        procedures,
-        immunizations,
-        labRecords
-      };
-
-      setPatientProfiles([updatedPatientProfile]);
+      try {
+        // Fetch all patients
+        const patientsData = await getAllPatientData();
+        
+        // Convert the object values into an array of patients
+        const patientsArray = Object.values(patientsData);
+        
+        // Fetch additional data for each patient
+        const profiles = await Promise.all(patientsArray.map(async (patient) => {
+          // Check if all required properties exist before accessing them
+          if (
+            patient.metadata &&
+            patient.metadata.firstname &&
+            patient.metadata.middlename &&
+            patient.metadata.lastname &&
+            patient.metadata.address &&
+            patient.metadata.city &&
+            patient.metadata.state &&
+            patient.metadata.zip &&
+            patient.metadata.monthofbirth &&
+            patient.metadata.dayofbirth &&
+            patient.metadata.yearofbirth &&
+            patient.email &&
+            patient.metadata.insurancename &&
+            patient.metadata.insurancenum
+          ) {
+            const conditions = await getConditions(patient.pt);
+            const allergies = await getAllergies(patient.pt);
+            const medications = await getMedications(patient.pt);
+            const procedures = await getProcedures(patient.pt);
+            const immunizations = await getImmunizations(patient.pt);
+            const labRecords = await getLabRecords(patient.pt);
+  
+            return {
+              pt: patient.pt,
+              name: `${patient.metadata.firstname} ${patient.metadata.middlename} ${patient.metadata.lastname}`,
+              lastEditDate: "2024-02-17",
+              address: `${patient.metadata.address}, ${patient.metadata.city}, ${patient.metadata.state} ${patient.metadata.zip}`,
+              dob: `${patient.metadata.monthofbirth}/${patient.metadata.dayofbirth}/${patient.metadata.yearofbirth}`,
+              email: patient.email,
+              insurancePolicyNumber: patient.metadata.insurancename,
+              insurancePlan: patient.metadata.insurancenum,
+              conditions,
+              allergies,
+              medications,
+              procedures,
+              immunizations,
+              labRecords
+            };
+          } else {
+            console.error('Patient data is missing required properties:', patient);
+            return null; // Return null for patients with missing properties
+          }
+        }));
+  
+        // Filter out null profiles (patients with missing properties)
+        const filteredProfiles = profiles.filter(profile => profile !== null);
+  
+        setPatientProfiles(filteredProfiles);
+      } catch (error) {
+        console.error('Error fetching patient data:', error);
+      }
     };
-
+  
     fetchData();
   }, []);
 
@@ -126,7 +161,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       screenComponent = <PatientEditForm selectedPatientProfile={selectedPatient} onSave={handleSavePatient} onCancel={handleCancelEdit} />;
       break;
     case 'requests':
-      screenComponent = <RequestsScreen providerNPI={providerNPI}/>;
+      screenComponent = <RequestsScreen providerNPI={providerNPI} />;
       break;
     default:
       screenComponent = <ProviderHomeScreen profile={profile} />;
@@ -141,7 +176,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
         <button className="Small-blue-button" onClick={() => setProviderScreen('profile')}>Profile</button>
         <button className="Small-blue-button" onClick={() => setProviderScreen('requests')}>Requests</button>
       </div>
-      <button className ="Home-button" onClick={() => setCurrentScreen('home')}>Logout</button>
+      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Logout</button>
     </div>
   );
 }

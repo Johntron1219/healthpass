@@ -17,14 +17,15 @@ if (!firebase.apps.length) {
 
 const firestore = firebase.firestore();
 
+
 const updatePatientField = async (pid, field, value) => {
   try {
       const documentRef = firebase.firestore().collection('patients').doc(pid.toString());
-
+      
       // Check if the document exists before attempting to update it
       const docSnapshot = await documentRef.get();
       if (!docSnapshot.exists) {
-          throw new Error('Document does not exist'); // Handle the case where the document doesn't exist
+          throw new Error('Document does not exist');
       }
 
       // Proceed with updating the field
@@ -34,6 +35,7 @@ const updatePatientField = async (pid, field, value) => {
       console.log('Document field updated successfully');
   } catch (error) {
       console.error('Error updating document field: ', error);
+      throw error; // Rethrow the error to handle it in the calling code
   }
 };
 
