@@ -4,7 +4,7 @@ import PatientHomeScreen from './PatientHomeScreen';
 import PatientProfileScreen from './PatientProfileScreen';
 import ApprovalsScreen from './ApprovalsScreen';
 import getPatientData from '../Backend/getPatientData'; // Correct import
-
+import getConditions from '../Backend/getConditions'
 function PatientScreen({ setCurrentScreen }) {
   const [patientScreen, setPatientScreen] = useState('home');
   const [profile, setProfile] = useState(null);
@@ -20,13 +20,7 @@ function PatientScreen({ setCurrentScreen }) {
         email: await getPatientData(pt, "email"),
         insurancePolicyNumber: await getPatientData(pt, "metadata.insurancename"),
         insurancePlan: await getPatientData(pt, "metadata.insurancenum"),
-        conditions: [
-          {
-            name: "Hypertension",
-            provider: "Dr. Smith",
-            date: "2023-01-15"
-          }
-        ],
+        conditions: await getConditions(pt),
         allergies: [
           {
             name: "Pollen",
