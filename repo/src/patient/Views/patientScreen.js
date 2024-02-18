@@ -83,7 +83,7 @@ function PatientScreen({ setCurrentScreen }) {
       screen = <PatientProfileScreen profile={profile} />;
       break;
     case 'approvals':
-      screen = <ApprovalsScreen/>;
+      screen = <ApprovalsScreen patientID={pt}/>;
       break;
     default:
       screen = <PatientHomeScreen profile={profile} />;
