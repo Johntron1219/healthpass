@@ -13,9 +13,10 @@ import getMedications from '../Backend/getRecords/getMedications';
 import getProcedures from '../Backend/getRecords/getProcedures';
 import getImmunizations from '../Backend/getRecords/getImmunizations';
 import getLabRecords from '../Backend/getRecords/getLabRecords';
-function ProviderScreen({ setCurrentScreen }) {
+function ProviderScreen({ setCurrentScreen, providerNPI }) {
   const [providerScreen, setProviderScreen] = useState('home');
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const pt = "0002";
   const profile = {
     name: "Jose Doe",
     address: "123 Main St, Anytown, AN 12345",
@@ -25,8 +26,6 @@ function ProviderScreen({ setCurrentScreen }) {
     NPI: "1234567890",
   };
   const [patientProfiles, setPatientProfiles] = useState([]);
-
-  useEffect(() => {
     const fetchData = async () => {
       const pt = "0002";
       const name = await getPatientData(pt, "metadata.firstname") + " " + await getPatientData(pt, "metadata.middlename") + " " + await getPatientData(pt, "metadata.lastname");
@@ -54,7 +53,7 @@ function ProviderScreen({ setCurrentScreen }) {
     fetchData().then((data) => {
       setPatientProfiles([data]);
     });
-  }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
+    ; // Empty dependency array ensures this effect runs only once, similar to componentDidMount
 
   const handleSelectPatient = (patient) => {
     setSelectedPatient(patient);
