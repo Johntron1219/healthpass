@@ -1,20 +1,93 @@
 /* Combined App.css */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
-body {
+/* Reset some default styles and fonts */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: 'Nunito', sans-serif; /* Updated font for a more modern look */
+}
+
+body {
   background-color: #f0f2f5; /* Light background for less strain */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
+/* App Component */
 .App {
   text-align: center;
+  background-color: #f4f4f4; /* Consistent background color */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Home Screen */
+.home-screen {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: 20px;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo {
+  max-width: 150px; /* Adjust logo size as needed */
+  height: auto;
+}
+
+.welcome-text {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.login-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.login-button.patient {
+  background-color: #28a745;
+}
+
+.login-button.provider {
+  background-color: #17a2b8;
+}
+
+.login-button:hover {
+  opacity: 0.9;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .App-logo {

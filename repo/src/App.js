@@ -9,16 +9,22 @@ import logo from './public/Logo.png'; // Import the logo image
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
-  const logoSize = 300; // Adjust the logo size here
 
   const renderHomeScreen = () => {
     return (
       <div className="home-screen">
-        <img src={logo} alt="Health Pass Logo" className="logo" style={{ width: `${logoSize}px`, height: 'auto' }} /> {/* Display the logo with adjustable size */}
-        <h1>Welcome to Health Pass</h1>
+        <div className="logo-container">
+          <img src={logo} alt="Health Pass Logo" className="logo" />
+        </div>
+        <h1 className="welcome-text">Welcome to Health Pass</h1>
+        <p className="tagline">Making personal health data transfer seamless and secure.</p>
         <div className="buttons-container">
-          <button className="Home-button" onClick={() => setCurrentScreen('patientLogin')}>Login as a Patient</button>
-          <button className="Home-button" onClick={() => setCurrentScreen('providerLogin')}>Login as a Provider</button>
+          <button className="login-button patient" onClick={() => setCurrentScreen('patientLogin')}>
+            Login as a Patient
+          </button>
+          <button className="login-button provider" onClick={() => setCurrentScreen('providerLogin')}>
+            Login as a Provider
+          </button>
         </div>
       </div>
     );

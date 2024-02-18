@@ -128,6 +128,116 @@ function ProviderScreen({ setCurrentScreen }) {
           provider: "Respiratory Center"
         }
       ]
+    }, 
+    {
+      name: "John Doe",
+      lastEditDate: "2024-02-17",
+      dob: "1980-02-18",
+      address: "123 Main St, Anytown, AN 12345",
+      email: "john.doe@example.com",
+      insurancePolicyNumber: "XYZ123456789",
+      insurancePlan: "Basic Health Plan",
+      conditions: [
+        {
+          name: "Hypertension",
+          provider: "Dr. Smith",
+          date: "2023-01-15"
+        }
+      ],
+      allergies: [
+        {
+          name: "Pollen",
+          severity: "Mild",
+          provider: "Dr. Johnson"
+        }
+      ],
+      medications: [
+        {
+          name: "Lisinopril",
+          dosage: "10 mg",
+          provider: "Dr. Smith"
+        }
+      ],
+      procedures: [
+        {
+          name: "Appendectomy",
+          date: "2015-05-20",
+          provider: "Dr. Brown"
+        }
+      ],
+      immunizations: [
+        {
+          name: "Influenza",
+          date: "2022-10-01",
+          provider: "Dr. Lee"
+        }
+      ],
+      labRecords: [
+        {
+          name: "CBC",
+          value: "Normal",
+          date: "2024-01-10",
+          provider: "LabCorp"
+        },
+        {
+          name: "Cholesterol",
+          value: "Slightly High",
+          date: "2023-12-15",
+          provider: "Quest Diagnostics"
+        }
+      ]
+    },
+    {
+      name: "Jane Smith",
+      lastEditDate: "2024-02-16",
+      dob: "1985-08-25",
+      address: "456 Oak St, Somecity, AN 23456",
+      email: "jane.smith@example.com",
+      insurancePolicyNumber: "XYZ987654321",
+      insurancePlan: "Premium Health Plan",
+      conditions: [
+        {
+          name: "Asthma",
+          provider: "Dr. Adams",
+          date: "2023-02-20"
+        }
+      ],
+      allergies: [
+        {
+          name: "Shellfish",
+          severity: "Severe",
+          provider: "Dr. Carter"
+        }
+      ],
+      medications: [
+        {
+          name: "Albuterol",
+          dosage: "2 puffs",
+          provider: "Dr. Adams"
+        }
+      ],
+      procedures: [
+        {
+          name: "Tonsillectomy",
+          date: "2019-03-30",
+          provider: "Dr. Baker"
+        }
+      ],
+      immunizations: [
+        {
+          name: "COVID-19 Vaccine",
+          date: "2024-01-15",
+          provider: "Dr. Lee"
+        }
+      ],
+      labRecords: [
+        {
+          name: "Pulmonary Function Test",
+          value: "Normal",
+          date: "2023-11-30",
+          provider: "Respiratory Center"
+        }
+      ]
     }
   ]);
 
