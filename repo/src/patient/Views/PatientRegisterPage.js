@@ -6,6 +6,8 @@ export const PatientRegisterPage = ({ setCurrentScreen}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [name, setName] = useState('');
+  const [DOB, setDOB] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,10 +18,13 @@ export const PatientRegisterPage = ({ setCurrentScreen}) => {
       }
 
     try {
-      await createPatient(email, password)
+      await createPatient(email, password, name, DOB)
       setEmail('');
       setPassword('');
+      setName('');
+      setDOB('');
       setErrorMessage('');
+
       return;
     } catch (error) {
         console.error('Error checking document:', error);
@@ -44,12 +49,30 @@ export const PatientRegisterPage = ({ setCurrentScreen}) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
+
         <div className="input-group">
           <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="input-group">
+          <label>Date of Birth:</label>
+          <input
+            type="text"
+            value={DOB}
+            onChange={(e) => setDOB(e.target.value)}
           />
         </div>
         <div className="buttons-group">

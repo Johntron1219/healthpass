@@ -55,12 +55,14 @@ function PatientHomeScreen({ profile }) {
     setRandomJoke(joke);
   }, []);
 
+  console.log(profile.metadata["labRecords"]);
+
   return (
     <div className="patient-home">
       <h1>Welcome back, {profile.name}!</h1>
       <div className="patient-info">
         <p><strong>Patient Name:</strong> {profile.name}</p>
-        <p><strong>Date of Birth:</strong> {profile.dob || 'N/A'}</p> {/* Providing a fallback if dob isn't available */}
+        <p><strong>Date of Birth:</strong> {profile.DOB || 'N/A'}</p> {/* Providing a fallback if dob isn't available */}
         <p><strong>Email Address:</strong> {profile.email}</p>
       </div>
       <div className="joke-column">
