@@ -141,18 +141,21 @@ function ProviderScreen({ setCurrentScreen }) {
   };
 
   const handleSavePatient = (updatedPatient) => {
-    setPatientProfiles(prevProfiles => {
+    setPatientProfiles((prevProfiles) => {
       const index = prevProfiles.findIndex(profile => profile.email === updatedPatient.email);
       if (index !== -1) {
-        // Copy the array and update the patient at found index
         const newProfiles = [...prevProfiles];
         newProfiles[index] = updatedPatient;
-        return newProfiles; // This new array will be set as the new state
+        return newProfiles;
       }
-      return prevProfiles; // In case no matching patient was found, return the current state
+      return prevProfiles;
     });
+  
+    // Update the selectedPatient state to reflect the changes immediately
+    setSelectedPatient(updatedPatient);
+  
     console.log('Patient data saved', updatedPatient);
-    setProviderScreen('patientDetail'); // Optionally navigate away after save
+    setProviderScreen('patientDetail');
   };
 
   const handleCancelEdit = () => {
