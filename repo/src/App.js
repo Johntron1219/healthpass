@@ -30,6 +30,7 @@ function App() {
       {currentScreen === 'patientLogin' && <LoginPage setCurrentScreen={setCurrentScreen}/>}
       {currentScreen === 'providerLogin' && <ProviderLoginPage setCurrentScreen={setCurrentScreen} />}
       {currentScreen === 'provider' && <ProviderScreen setCurrentScreen={setCurrentScreen} />}
+      {currentScreen === 'patient' && <PatientScreen setCurrentScreen={setCurrentScreen} />}
     </div>
   );
 }
