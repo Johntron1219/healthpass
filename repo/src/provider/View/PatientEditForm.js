@@ -8,27 +8,27 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
 
   const handleInputChange = async (event, subarrayName, index) => {
     const { name, value } = event.target;
-    const updatedSubarray = [...patientData[subarrayName]];
+    const updatedSubarray = [...patientData.metadata[subarrayName]];
     updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
-    setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
-    updatePatientField(parseInt(patientData.pt), subarrayName, updatedSubarray);
+    setPatientData({ ...patientData, metadata: { ...patientData.metadata, [subarrayName]: updatedSubarray } });
+    updatePatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
   };
 
   const handleAddNewItem = (subarrayName) => {
-    const newItem = { name: '', provider: '', date: '' }; // Default structure for most items
-    if (subarrayName === 'labRecords') {
-      newItem.value = ''; // Additional field for lab records
-    }
-    const updatedSubarray = [...(patientData[subarrayName] || []), newItem];
-    setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
-    addPatientField(parseInt(patientData.pt), subarrayName);
+    const newItem = {};
+    Object.keys(patientData.metadata[subarrayName][0]).forEach(key => {
+      newItem[key] = '';
+    });
+    const updatedSubarray = [...patientData.metadata[subarrayName], newItem];
+    setPatientData({ ...patientData, metadata: { ...patientData.metadata, [subarrayName]: updatedSubarray } });
+    addPatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
   };
 
   const handleDeleteItem = (subarrayName, index) => {
-    const updatedSubarray = [...patientData[subarrayName]];
+    const updatedSubarray = [...patientData.metadata[subarrayName]];
     updatedSubarray.splice(index, 1);
-    setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
-    deletePatientField(parseInt(patientData.pt), subarrayName);
+    setPatientData({ ...patientData, metadata: { ...patientData.metadata, [subarrayName]: updatedSubarray } });
+    deletePatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
   };
 
   const handleSubmit = (event) => {
@@ -37,22 +37,15 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
   };
 
   const renderSubArrayFields = (subArrayName) => {
-    return (patientData[subArrayName] || []).map((item, index) => (
+    return (patientData.metadata[subArrayName] || []).map((item, index) => (
       <div key={index} className="subarray-fields">
         {/* Input fields for item details */}
-        <div>
-          <label>{`${subArrayName.slice(0, -1)} Name:`}</label>
-          <input type="text" name="name" value={item.name} onChange={(e) => handleInputChange(e, subArrayName, index)} />
-        </div>
-        <div>
-          <label>Provider:</label>
-          <input type="text" name="provider" value={item.provider} onChange={(e) => handleInputChange(e, subArrayName, index)} />
-        </div>
-        <div>
-          <label>Date:</label>
-          <input type="date" name="date" value={item.date} onChange={(e) => handleInputChange(e, subArrayName, index)} />
-        </div>
-        {/* Optional fields based on subarray type */}
+        {Object.keys(item).map((key) => (
+          <div key={key}>
+            <label>{`${key.charAt(0).toUpperCase() + key.slice(1)}:`}</label>
+            <input type="text" name={key} value={item[key]} onChange={(e) => handleInputChange(e, subArrayName, index)} />
+          </div>
+        ))}
         {/* Delete button for each item */}
         <button className="Smaller-blue-button" type="button" onClick={() => handleDeleteItem(subArrayName, index)}>Delete</button>
       </div>
@@ -62,7 +55,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
   return (
     <form onSubmit={handleSubmit}>
       {/* Dynamic rendering of sub-array fields and their respective add/delete buttons */}
-      {['conditions', 'allergies', 'medications', 'procedures', 'immunizations', 'labRecords'].map((subArrayName) => (
+      {['pastNPIs', 'medications', 'allergies', 'conditions', 'procedures', 'immunizations', 'labrecords'].map((subArrayName) => (
         <fieldset key={subArrayName}>
           <legend>{subArrayName.charAt(0).toUpperCase() + subArrayName.slice(1)}</legend>
           {renderSubArrayFields(subArrayName)}

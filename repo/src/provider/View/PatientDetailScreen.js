@@ -4,12 +4,9 @@ function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick 
   const formatItemList = (items) => {
     return items.map((item, index) => (
       <div key={index} className="profile-item-detail">
-        <p>{item.name}</p>
-        <p>Provider: {item.provider}</p>
-        <p>Date: {item.date}</p>
-        {item.severity && <p>Severity: {item.severity}</p>}
-        {item.dosage && <p>Dosage: {item.dosage}</p>}
-        {item.value && <p>Value: {item.value}</p>}
+        {Object.keys(item).map((key) => (
+          <p key={key}><strong>{`${key.charAt(0).toUpperCase() + key.slice(1)}:`}</strong> {item[key]}</p>
+        ))}
       </div>
     )) || <p>None</p>;
   };
@@ -20,29 +17,26 @@ function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick 
         Back to Patient List
       </button>
       <h1 className="profile-name">{selectedPatientProfile.name}</h1>
-      <p className="profile-dob">DOB: {selectedPatientProfile.dob}</p>
-      <p className="profile-address">Address: {selectedPatientProfile.address}</p>
+      <p className="profile-dob">DOB: {selectedPatientProfile.DOB}</p>
       <p className="profile-email">Email: {selectedPatientProfile.email}</p>
-      <p className="profile-policy-number">Policy Number: {selectedPatientProfile.insurancePolicyNumber}</p>
-      <p className="profile-insurance-plan">Plan: {selectedPatientProfile.insurancePlan}</p>
 
       <h2>Conditions</h2>
-      {formatItemList(selectedPatientProfile.conditions)}
+      {formatItemList(selectedPatientProfile.metadata.conditions)}
 
       <h2>Allergies</h2>
-      {formatItemList(selectedPatientProfile.allergies)}
+      {formatItemList(selectedPatientProfile.metadata.allergies)}
 
       <h2>Medications</h2>
-      {formatItemList(selectedPatientProfile.medications)}
+      {formatItemList(selectedPatientProfile.metadata.medications)}
 
       <h2>Procedures</h2>
-      {formatItemList(selectedPatientProfile.procedures)}
+      {formatItemList(selectedPatientProfile.metadata.procedures)}
 
       <h2>Immunizations</h2>
-      {formatItemList(selectedPatientProfile.immunizations)}
+      {formatItemList(selectedPatientProfile.metadata.immunizations)}
 
       <h2>Lab Records</h2>
-      {formatItemList(selectedPatientProfile.labRecords)}
+      {formatItemList(selectedPatientProfile.metadata.labrecords)}
 
       <button className="Small-orange-button" onClick={onEditClick}>
         Edit Profile
