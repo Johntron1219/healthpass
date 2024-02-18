@@ -3,13 +3,13 @@ import placeholderImage from '../../public/Elf.webp';
 import PatientHomeScreen from './PatientHomeScreen';
 import PatientProfileScreen from './PatientProfileScreen';
 import ApprovalsScreen from './ApprovalsScreen';
-import getPatientData from '../Backend/getPatientData'; // Correct import
-import getConditions from '../Backend/getConditions';
-import getAllergies from '../Backend/getAllergies';
-import getMedications from '../Backend/getMedications';
-import getProcedures from '../Backend/getProcedures';
-import getImmunizations from '../Backend/getImmunizations';
-import getLabRecords from '../Backend/getLabRecords';
+import getPatientData from '../Backend/getRecords/getPatientData'; // Correct import
+import getConditions from '../Backend/getRecords/getConditions';
+import getAllergies from '../Backend/getRecords/getAllergies';
+import getMedications from '../Backend/getRecords/getMedications';
+import getProcedures from '../Backend/getRecords/getProcedures';
+import getImmunizations from '../Backend/getRecords/getImmunizations';
+import getLabRecords from '../Backend/getRecords/getLabRecords';
 function PatientScreen({ setCurrentScreen }) {
   const [patientScreen, setPatientScreen] = useState('home');
   const [profile, setProfile] = useState(null);

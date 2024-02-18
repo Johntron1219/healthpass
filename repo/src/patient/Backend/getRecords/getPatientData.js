@@ -1,4 +1,4 @@
-import { database } from '../../firebase'; // Adjust the path as necessary
+import { database } from '../../../firebase'; // Adjust the path as necessary
 
 export const getAllPatientData = async (id) => {
     try {

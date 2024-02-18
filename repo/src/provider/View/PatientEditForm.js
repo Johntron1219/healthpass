@@ -63,8 +63,8 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
           <button type="button" onClick={() => handleAddNewItem(subArrayName)}>Add New {subArrayName.slice(0, -1)}</button>
         </fieldset>
       ))}
-      <button className="Small-orange-button" type="submit">Save Changes</button>
-      <button className="Small-orange-button" type="button" onClick={onCancel}>Cancel</button>
+      <button className="Smaller-orange-button" type="submit">Save Changes</button>
+      <button className="Smaller-orange-button" type="button" onClick={onCancel}>Cancel</button>
     </form>
   );
 }
