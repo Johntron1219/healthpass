@@ -6,6 +6,7 @@ function PatientListScreen({ providerProfile, onPatientSelect, patientProfiles, 
   useEffect(() => {
     const fetchPatientData = async () => {
       try {
+        console.log(providerProfile)
         const patientDataList = await fetchAuthorizedPatientsData(providerProfile["AuthorizedPatients"]);
         setPatientProfiles(patientDataList);
       } catch (error) {

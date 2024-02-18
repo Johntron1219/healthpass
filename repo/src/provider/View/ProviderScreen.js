@@ -88,7 +88,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       screenComponent = <ProviderProfileScreen profile={profile} />;
       break;
     case 'patientList':
-      screenComponent = <PatientListScreen patientProfiles={patientProfiles} onPatientSelect={handleSelectPatient} setPatientProfiles={setPatientProfiles}/>;
+      screenComponent = <PatientListScreen providerProfile={profile} patientProfiles={patientProfiles} onPatientSelect={handleSelectPatient} setPatientProfiles={setPatientProfiles}/>;
       break;
     case 'patientDetail':
       screenComponent = <PatientDetailScreen selectedPatientProfile={selectedPatient} onBackClick={handleBackToList} onEditClick={handleEditPatient} />;
