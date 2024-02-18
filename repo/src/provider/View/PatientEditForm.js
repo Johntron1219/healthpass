@@ -11,6 +11,7 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     const updatedSubarray = [...patientData[subarrayName]];
     updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
     setPatientData({ ...patientData, [subarrayName]: updatedSubarray });
+    console.log(patientData.pt);
     updatePatientField(patientData.pt, subarrayName, value);
   };
 
