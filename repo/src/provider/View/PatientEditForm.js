@@ -3,15 +3,31 @@ import { updatePatientField } from '../../patient/Backend/updatePatientField';
 import { addPatientField } from '../../patient/Backend/addPatientField';
 import { deletePatientField } from '../../patient/Backend/deletePatientField';
 
+
+/*
+- handle local unsaved version copy of patient data
+- handle app wide version of patient data (retrieved from last api call)
+- call updatePatientField after save edits are made (calls with pid and patientProfile)
+
+- add item
+- delete item
+- edit specific field within the item
+
+- inputs - broadPatientData (selectedPatientProfile), setPatientProfile, s
+*/
 function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
   const [patientData, setPatientData] = useState({ ...selectedPatientProfile });
 
+  const [unsavedPatientData, setUnsavedPatientData] = useState(selectedPatientProfile)
+
   const handleInputChange = async (event, subarrayName, index) => {
+    
     const { name, value } = event.target;
-    const updatedSubarray = [...patientData.metadata[subarrayName]];
+    const updatedSubarray = [...unsavedPatientData.metadata[subarrayName]];
     updatedSubarray[index] = { ...updatedSubarray[index], [name]: value };
-    setPatientData({ ...patientData, metadata: { ...patientData.metadata, [subarrayName]: updatedSubarray } });
-    updatePatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
+    setUnsavedPatientData({ ...unsavedPatientData, metadata: { ...unsavedPatientData.metadata, [subarrayName]: updatedSubarray } });
+    console.log(unsavedPatientData)
+    // updatePatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
   };
 
   const handleAddNewItem = (subarrayName) => {
@@ -19,35 +35,38 @@ function PatientEditForm({ selectedPatientProfile, onSave, onCancel }) {
     Object.keys(patientData.metadata[subarrayName][0]).forEach(key => {
       newItem[key] = '';
     });
-    const updatedSubarray = [...patientData.metadata[subarrayName], newItem];
-    setPatientData({ ...patientData, metadata: { ...patientData.metadata, [subarrayName]: updatedSubarray } });
-    addPatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
+    const updatedSubarray = [...unsavedPatientData.metadata[subarrayName]];
+    updatedSubarray.push(newItem);
+    setUnsavedPatientData({ ...unsavedPatientData, metadata: { ...unsavedPatientData.metadata, [subarrayName]: updatedSubarray } });
+    // addPatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
   };
 
   const handleDeleteItem = (subarrayName, index) => {
-    const updatedSubarray = [...patientData.metadata[subarrayName]];
+    const updatedSubarray = [...unsavedPatientData.metadata[subarrayName]];
     updatedSubarray.splice(index, 1);
-    setPatientData({ ...patientData, metadata: { ...patientData.metadata, [subarrayName]: updatedSubarray } });
-    deletePatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
+    setUnsavedPatientData({ ...unsavedPatientData, metadata: { ...unsavedPatientData.metadata, [subarrayName]: updatedSubarray } });
+    // deletePatientField(parseInt(patientData.PID), 'metadata', { [subarrayName]: updatedSubarray });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevents the default form submission
-    onSave(patientData); // This will call the `handleSavePatient` function passed as a prop
+    onSave(unsavedPatientData); // This will call the `handleSavePatient` function passed as a prop
   };
 
   const renderSubArrayFields = (subArrayName) => {
-    return (patientData.metadata[subArrayName] || []).map((item, index) => (
+    return (unsavedPatientData.metadata[subArrayName] || []).map((item, index) => (
       <div key={index} className="subarray-fields">
         {/* Input fields for item details */}
         {Object.keys(item).map((key) => (
           <div key={key}>
             <label>{`${key.charAt(0).toUpperCase() + key.slice(1)}:`}</label>
             <input type="text" name={key} value={item[key]} onChange={(e) => handleInputChange(e, subArrayName, index)} />
+
           </div>
         ))}
         {/* Delete button for each item */}
         <button className="Smaller-blue-button" type="button" onClick={() => handleDeleteItem(subArrayName, index)}>Delete</button>
+        
       </div>
     ));
   };
