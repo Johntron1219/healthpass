@@ -3,7 +3,7 @@ import placeholderImage from './Elf.webp';
 import PatientHomeScreen from './PatientHomeScreen';
 import PatientProfileScreen from './PatientProfileScreen';
 import ApprovalsScreen from './ApprovalsScreen';
-import fetchPtData from './fetchptdata'; // Correct import
+import fetchPtData from '../Backend/fetchptdata'; // Correct import
 
 function PatientScreen({ setCurrentScreen }) {
   const [patientScreen, setPatientScreen] = useState('home');
