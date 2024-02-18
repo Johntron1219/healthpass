@@ -2,6 +2,8 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
+import { getProviderNameByNPI } from './util';
+
 // Initialize Firebase app with your configuration
 const firebaseConfig = {
     // Your Firebase config here
@@ -21,11 +23,11 @@ export async function getAllergies(pt) {
         if (snapshot.exists) {
             const data = snapshot.data();
             if (data && data.metadata && data.metadata.allergies) {
-                return data.metadata.allergies.map(allergies => ({
+                return await Promise.all(data.metadata.allergies.map(async (allergies) => ({
                     name: allergies.allergen || "",
-                    provider: allergies.NPI || "",
+                    provider: (await getProviderNameByNPI(allergies.NPI)) || "",
                     severity: allergies.reaction || ""
-                }));
+                })));
             } else {
                 console.log("No conditions data found for the patient.");
                 return [];

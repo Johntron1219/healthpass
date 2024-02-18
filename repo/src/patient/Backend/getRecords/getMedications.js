@@ -2,6 +2,9 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
+import { getProviderNameByNPI } from './util';
+
+
 // Initialize Firebase app with your configuration
 const firebaseConfig = {
     // Your Firebase config here
@@ -21,11 +24,11 @@ export async function getMedications(pt) {
         if (snapshot.exists) {
             const data = snapshot.data();
             if (data && data.metadata && data.metadata.medications) {
-                return data.metadata.medications.map(medications => ({
+                return await Promise.all(data.metadata.medications.map(async (medications) => ({
                     name: medications.NDC || "",
                     dosage: medications.dose || "",
-                    provider: medications.NPI || ""
-                }));
+                    provider: (await getProviderNameByNPI(medications.NPI)) || ""
+                })));
             } else {
                 console.log("No conditions data found for the patient.");
                 return [];
