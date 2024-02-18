@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProviderHomeScreen from './ProviderHomeScreen';
 import ProviderProfileScreen from './ProviderProfileScreen';
 import PatientListScreen from './PatientListScreen';
@@ -6,7 +6,13 @@ import PatientDetailScreen from './PatientDetailScreen';
 import PatientEditForm from './PatientEditForm';
 import RequestsScreen from './RequestsScreen';
 import Pic from '../../public/DTS.webp';
-
+import getPatientData from '../Backend/getRecords/getPatientData'; // Correct import
+import getConditions from '../Backend/getRecords/getConditions';
+import getAllergies from '../Backend/getRecords/getAllergies';
+import getMedications from '../Backend/getRecords/getMedications';
+import getProcedures from '../Backend/getRecords/getProcedures';
+import getImmunizations from '../Backend/getRecords/getImmunizations';
+import getLabRecords from '../Backend/getRecords/getLabRecords';
 function ProviderScreen({ setCurrentScreen }) {
   const [providerScreen, setProviderScreen] = useState('home');
   const [selectedPatient, setSelectedPatient] = useState(null);
@@ -18,228 +24,37 @@ function ProviderScreen({ setCurrentScreen }) {
     email: "jose.doe@example.com",
     NPI: "1234567890",
   };
-  const [patientProfiles, setPatientProfiles] = useState([
-    {
-      name: "John Doe",
-      lastEditDate: "2024-02-17",
-      dob: "1980-02-18",
-      address: "123 Main St, Anytown, AN 12345",
-      email: "john.doe@example.com",
-      insurancePolicyNumber: "XYZ123456789",
-      insurancePlan: "Basic Health Plan",
-      conditions: [
-        {
-          name: "Hypertension",
-          provider: "Dr. Smith",
-          date: "2023-01-15"
-        }
-      ],
-      allergies: [
-        {
-          name: "Pollen",
-          severity: "Mild",
-          provider: "Dr. Johnson"
-        }
-      ],
-      medications: [
-        {
-          name: "Lisinopril",
-          dosage: "10 mg",
-          provider: "Dr. Smith"
-        }
-      ],
-      procedures: [
-        {
-          name: "Appendectomy",
-          date: "2015-05-20",
-          provider: "Dr. Brown"
-        }
-      ],
-      immunizations: [
-        {
-          name: "Influenza",
-          date: "2022-10-01",
-          provider: "Dr. Lee"
-        }
-      ],
-      labRecords: [
-        {
-          name: "CBC",
-          value: "Normal",
-          date: "2024-01-10",
-          provider: "LabCorp"
-        },
-        {
-          name: "Cholesterol",
-          value: "Slightly High",
-          date: "2023-12-15",
-          provider: "Quest Diagnostics"
-        }
-      ]
-    },
-    {
-      name: "Jane Smith",
-      lastEditDate: "2024-02-16",
-      dob: "1985-08-25",
-      address: "456 Oak St, Somecity, AN 23456",
-      email: "jane.smith@example.com",
-      insurancePolicyNumber: "XYZ987654321",
-      insurancePlan: "Premium Health Plan",
-      conditions: [
-        {
-          name: "Asthma",
-          provider: "Dr. Adams",
-          date: "2023-02-20"
-        }
-      ],
-      allergies: [
-        {
-          name: "Shellfish",
-          severity: "Severe",
-          provider: "Dr. Carter"
-        }
-      ],
-      medications: [
-        {
-          name: "Albuterol",
-          dosage: "2 puffs",
-          provider: "Dr. Adams"
-        }
-      ],
-      procedures: [
-        {
-          name: "Tonsillectomy",
-          date: "2019-03-30",
-          provider: "Dr. Baker"
-        }
-      ],
-      immunizations: [
-        {
-          name: "COVID-19 Vaccine",
-          date: "2024-01-15",
-          provider: "Dr. Lee"
-        }
-      ],
-      labRecords: [
-        {
-          name: "Pulmonary Function Test",
-          value: "Normal",
-          date: "2023-11-30",
-          provider: "Respiratory Center"
-        }
-      ]
-    }, 
-    {
-      name: "John Doe",
-      lastEditDate: "2024-02-17",
-      dob: "1980-02-18",
-      address: "123 Main St, Anytown, AN 12345",
-      email: "john.doe@example.com",
-      insurancePolicyNumber: "XYZ123456789",
-      insurancePlan: "Basic Health Plan",
-      conditions: [
-        {
-          name: "Hypertension",
-          provider: "Dr. Smith",
-          date: "2023-01-15"
-        }
-      ],
-      allergies: [
-        {
-          name: "Pollen",
-          severity: "Mild",
-          provider: "Dr. Johnson"
-        }
-      ],
-      medications: [
-        {
-          name: "Lisinopril",
-          dosage: "10 mg",
-          provider: "Dr. Smith"
-        }
-      ],
-      procedures: [
-        {
-          name: "Appendectomy",
-          date: "2015-05-20",
-          provider: "Dr. Brown"
-        }
-      ],
-      immunizations: [
-        {
-          name: "Influenza",
-          date: "2022-10-01",
-          provider: "Dr. Lee"
-        }
-      ],
-      labRecords: [
-        {
-          name: "CBC",
-          value: "Normal",
-          date: "2024-01-10",
-          provider: "LabCorp"
-        },
-        {
-          name: "Cholesterol",
-          value: "Slightly High",
-          date: "2023-12-15",
-          provider: "Quest Diagnostics"
-        }
-      ]
-    },
-    {
-      name: "Jane Smith",
-      lastEditDate: "2024-02-16",
-      dob: "1985-08-25",
-      address: "456 Oak St, Somecity, AN 23456",
-      email: "jane.smith@example.com",
-      insurancePolicyNumber: "XYZ987654321",
-      insurancePlan: "Premium Health Plan",
-      conditions: [
-        {
-          name: "Asthma",
-          provider: "Dr. Adams",
-          date: "2023-02-20"
-        }
-      ],
-      allergies: [
-        {
-          name: "Shellfish",
-          severity: "Severe",
-          provider: "Dr. Carter"
-        }
-      ],
-      medications: [
-        {
-          name: "Albuterol",
-          dosage: "2 puffs",
-          provider: "Dr. Adams"
-        }
-      ],
-      procedures: [
-        {
-          name: "Tonsillectomy",
-          date: "2019-03-30",
-          provider: "Dr. Baker"
-        }
-      ],
-      immunizations: [
-        {
-          name: "COVID-19 Vaccine",
-          date: "2024-01-15",
-          provider: "Dr. Lee"
-        }
-      ],
-      labRecords: [
-        {
-          name: "Pulmonary Function Test",
-          value: "Normal",
-          date: "2023-11-30",
-          provider: "Respiratory Center"
-        }
-      ]
-    }
-  ]);
+  const [patientProfiles, setPatientProfiles] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const pt = "0002";
+      const name = await getPatientData(pt, "metadata.firstname") + " " + await getPatientData(pt, "metadata.middlename") + " " + await getPatientData(pt, "metadata.lastname");
+      const address = await getPatientData(pt, "metadata.address") + ", " + await getPatientData(pt, "metadata.city") + ", " + await getPatientData(pt, "metadata.state") + " " + await getPatientData(pt, "metadata.zip");
+
+      const data = {
+        name,
+        lastEditDate: "2024-02-17",
+        address,
+        dob: await getPatientData(pt, "metadata.monthofbirth") + "/" + await getPatientData(pt, "metadata.dayofbirth") + "/" + await getPatientData(pt, "metadata.yearofbirth"),
+        email: await getPatientData(pt, "email"),
+        insurancePolicyNumber: await getPatientData(pt, "metadata.insurancename"),
+        insurancePlan: await getPatientData(pt, "metadata.insurancenum"),
+        conditions: await getConditions(pt),
+        allergies: await getAllergies(pt),
+        medications: await getMedications(pt),
+        procedures: await getProcedures(pt),
+        immunizations: await getImmunizations(pt),
+        labRecords: await getLabRecords(pt)
+      };
+
+      return data;
+    };
+
+    fetchData().then((data) => {
+      setPatientProfiles([data]);
+    });
+  }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
 
   const handleSelectPatient = (patient) => {
     setSelectedPatient(patient);
@@ -260,10 +75,10 @@ function ProviderScreen({ setCurrentScreen }) {
       }
       return prevProfiles;
     });
-  
+
     // Update the selectedPatient state to reflect the changes immediately
     setSelectedPatient(updatedPatient);
-  
+
     console.log('Patient data saved', updatedPatient);
     setProviderScreen('patientDetail');
   };
@@ -305,12 +120,12 @@ function ProviderScreen({ setCurrentScreen }) {
     <div className="provider-screen">
       {screenComponent}
       <div className="navigation-buttons">
-        <button className ="Small-blue-button" onClick={() => setProviderScreen('home')}>Home</button>
-        <button className ="Small-blue-button" onClick={() => setProviderScreen('patientList')}>Patient Edit</button>
-        <button className ="Small-blue-button" onClick={() => setProviderScreen('profile')}>Profile</button>
-        <button className ="Small-blue-button" onClick={() => setProviderScreen('requests')}>Requests</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('home')}>Home</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('patientList')}>Patient Edit</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('profile')}>Profile</button>
+        <button className="Small-blue-button" onClick={() => setProviderScreen('requests')}>Requests</button>
       </div>
-      <button className ="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
+      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
     </div>
   );
 }

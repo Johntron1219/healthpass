@@ -50,5 +50,4 @@ function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick 
     </div>
   );
 }
-
 export default PatientDetailScreen;
