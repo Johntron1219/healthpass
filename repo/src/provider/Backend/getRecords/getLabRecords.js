@@ -1,4 +1,4 @@
-export async function getLabRecords(pt) {
+export async function getLabRecords(data) {
             if (data && data.metadata && data.metadata.labrecords) {
                 // console.log( await getClinicalTables(data.metadata.labrecords[0].HCPCS, "hcpcs") )
                 return await Promise.all(data.metadata.labrecords.map(async (labrecords) => {

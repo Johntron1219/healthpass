@@ -1,4 +1,4 @@
-export async function getConditions(pt) {
+export async function getConditions(data) {
     if (data && data.metadata && data.metadata.conditions) {
                 const conditions = await Promise.all(data.metadata.conditions.map(async condition => {
                     try {

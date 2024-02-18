@@ -1,4 +1,4 @@
-export async function getImmunizations(pt) {
+export async function getImmunizations(data) {
             if (data && data.metadata && data.metadata.immunizations) {
                 return Promise.all(data.metadata.immunizations.map(async (immunizations) => ({
                     name: immunizations.HCPCS || "",

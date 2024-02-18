@@ -1,4 +1,4 @@
-export async function getMedications(pt) {
+export async function getMedications(data) {
     if (data && data.metadata && data.metadata.medications) {
         return await Promise.all(data.metadata.medications.map(async (medications) => ({
             name: medications.NDC || "",
