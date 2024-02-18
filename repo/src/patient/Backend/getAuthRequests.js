@@ -4,5 +4,5 @@ import { getAllPatientData } from "./getPatientData"
 
 export const getAuthRequests = async (patientID) => {
     const data = await getAllPatientData(patientID) 
-    return data["incomingauthrequests"]
+    return data["incomingrequests"]
 }

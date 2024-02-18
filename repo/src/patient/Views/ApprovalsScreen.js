@@ -17,7 +17,7 @@ export const ApprovalsScreen = ({ patientID }) => {
   const fetchData = async (patientID) => {
     try {
       const response = await getAllPatientData(patientID);
-      setAuthData(response['incomingauthrequests']);
+      setAuthData(response['incomingrequests']);
       setProviderList(response['AuthorizedNPIs']);
     } catch (error) {
       console.error('Error fetching data:', error);
