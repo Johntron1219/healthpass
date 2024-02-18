@@ -1,26 +1,26 @@
-// RequestsScreen.js
-import React from 'react';
-import {getProviderData} from '../Backend/getProviderData'
-import { useState, useEffect } from 'react';
-import {approvePatientHandler, denyPatientHandler, 
-  initiateRequestHandler, removeAuthorizationHandler} from '../Backend/authorizationRequestHandler'
+import React, { useState, useEffect } from 'react';
+import { getProviderData } from '../Backend/getProviderData';
+import {
+  approvePatientHandler,
+  denyPatientHandler,
+  initiateRequestHandler,
+  removeAuthorizationHandler
+} from '../Backend/authorizationRequestHandler';
 
-function RequestsScreen({providerNPI}) {
-
+function RequestsScreen({ providerNPI }) {
   const [authData, setAuthData] = useState([]);
   const [patientList, setPatientList] = useState([]);
   const [initiateRequestPID, setInitiateRequestPID] = useState('');
 
   useEffect(() => {
     fetchData(providerNPI);
-  }, [providerNPI]); // Dependency array with patientID to refetch when it changes
+  }, [providerNPI]);
 
   const fetchData = async (NPI) => {
     try {
-      console.log(NPI)
       const response = await getProviderData(NPI);
-      setAuthData(response['incomingrequests']);
-      setPatientList(response['AuthorizedPatients']);
+      setAuthData(response?.incomingrequests || []);
+      setPatientList(response?.AuthorizedPatients || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -28,23 +28,23 @@ function RequestsScreen({providerNPI}) {
 
   const handleApprove = async (PID) => {
     await approvePatientHandler(providerNPI, PID);
-    fetchData(providerNPI); // Refresh the data after action
+    fetchData(providerNPI);
   };
 
   const handleDeny = async (PID) => {
     await denyPatientHandler(providerNPI, PID);
-    fetchData(providerNPI); // Refresh the data after action
+    fetchData(providerNPI);
   };
 
   const handleRemove = async (PID) => {
     await removeAuthorizationHandler(providerNPI, PID);
-    fetchData(providerNPI); // Refresh the data after action
+    fetchData(providerNPI);
   };
 
   const handleInitiateRequest = async () => {
     await initiateRequestHandler(providerNPI, initiateRequestPID);
-    setInitiateRequestPID(''); // Clear the input after submission
-    fetchData(providerNPI); // Refresh the data after action
+    setInitiateRequestPID('');
+    fetchData(providerNPI);
   };
 
   return (
