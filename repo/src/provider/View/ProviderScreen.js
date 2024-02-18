@@ -12,6 +12,7 @@ function ProviderScreen({ setCurrentScreen }) {
     name: "Jose Doe",
     address: "123 Main St, Anytown, AN 12345",
     photo: placeholderImage,
+    phone: "12345678",
     email: "jose.doe@example.com",
     NPI: "1234567890",
   };
@@ -20,60 +21,115 @@ function ProviderScreen({ setCurrentScreen }) {
   const patientProfiles = [
     {
       name: "John Doe",
-      address: "456 Elm St, Somewhere, CA 67890",
+      lastEditDate: "2024-02-17",
+      dob: "1980-02-18",
+      address: "123 Main St, Anytown, AN 12345",
       email: "john.doe@example.com",
-      insurancePolicyNumber: "ABC123",
-      insurancePlan: "Health Plan A",
-      healthConditions: ["Diabetes", "Hypertension"],
-      allergies: ["Pollen", "Penicillin"],
-      medications: ["Insulin", "Lisinopril"],
-      immunization: ["Flu vaccine 2023"],
-      labRecords: ["Blood glucose test - 2022/12/31"],
-      medicalHistory: ["Appendectomy - 2018"],
-      medicalConditions: ["Type 2 Diabetes", "High Blood Pressure"],
-      editDates: {
-        name: "2024-02-17",
-        address: "2024-02-16",
-        email: "2024-02-15",
-        insurancePolicyNumber: "2024-02-14",
-        insurancePlan: "2024-02-13",
-        healthConditions: "2024-02-12",
-        allergies: "2024-02-11",
-        medications: "2024-02-10",
-        immunization: "2024-02-09",
-        labRecords: "2024-02-08",
-        medicalHistory: "2024-02-07",
-        medicalConditions: "2024-02-06",
-      },
+      insurancePolicyNumber: "XYZ123456789",
+      insurancePlan: "Basic Health Plan",
+      conditions: [
+        {
+          name: "Hypertension",
+          provider: "Dr. Smith",
+          date: "2023-01-15"
+        }
+      ],
+      allergies: [
+        {
+          name: "Pollen",
+          severity: "Mild",
+          provider: "Dr. Johnson"
+        }
+      ],
+      medications: [
+        {
+          name: "Lisinopril",
+          dosage: "10 mg",
+          provider: "Dr. Smith"
+        }
+      ],
+      procedures: [
+        {
+          name: "Appendectomy",
+          date: "2015-05-20",
+          provider: "Dr. Brown"
+        }
+      ],
+      immunizations: [
+        {
+          name: "Influenza",
+          date: "2022-10-01",
+          provider: "Dr. Lee"
+        }
+      ],
+      labRecords: [
+        {
+          name: "CBC",
+          value: "Normal",
+          date: "2024-01-10",
+          provider: "LabCorp"
+        },
+        {
+          name: "Cholesterol",
+          value: "Slightly High",
+          date: "2023-12-15",
+          provider: "Quest Diagnostics"
+        }
+      ]
     },
     {
       name: "Jane Smith",
-      address: "789 Oak Ave, Nowhere, TX 54321",
+      lastEditDate: "2024-02-16",
+      dob: "1985-08-25",
+      address: "456 Oak St, Somecity, AN 23456",
       email: "jane.smith@example.com",
-      insurancePolicyNumber: "XYZ456",
-      insurancePlan: "Health Plan B",
-      healthConditions: ["Asthma"],
-      allergies: ["Shellfish"],
-      medications: ["Albuterol"],
-      immunization: ["COVID-19 vaccine - 2024/01/15"],
-      labRecords: ["Pulmonary function test - 2023/11/30"],
-      medicalHistory: ["Fractured arm - 2021"],
-      medicalConditions: ["Asthma"],
-      editDates: {
-        name: "2024-02-17",
-        address: "2024-02-16",
-        email: "2024-02-15",
-        insurancePolicyNumber: "2024-02-14",
-        insurancePlan: "2024-02-13",
-        healthConditions: "2024-02-12",
-        allergies: "2024-02-11",
-        medications: "2024-02-10",
-        immunization: "2024-02-09",
-        labRecords: "2024-02-08",
-        medicalHistory: "2024-02-07",
-        medicalConditions: "2024-02-06",
-      },
-    },
+      insurancePolicyNumber: "XYZ987654321",
+      insurancePlan: "Premium Health Plan",
+      conditions: [
+        {
+          name: "Asthma",
+          provider: "Dr. Adams",
+          date: "2023-02-20"
+        }
+      ],
+      allergies: [
+        {
+          name: "Shellfish",
+          severity: "Severe",
+          provider: "Dr. Carter"
+        }
+      ],
+      medications: [
+        {
+          name: "Albuterol",
+          dosage: "2 puffs",
+          provider: "Dr. Adams"
+        }
+      ],
+      procedures: [
+        {
+          name: "Tonsillectomy",
+          date: "2019-03-30",
+          provider: "Dr. Baker"
+        }
+      ],
+      immunizations: [
+        {
+          name: "COVID-19 Vaccine",
+          date: "2024-01-15",
+          provider: "Dr. Lee"
+        }
+      ],
+      labRecords: [
+        {
+          name: "Pulmonary Function Test",
+          value: "Normal",
+          date: "2023-11-30",
+          provider: "Respiratory Center"
+        }
+      ]
+    }
+    // Add additional patient profiles as needed...
   ];
 
   // Function to handle authorization of patient health records
