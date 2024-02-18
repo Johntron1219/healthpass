@@ -20,6 +20,14 @@ const firestore = firebase.firestore();
 const updatePatientField = async (pid, field, value) => {
   try {
       const documentRef = firebase.firestore().collection('patients').doc(pid.toString());
+
+      // Check if the document exists before attempting to update it
+      const docSnapshot = await documentRef.get();
+      if (!docSnapshot.exists) {
+          throw new Error('Document does not exist'); // Handle the case where the document doesn't exist
+      }
+
+      // Proceed with updating the field
       await documentRef.update({
           [field]: value
       });
