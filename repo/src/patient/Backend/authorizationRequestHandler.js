@@ -60,7 +60,7 @@ export const initiateRequestHandler = async (patientID, NPI) => {
           const timestamp = currentDate.toLocaleDateString();
           const reqObj = {
             PID: patientID,
-            patientName: 'sarah',
+            patientName: 'test_beta',
             requestDate: timestamp
           }
           requestQueue.push(reqObj)
