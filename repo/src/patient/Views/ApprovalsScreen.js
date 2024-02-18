@@ -1,13 +1,12 @@
 // ApprovalsScreen.js
 import React from 'react';
+import './ApprovalsScreen.css'; // Ensure this is the correct path to your CSS file
 
 import { useState, useEffect } from 'react';
 
 import {approveProviderHandler, denyProviderHandler, 
   initiateRequestHandler, removeAuthorizationHandler} from '../Backend/authorizationRequestHandler';
 import { getAllPatientData } from '../Backend/getRecords/getPatientData';
-
-
 
 /*
 call backend function that will retrieve 
@@ -46,48 +45,44 @@ export const ApprovalsScreen = ({patientID}) => {
   //use this for confirmation message const [confirmAuth, setConfirmAuth] = useState(true); 
 
   return (
-    authData ? (<div className="approvals-screen">
-      <div>
+    authData ? (
+      <div className="approvals-screen">
         <h1>Approvals</h1>
-        <div className="approval-item">
+        
+        <section className="authorization-requests">
           <h2>Provider Authorization Requests</h2>
           {authData.map((request) => (
             <div key={request.NPI} className="request-item">
-              {request.providerName} - {request.requestDate.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
-              <button className="A-pink-button" onClick={() => approveProviderHandler(patientID, request.NPI)}>Approve</button>
-
-              <button className="A-pink-button" onClick={() => denyProviderHandler(patientID, request.NPI)}>Deny</button>
-              
+              <span>{request.providerName} - {request.requestDate.toDate().toLocaleDateString()}</span>
+              <button onClick={() => approveProviderHandler(patientID, request.NPI)}>Approve</button>
+              <button onClick={() => denyProviderHandler(patientID, request.NPI)}>Deny</button>
             </div>
           ))}
-        </div>
-        </div> 
-        <div className="provider-list" style ={{display: 'block'}}>
+        </section>
+        
+        <section className="authorized-providers">
           <h2>List of Authorized Providers</h2>
           {providerList.map((NPI) => (
-            <div key={NPI} style={{display: 'inline'}}> 
-              <p> 
-                {NPI} 
-                <button onClick={() => removeAuthorizationHandler(patientID, NPI)}>Remove</button>
-              </p> 
-            </div>))}
-        </div>
+            <div key={NPI} className="provider-item">
+              <span>{NPI}</span>
+              <button onClick={() => removeAuthorizationHandler(patientID, NPI)}>Remove</button>
+            </div>
+          ))}
+        </section>
 
-        <div className="provider-list">
-          <div>
-          <label>Connect with provider NPI: 
-            <input
-                type="text"
-                value={initiateRequestNPI}
-                onChange={(e) => setInitiateRequestNPI(e.target.value)}
-                placeholder="Enter text..."
-            />
-            <button onClick={() => initiateRequestHandler(patientID, initiateRequestNPI)}>Submit</button>
-          </label>
-          </div>
-          
-        </div>
-    </div>) : null
+        <section className="connect-provider">
+          <label htmlFor="providerNPI">Connect with provider NPI:</label>
+          <input
+            id="providerNPI"
+            type="text"
+            value={initiateRequestNPI}
+            onChange={(e) => setInitiateRequestNPI(e.target.value)}
+            placeholder="Enter NPI..."
+          />
+          <button onClick={() => initiateRequestHandler(patientID, initiateRequestNPI)}>Submit</button>
+        </section>
+      </div>
+    ) : null
   );
 }
 
