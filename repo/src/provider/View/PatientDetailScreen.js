@@ -16,7 +16,7 @@ function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick 
 
   return (
     <div className="patient-profile">
-      <button onClick={onBackClick}>
+      <button className="Small-orange-button" onClick={onBackClick}>
         Back to Patient List
       </button>
       <h1 className="profile-name">{selectedPatientProfile.name}</h1>
@@ -44,7 +44,7 @@ function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick 
       <h2>Lab Records</h2>
       {formatItemList(selectedPatientProfile.labRecords)}
 
-      <button onClick={onEditClick}>
+      <button className="Small-orange-button" onClick={onEditClick}>
         Edit Profile
       </button>
     </div>
