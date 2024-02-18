@@ -49,7 +49,7 @@ export const ProviderLoginPage = ({ setCurrentScreen, setCurrentID}) => {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <form onSubmit={handleSubmit} className="login-form">
         <div className="input-group">
-          <label>Username:</label>
+          <label>NPI:</label>
           <input
             type="text"
             value={username}
