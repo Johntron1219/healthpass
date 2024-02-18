@@ -1,17 +1,18 @@
 import React from 'react';
+import './ProviderProfileScreen.css'; // Make sure this path is correct
 
 function ProviderProfileScreen({ profile }) {
   return (
-    <div className="provider-profile">
-      <div className="profile-header">
-        <img src={profile.photo} className="Profile-photo" alt={`${profile.name}`} />
+    <div className="provider-profile-card">
+      <div className="profile-card-header">
+        <img src={profile.photo} className="profile-photo" alt={`${profile.name} profile`} />
         <h1 className="profile-name">{profile.name}</h1>
       </div>
-      <div className="profile-details">
-        <p><strong>Address:</strong> {profile.address}</p>
-        <p><strong>Email:</strong> {profile.email}</p>
-        <p><strong>Phone:</strong> {profile.phone}</p>
-        <p><strong>NPI:</strong> {profile.NPI}</p>
+      <div className="profile-card-details">
+        <p className="profile-detail"><strong>Address:</strong> {profile.address}</p>
+        <p className="profile-detail"><strong>Email:</strong> {profile.email}</p>
+        <p className="profile-detail"><strong>Phone:</strong> {profile.phone}</p>
+        <p className="profile-detail"><strong>NPI:</strong> {profile.NPI}</p>
       </div>
     </div>
   );

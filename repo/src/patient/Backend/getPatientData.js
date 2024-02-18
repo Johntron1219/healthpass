@@ -1,5 +1,21 @@
 import { database } from '../../firebase'; // Adjust the path as necessary
 
+export const getAllPatientData = async (id) => {
+    try {
+        // Assuming NPI is used as the document ID in the 'providers' collection
+        const documentRef = database.collection('patients').doc(id);
+        const documentSnapshot = await documentRef.get();
+        
+        if (documentSnapshot.exists) {
+            return documentSnapshot.data(); // Returns the provider data as a JSON object
+        } else {
+            return { error: 'No provider found with the given NPI' }; // Returns an error message if NPI doesn't exist
+        }
+    } catch (error) {
+        return { error: 'Error retrieving provider data' }; // Returns an error message in case of any operation failure
+    }
+};
+
 const getPatientData = async (pt, path) => {
   const docRef = database.collection('patients').doc(pt);
 
