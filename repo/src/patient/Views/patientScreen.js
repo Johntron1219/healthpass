@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import placeholderImage from './Elf.webp';
+import placeholderImage from '../../public/Elf.webp';
 import PatientHomeScreen from './PatientHomeScreen';
 import PatientProfileScreen from './PatientProfileScreen';
 import ApprovalsScreen from './ApprovalsScreen';
