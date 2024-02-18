@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
-import { getProviderNameByNPI } from './util';
+import { getClinicalTables } from './util';
 
 
 // Initialize Firebase app with your configuration
@@ -26,7 +26,7 @@ export async function getConditions(pt) {
             if (data && data.metadata && data.metadata.conditions) {
                 const conditions = await Promise.all(data.metadata.conditions.map(async condition => {
                     try {
-                        const providerName = await getProviderNameByNPI(condition.NPI);
+                        const providerName = (await getClinicalTables(condition.NPI, "npi_org"))[0];
                         console.log("Provider Name:", providerName);
                         return {
                             name: condition.ICD10 || "",

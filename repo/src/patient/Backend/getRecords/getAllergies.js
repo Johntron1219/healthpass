@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
-import { getProviderNameByNPI } from './util';
+import { getClinicalTables } from './util';
 
 // Initialize Firebase app with your configuration
 const firebaseConfig = {
@@ -25,7 +25,7 @@ export async function getAllergies(pt) {
             if (data && data.metadata && data.metadata.allergies) {
                 return await Promise.all(data.metadata.allergies.map(async (allergies) => ({
                     name: allergies.allergen || "",
-                    provider: (await getProviderNameByNPI(allergies.NPI)) || "",
+                    provider: (await getClinicalTables(allergies.NPI, "npi_org"))[0] || "",
                     severity: allergies.reaction || ""
                 })));
             } else {

@@ -1,7 +1,7 @@
 // Import the necessary Firebase modules
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-import { getProviderNameByNPI } from './util';
+import { getClinicalTables } from './util';
 
 // Initialize Firebase app with your configuration
 const firebaseConfig = {
@@ -26,7 +26,7 @@ export async function getImmunizations(pt) {
                 return Promise.all(data.metadata.immunizations.map(async (immunizations) => ({
                     name: immunizations.HCPCS || "",
                     dosage: immunizations.date || "",
-                    provider: (await getProviderNameByNPI(immunizations.NPI)) || ""
+                    provider: (await getClinicalTables(immunizations.NPI, "npi_org"))[0] || ""
                 })));
             } else {
                 console.log("No conditions data found for the patient.");

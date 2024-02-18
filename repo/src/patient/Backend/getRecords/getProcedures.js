@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
-import { getProviderNameByNPI } from './util';
+import { getClinicalTables } from './util';
 
 
 // Initialize Firebase app with your configuration
@@ -27,7 +27,7 @@ export async function getProcedures(pt) {
                 return await Promise.all(data.metadata.procedures.map(async (procedures) => ({
                     name: procedures.HCPCS || "",
                     dosage: procedures.dosage || "",
-                    provider: (await getProviderNameByNPI(procedures.NPI)) || ""
+                    provider: (await getClinicalTables(procedures.NPI, "npi_org"))[0] || ""
                 })));
             } else {
                 console.log("No conditions data found for the patient.");

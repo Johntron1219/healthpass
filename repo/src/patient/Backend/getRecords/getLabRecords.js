@@ -1,7 +1,7 @@
 // Import the necessary Firebase modules
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-import { getProviderNameByNPI } from './util';
+import { getClinicalTables } from './util';
 
 // Initialize Firebase app with your configuration
 const firebaseConfig = {
@@ -22,11 +22,16 @@ export async function getLabRecords(pt) {
         if (snapshot.exists) {
             const data = snapshot.data();
             if (data && data.metadata && data.metadata.labrecords) {
-                return await Promise.all(data.metadata.labrecords.map(async (labrecords) => ({
-                    name: labrecords.HCPCS || "",
-                    provider: await getProviderNameByNPI(labrecords.NPI) || "",
-                    date: labrecords.date || "", value: labrecords.value || ""
-                })));
+                // console.log( await getClinicalTables(data.metadata.labrecords[0].HCPCS, "hcpcs") )
+                return await Promise.all(data.metadata.labrecords.map(async (labrecords) => {
+                    // ((await getClinicalTables(labrecords.HCPCS, "hcpcs"))[1])
+                    return  {
+                        name: "test" || "",
+                        provider: (await getClinicalTables(labrecords.NPI, "npi_org"))[0] || "",
+                        date: labrecords.date || "", 
+                        value: labrecords.value || ""
+                    }
+                }));
             } else {
                 console.log("No conditions data found for the patient.");
                 return [];
