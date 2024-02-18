@@ -1,4 +1,4 @@
-import {getAllPatientData} from "./getPatientData"
+import {getAllPatientData} from "./getRecords/getPatientData"
 import {database} from '../../firebase'
 /*
 

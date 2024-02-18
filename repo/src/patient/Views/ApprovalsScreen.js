@@ -3,9 +3,9 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 
-import {approveProviderHandler, denyProviderHandler, initiateRequestHandler, removeAuthorizationHandler} from '../Backend/authorizationRequestHandler';
-import createAccessLink from '../Backend/createAccessLink';
-import { getAllPatientData } from '../Backend/getPatientData';
+import {approveProviderHandler, denyProviderHandler, 
+  initiateRequestHandler, removeAuthorizationHandler} from '../Backend/authorizationRequestHandler';
+import { getAllPatientData } from '../Backend/getRecords/getPatientData';
 
 
 
