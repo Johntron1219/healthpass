@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
-import {createProvider} from '../Backend/createProvider'
+import { createProvider } from '../Backend/createProvider';
 
-export const ProviderRegisterPage = ({ setCurrentScreen, providerNPI}) => {
-  
+export const ProviderRegisterPage = ({ setCurrentScreen, providerNPI }) => {
+
   const [newNPI, setNewNPI] = useState('');
+  const [providerName, setProviderName] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-      // Replace the following with your actual login logic
-      if (!newNPI|| !password) {
-        setErrorMessage('Please enter both email and password');
-        return;
-      }
+
+    // Check if any of the required fields are empty
+    if (!newNPI || !providerName || !password) {
+      setErrorMessage('Please enter NPI, name, and password');
+      return;
+    }
 
     try {
-      await createProvider(newNPI, password)
+      await createProvider(newNPI, providerName, password);
       setNewNPI('');
+      setProviderName('');
       setPassword('');
       setErrorMessage('');
-      return;
     } catch (error) {
-        console.error('Error checking document:', error);
-        setErrorMessage('An error occurred while checking login');
+      console.error('Error checking document:', error);
+      setErrorMessage('An error occurred while checking login');
     }
   };
 
@@ -41,6 +44,14 @@ export const ProviderRegisterPage = ({ setCurrentScreen, providerNPI}) => {
             type="text"
             value={newNPI}
             onChange={(e) => setNewNPI(e.target.value)}
+          />
+        </div>
+        <div className="input-group">
+          <label>Name:</label>
+          <input
+            type="text"
+            value={providerName}
+            onChange={(e) => setProviderName(e.target.value)}
           />
         </div>
         <div className="input-group">
