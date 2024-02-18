@@ -28,5 +28,5 @@ const deletePatientField = async (pid, field) => {
       console.error('Error deleting document field: ', error);
     }
   };
-
-export { deletePatientField };
+  
+  export { deletePatientField };
