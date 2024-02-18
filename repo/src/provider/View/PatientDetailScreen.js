@@ -1,7 +1,6 @@
 import React from 'react';
-import './ProviderPatientEditScreen.css'; // Make sure this path is correct
 
-function ProviderPatientEditScreen({ patientProfiles, selectedPatientProfile, switchScreen }) {
+function PatientDetailScreen({ selectedPatientProfile, onBackClick, onEditClick }) {
   
   const formatItemList = (items) => {
     return items.map((item, index) => (
@@ -15,34 +14,6 @@ function ProviderPatientEditScreen({ patientProfiles, selectedPatientProfile, sw
       </div>
     )) || <p>None</p>;
   };
-
-  const handleEditClick = () => {
-    console.log(`Editing ${selectedPatientProfile.name}`);
-    // The actual editing logic would go here
-  };
-
-  const handleBackClick = () => {
-    // This will clear the selected patient profile and go back to the list
-    switchScreen('edit');
-  };
-
-  if (!selectedPatientProfile) {
-    return (
-      <div>
-        <h2>Select a patient to edit:</h2>
-        <div className="patient-list">
-          {patientProfiles.map((profile, index) => (
-            <button className="Small-orange-button" 
-              key={index}
-              onClick={() => switchScreen('edit', profile)}
-            >
-              {profile.name}
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="patient-profile">
@@ -83,6 +54,6 @@ function ProviderPatientEditScreen({ patientProfiles, selectedPatientProfile, sw
       </button>
     </div>
   );
-}
+  }
 
-export default ProviderPatientEditScreen;
+export default PatientDetailScreen;
