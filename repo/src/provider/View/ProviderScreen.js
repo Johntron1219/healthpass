@@ -26,21 +26,10 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
     NPI: "1234567890",
   };
   const [patientProfiles, setPatientProfiles] = useState([]);
-  useEffect(() => {
     const fetchData = async () => {
-<<<<<<< HEAD
       const data = {
         pt: "0002",
         name: await getPatientData(pt, "metadata.firstname") + " " + await getPatientData(pt, "metadata.middlename") + " " + await getPatientData(pt, "metadata.lastname"),
-=======
-      const pt = "0002";
-      const name = await getPatientData(pt, "metadata.firstname") + " " + await getPatientData(pt, "metadata.middlename") + " " + await getPatientData(pt, "metadata.lastname");
-      const address = await getPatientData(pt, "metadata.address") + ", " + await getPatientData(pt, "metadata.city") + ", " + await getPatientData(pt, "metadata.state") + " " + await getPatientData(pt, "metadata.zip");
-
-      setPatientProfiles({
-        pt,
-        name,
->>>>>>> 148e38b6b5c3f5cd41ef12bace6bba914d84d542
         lastEditDate: "2024-02-17",
         address: await getPatientData(pt, "metadata.address") + ", " + await getPatientData(pt, "metadata.city") + ", " + await getPatientData(pt, "metadata.state") + " " + await getPatientData(pt, "metadata.zip"),
         dob: await getPatientData(pt, "metadata.monthofbirth") + "/" + await getPatientData(pt, "metadata.dayofbirth") + "/" + await getPatientData(pt, "metadata.yearofbirth"),
@@ -53,11 +42,15 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
         procedures: await getProcedures(pt),
         immunizations: await getImmunizations(pt),
         labRecords: await getLabRecords(pt)
-      });
+      };
+
+      return data;
     };
-    fetchData();
-    
-}, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
+
+    fetchData().then((data) => {
+      setPatientProfiles([data]);
+    });
+    ; // Empty dependency array ensures this effect runs only once, similar to componentDidMount
 
   const handleSelectPatient = (patient) => {
     setSelectedPatient(patient);
