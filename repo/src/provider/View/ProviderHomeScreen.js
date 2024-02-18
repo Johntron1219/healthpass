@@ -64,7 +64,6 @@ function ProviderHomeScreen({ profile }) {
       <div className="provider-info">
         <p><strong>Provider Name:</strong> {profile.name}</p>
         <p><strong>NPI:</strong> {profile.NPI}</p> {/* Providing a fallback if dob isn't available */}
-        <p><strong>Email Address:</strong> {profile.email}</p>
       </div>
       <div className="joke-column">
         <h2>Here's a joke for you!</h2>

@@ -33,64 +33,14 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       const providerProfile = {
         name: response.name,
         photo: Pic,
-        email: response.email,
         NPI: response.NPI,
         password: response.password,
         incomingrequests: response.incomingrequests,
         AuthorizedPatients: response.AuthorizedPatients,
       };
-      
+
       setProfile(providerProfile);
-
-      const patientsData = await getAllPatientData();
-      const patientsArray = Object.values(patientsData);
-      const profiles = await Promise.all(patientsArray.map(async (patient) => {
-        if (
-          patient.metadata &&
-          patient.metadata.firstname &&
-          patient.metadata.middlename &&
-          patient.metadata.lastname &&
-          patient.metadata.address &&
-          patient.metadata.city &&
-          patient.metadata.state &&
-          patient.metadata.zip &&
-          patient.metadata.monthofbirth &&
-          patient.metadata.dayofbirth &&
-          patient.metadata.yearofbirth &&
-          patient.email &&
-          patient.metadata.insurancename &&
-          patient.metadata.insurancenum
-        ) {
-          const conditions = await getConditions(patient.pt);
-          const allergies = await getAllergies(patient.pt);
-          const medications = await getMedications(patient.pt);
-          const procedures = await getProcedures(patient.pt);
-          const immunizations = await getImmunizations(patient.pt);
-          const labRecords = await getLabRecords(patient.pt);
-
-          return {
-            pt: patient.pt,
-            name: `${patient.metadata.firstname} ${patient.metadata.middlename} ${patient.metadata.lastname}`,
-            lastEditDate: "2024-02-17",
-            address: `${patient.metadata.address}, ${patient.metadata.city}, ${patient.metadata.state} ${patient.metadata.zip}`,
-            dob: `${patient.metadata.monthofbirth}/${patient.metadata.dayofbirth}/${patient.metadata.yearofbirth}`,
-            email: patient.email,
-            insurancePolicyNumber: patient.metadata.insurancename,
-            insurancePlan: patient.metadata.insurancenum,
-            conditions,
-            allergies,
-            medications,
-            procedures,
-            immunizations,
-            labRecords
-          };
-        } else {
-          console.error('Patient data is missing required properties:', patient);
-          return null;
-        }
-      }));
-      const filteredProfiles = profiles.filter(profile => profile !== null);
-      setPatientProfiles(filteredProfiles);
+      
     } catch (error) {
       console.error('Error fetching data:', error);
     }

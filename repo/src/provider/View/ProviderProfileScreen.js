@@ -9,7 +9,6 @@ function ProviderProfileScreen({ profile }) {
         <h1 className="profile-name">{profile.name}</h1>
       </div>
       <div className="profile-card-details">
-        <p className="profile-detail"><strong>Email:</strong> {profile.email}</p>
         <p className="profile-detail"><strong>NPI:</strong> {profile.NPI}</p>
       </div>
     </div>
