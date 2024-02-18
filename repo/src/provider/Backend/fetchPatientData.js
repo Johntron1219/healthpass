@@ -1,4 +1,4 @@
-import { getAllPatientData } from './path/to/getAllPatientData'; // Import the getAllPatientData function
+import getAllPatientData from "../../../patient/Backend/getRecords/getPatientData"
 
 async function fetchAuthorizedPatientsData(authorizedPatientIDs) {
     const patientDataList = [];
