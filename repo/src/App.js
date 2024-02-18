@@ -37,8 +37,8 @@ function App() {
     <div className="App">
       {currentScreen === 'home' && renderHomeScreen()}
       {currentScreen === 'patientLogin' && <LoginPage setCurrentScreen={setCurrentScreen} setCurrentID={setCurrentID}/>}
-      {currentScreen === 'providerLogin' && <ProviderLoginPage setCurrentScreen={setCurrentScreen} />}
-      {currentScreen === 'provider' && <ProviderScreen setCurrentScreen={setCurrentScreen} />}
+      {currentScreen === 'providerLogin' && <ProviderLoginPage setCurrentScreen={setCurrentScreen} setCurrentID={setCurrentID}/>}
+      {currentScreen === 'provider' && <ProviderScreen setCurrentScreen={setCurrentScreen} providerNPI={currentID}/>}
       {currentScreen === 'patient' && <PatientScreen setCurrentScreen={setCurrentScreen} patientID={currentID} />}
       {currentScreen === 'patientRegister' && <PatientRegisterPage setCurrentScreen={setCurrentScreen}/>}
     </div>

@@ -110,7 +110,7 @@ function ProviderScreen({ setCurrentScreen }) {
       screenComponent = <PatientEditForm selectedPatientProfile={selectedPatient} onSave={handleSavePatient} onCancel={handleCancelEdit} />;
       break;
     case 'requests':
-      screenComponent = <RequestsScreen />;
+      screenComponent = <RequestsScreen providerNPI={providerNPI}/>;
       break;
     default:
       screenComponent = <ProviderHomeScreen profile={profile} />;
@@ -125,7 +125,7 @@ function ProviderScreen({ setCurrentScreen }) {
         <button className="Small-blue-button" onClick={() => setProviderScreen('profile')}>Profile</button>
         <button className="Small-blue-button" onClick={() => setProviderScreen('requests')}>Requests</button>
       </div>
-      <button className="Home-button" onClick={() => setCurrentScreen('home')}>Back to Main Home</button>
+      <button className ="Home-button" onClick={() => setCurrentScreen('home')}>Logout</button>
     </div>
   );
 }

@@ -1,55 +1,88 @@
-// RequestsScreen.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getProviderData } from '../Backend/getProviderData';
+import {
+  approvePatientHandler,
+  denyPatientHandler,
+  initiateRequestHandler,
+  removeAuthorizationHandler
+} from '../Backend/authorizationRequestHandler';
 
-function RequestsScreen({ 
-    patientHealthRecordRequests = [], // Provide default empty array
-    requestedMedicalRecords = [], // Provide default empty array
-    onAuthorizeRecords, 
-    onRequestRecords, 
-    onCreateShareLink 
-}) {
-  // Function to handle authorization of patient health records
-  const handleAuthorizeRecords = () => {
-    console.log("Patient health records authorized.");
-    if (onAuthorizeRecords) onAuthorizeRecords(); // Invoke passed function to authorize records
+function RequestsScreen({ providerNPI }) {
+  const [authData, setAuthData] = useState([]);
+  const [patientList, setPatientList] = useState([]);
+  const [initiateRequestPID, setInitiateRequestPID] = useState('');
+
+  useEffect(() => {
+    fetchData(providerNPI);
+  }, [providerNPI]);
+
+  const fetchData = async (NPI) => {
+    try {
+      const response = await getProviderData(NPI);
+      setAuthData(response?.incomingrequests || []);
+      setPatientList(response?.AuthorizedPatients || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
-  // Function to handle requesting medical records from patients
-  const handleRequestRecords = () => {
-    console.log("Medical records requested from patients.");
-    if (onRequestRecords) onRequestRecords(); // Invoke passed function to request records
+  const handleApprove = async (PID) => {
+    await approvePatientHandler(providerNPI, PID);
+    fetchData(providerNPI);
   };
 
-  // Function to handle creation of share link for patients
-  const handleCreateShareLink = () => {
-    console.log("Share link for patients created.");
-    if (onCreateShareLink) onCreateShareLink(); // Invoke passed function to create share link
+  const handleDeny = async (PID) => {
+    await denyPatientHandler(providerNPI, PID);
+    fetchData(providerNPI);
+  };
+
+  const handleRemove = async (PID) => {
+    await removeAuthorizationHandler(providerNPI, PID);
+    fetchData(providerNPI);
+  };
+
+  const handleInitiateRequest = async () => {
+    await initiateRequestHandler(providerNPI, initiateRequestPID);
+    setInitiateRequestPID('');
+    fetchData(providerNPI);
   };
 
   return (
     <div className="requests-screen">
-      <h1>Requests</h1>
-      <div className="request-item">
-        <h2>Patient Health Record Requests</h2>
-        {patientHealthRecordRequests.map((request) => (
-          <div key={request.id} className="request-item">
-            {request.patientName} - {request.requestDate}
+      <h1>Patient Share Record Requests</h1>
+
+      <section className="request-item">
+        <h2>Patient Requests</h2>
+        {authData.map((request) => (
+          <div key={request.PID} className="request-item">
+            <span>{request.patientName} - {new Date(request.requestDate).toLocaleDateString()}</span>
+            <button onClick={() => handleApprove(request.PID)}>Approve</button>
+            <button onClick={() => handleDeny(request.PID)}>Deny</button>
           </div>
         ))}
-      </div>
-      <button className="A-pink-button" onClick={handleAuthorizeRecords}>Authorize Patient Health Records</button>
+      </section>
       
-      <div className="request-item">
-        <h2>Requested Medical Records</h2>
-        {requestedMedicalRecords.map((record) => (
-          <div key={record.id} className="approval-history-item">
-            {record.patientName} - {record.requestDate}
+      <section className="authorized-providers">
+        <h2>List of Authorized Patients</h2>
+        {patientList.map((PID) => (
+          <div key={PID} className="provider-item">
+            <span>{PID}</span>
+            <button onClick={() => handleRemove(PID)}>Remove</button>
           </div>
         ))}
-      </div>
-      <button className="A-pink-button" onClick={handleRequestRecords}>Request Medical Records</button>
-      
-      <button className="A-pink-button" onClick={handleCreateShareLink}>Create Share Link</button>
+      </section>
+
+      <section className="connect-provider">
+        <label htmlFor="providerNPI">Connect with patient ID:</label>
+        <input
+          id="providerNPI"
+          type="text"
+          value={initiateRequestPID}
+          onChange={(e) => setInitiateRequestPID(e.target.value)}
+          placeholder="Enter NPI..."
+        />
+        <button onClick={handleInitiateRequest}>Submit</button>
+      </section>
     </div>
   );
 }

@@ -1,10 +1,10 @@
-import { firestore } from './firebase';
+import { database } from '../../firebase';
 
 // Function to retrieve provider data from Firestore based on NPI
-export const getProvider = async (npi) => {
+export const getProviderData = async (NPI) => {
     try {
         // Assuming NPI is used as the document ID in the 'providers' collection
-        const documentRef = firestore.collection('providers').doc(npi);
+        const documentRef = database.collection('providers').doc(NPI);
         const documentSnapshot = await documentRef.get();
         
         if (documentSnapshot.exists) {

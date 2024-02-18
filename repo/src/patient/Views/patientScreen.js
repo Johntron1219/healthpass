@@ -41,7 +41,6 @@ function PatientScreen({ setCurrentScreen, patientID}) {
     return <div>Loading...</div>;
   }
 
-
   let screen;
   switch (patientScreen) {
     case 'home':

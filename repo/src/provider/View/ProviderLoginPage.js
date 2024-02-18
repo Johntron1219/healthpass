@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './ProviderLoginPage.css'; // Assuming ProviderLoginPage will use the same styles
+import './providerCSS/ProviderLoginPage.css'; // Assuming ProviderLoginPage will use the same styles
 
-export const ProviderLoginPage = ({ setCurrentScreen }) => {
+export const ProviderLoginPage = ({ setCurrentScreen, setCurrentID}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -14,6 +14,7 @@ export const ProviderLoginPage = ({ setCurrentScreen }) => {
     }
     // Additional login logic for providers...
     setCurrentScreen('provider');
+    setCurrentID(username)
     setUsername('');
     setPassword('');
     setErrorMessage('');
