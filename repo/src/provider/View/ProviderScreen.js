@@ -28,28 +28,39 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
     NPI: "1234567890",
   };
   const [patientProfiles, setPatientProfiles] = useState([]);
-  useEffect( () =>{
+
+  useEffect(() => {
     const fetchData = async () => {
-      setPatientProfiles({
+      const patientData = await getPatientData(pt, "metadata");
+      const conditions = await getConditions(pt);
+      const allergies = await getAllergies(pt);
+      const medications = await getMedications(pt);
+      const procedures = await getProcedures(pt);
+      const immunizations = await getImmunizations(pt);
+      const labRecords = await getLabRecords(pt);
+
+      const updatedPatientProfile = {
         pt: "0002",
-        name: await getPatientData(pt, "metadata.firstname") + " " + await getPatientData(pt, "metadata.middlename") + " " + await getPatientData(pt, "metadata.lastname"),
+        name: `${patientData.firstname} ${patientData.middlename} ${patientData.lastname}`,
         lastEditDate: "2024-02-17",
-        address: await getPatientData(pt, "metadata.address") + ", " + await getPatientData(pt, "metadata.city") + ", " + await getPatientData(pt, "metadata.state") + " " + await getPatientData(pt, "metadata.zip"),
-        dob: await getPatientData(pt, "metadata.monthofbirth") + "/" + await getPatientData(pt, "metadata.dayofbirth") + "/" + await getPatientData(pt, "metadata.yearofbirth"),
-        email: await getPatientData(pt, "email"),
-        insurancePolicyNumber: await getPatientData(pt, "metadata.insurancename"),
-        insurancePlan: await getPatientData(pt, "metadata.insurancenum"),
-        conditions: await getConditions(pt),
-        allergies: await getAllergies(pt),
-        medications: await getMedications(pt),
-        procedures: await getProcedures(pt),
-        immunizations: await getImmunizations(pt),
-        labRecords: await getLabRecords(pt)
-      });
+        address: `${patientData.address}, ${patientData.city}, ${patientData.state} ${patientData.zip}`,
+        dob: `${patientData.monthofbirth}/${patientData.dayofbirth}/${patientData.yearofbirth}`,
+        email: patientData.email,
+        insurancePolicyNumber: patientData.insurancename,
+        insurancePlan: patientData.insurancenum,
+        conditions,
+        allergies,
+        medications,
+        procedures,
+        immunizations,
+        labRecords
+      };
+
+      setPatientProfiles([updatedPatientProfile]);
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
+  }, []);
 
   const handleSelectPatient = (patient) => {
     setSelectedPatient(patient);
@@ -71,10 +82,10 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
       }
       return prevProfiles;
     });
-  
+
     // Update the selectedPatient state to reflect the changes immediately
     setSelectedPatient(updatedPatient);
-  
+
     // Here you should call a function to update the patient in Firebase
     try {
       // Assuming 'pt' is the patient ID and it is a string. If it's not, you should convert it accordingly.
@@ -83,7 +94,7 @@ function ProviderScreen({ setCurrentScreen, providerNPI }) {
     } catch (error) {
       console.error('Failed to update patient data in Firebase', error);
     }
-  
+
     // Go back to the patient detail screen
     setProviderScreen('patientDetail');
   };

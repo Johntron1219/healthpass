@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getProviderData } from '../Backend/getProviderData';
 
 const jokes = [
   "I'm on a whiskey diet. I've lost three days already.",

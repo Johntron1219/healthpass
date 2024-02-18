@@ -11,13 +11,11 @@ if use clicks patient, load in patient data into that component
 */
 
 function PatientListScreen({ patientProfiles, onPatientSelect }) {
-
-  const [patientData, setPatientData] = useState([])
   return (
     <div>
       <h2>Select a patient to edit:</h2>
       <div className="patient-list">
-        {patientProfiles.map((profile, index) => (
+        {Array.isArray(patientProfiles) && patientProfiles.map((profile, index) => (
           <button
             className="Small-orange-button"
             key={index}
