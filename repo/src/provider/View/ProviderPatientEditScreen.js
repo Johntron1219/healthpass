@@ -1,18 +1,10 @@
 // ProviderPatientEditScreen.js
 import React from 'react';
 
-function ProviderPatientEditScreen({ selectedPatientProfile, switchScreen }) {
-  if (!selectedPatientProfile) {
-    return <div>No profile data available.</div>;
-  }
-
-  const handleEditClick = () => {
-    console.log(`Edit ${selectedPatientProfile.name}`);
-    switchScreen('home'); // For demo purposes, returning to home screen after editing
-  };
-
+function ProviderPatientEditScreen({ patientProfiles, selectedPatientProfile, switchScreen }) {
+  // This helper function formats the list items for display.
   const formatItemList = (items) => {
-    return items?.map((item, index) => (
+    return items.map((item, index) => (
       <div key={index} className="profile-item-detail">
         <p>{item.name}</p>
         <p>Provider: {item.provider}</p>
@@ -24,6 +16,29 @@ function ProviderPatientEditScreen({ selectedPatientProfile, switchScreen }) {
     )) || <p>None</p>;
   };
 
+  // Handle the 'Edit' button click.
+  const handleEditClick = () => {
+    console.log(`Edit ${selectedPatientProfile.name}`);
+    // Implement the editing logic here
+    // For now, we'll just log to the console and return to the home screen
+    switchScreen('home');
+  };
+
+  // If no patient is selected, display the list of patients to edit
+  if (!selectedPatientProfile) {
+    return (
+      <div>
+        <h2>Select a patient to edit:</h2>
+        {patientProfiles.map((profile, index) => (
+          <button key={index} onClick={() => switchScreen('edit', profile)}>
+            {profile.name}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  // Display the selected patient's profile for editing
   return (
     <div className="patient-profile">
       <h1 className="profile-name">{selectedPatientProfile.name}</h1>
