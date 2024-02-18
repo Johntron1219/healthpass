@@ -19,4 +19,4 @@ async function fetchAuthorizedPatientsData(authorizedPatientIDs) {
     return patientDataList; // Return the list of patient data
 }
 
-export default { fetchAuthorizedPatientsData };
+export default fetchAuthorizedPatientsData;
