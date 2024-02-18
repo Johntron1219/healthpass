@@ -41,7 +41,7 @@ body {
 }
 
 .logo {
-  max-width: 200px; /* Increased logo size */
+  max-width: 300px; /* Increased logo size */
   height: auto;
 }
 
@@ -117,7 +117,7 @@ code {
   border-radius: 8px;
 }
 
-.Home-button, .A-pink-button, .Small-blue-button {
+.Home-button, .A-pink-button, .Small-blue-button, .Small-orange-button, .Smaller-orange-button {
   border: none;
   color: white;
   padding: 15px 32px;
@@ -131,7 +131,8 @@ code {
 
 .Home-button {
   background-color: #4CAF50; /* Green */
-  font-size: 16px;
+  font-size: 19px;
+  font-weight: bold;
 }
 
 .A-pink-button {
@@ -143,12 +144,20 @@ code {
 .Small-blue-button {
   background-color: #008CBA; /* Blue */
   padding: 10px 20px; /* Smaller padding */
-  font-size: 14px; /* Slightly smaller font size */
+  font-size: 16px; /* Slightly smaller font size */
+  font-weight: bold;
 }
 
 .Small-orange-button {
   background-color: #de9c0d; /* Blue */
   padding: 10px 20px; /* Smaller padding */
+  font-size: 16px; /* Slightly smaller font size */
+  font-weight: bold;
+}
+
+.Smaller-orange-button {
+  background-color: #de9c0d; /* Blue */
+  padding: 8px 16px; /* Smaller padding */
   font-size: 14px; /* Slightly smaller font size */
 }
 
