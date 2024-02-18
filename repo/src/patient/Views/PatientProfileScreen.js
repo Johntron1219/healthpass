@@ -13,7 +13,7 @@ function PatientProfileScreen({ profile }) {
   };
 
   const formatSectionName = (section) => {
-    if (section === 'labRecords') return 'Lab Records';
+    if (section === 'labrecords') return 'Lab Records';
     return section.charAt(0).toUpperCase() + section.slice(1).replace(/([A-Z])/g, ' $1').trim();
   };
 
@@ -32,14 +32,14 @@ function PatientProfileScreen({ profile }) {
       <div className="profile-section insurance">
         <h2 className="section-title">Insurance</h2>
       </div>
-      {['conditions', 'allergies', 'medications', 'procedures', 'immunizations', 'labRecords'].map((section) => (
+      {['conditions', 'allergies', 'medications', 'procedures', 'immunizations', 'labrecords'].map((section) => (
         <div key={section} className="profile-section">
           <h2 className="section-title">{formatSectionName(section)}</h2>
           <div className="section-content">
             {(profile.metadata[section] || []).map((item, index) => (
               <div key={index} className="section-item">
                 <p onClick={() => toggleDetail(section, index)} style={{ cursor: 'pointer' }}>
-                  {item.name || item}
+                  {item.name || item.ICD10 || item.allergen || item.HCPCS || item.shotname || item.NDC}
                 </p>
                 {visibleDetail[`${section}-${index}`] && (
                   <div>
