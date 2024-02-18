@@ -1,7 +1,13 @@
 // RequestsScreen.js
 import React from 'react';
 
-function RequestsScreen({ patientHealthRecordRequests, requestedMedicalRecords, onAuthorizeRecords, onRequestRecords, onCreateShareLink }) {
+function RequestsScreen({ 
+    patientHealthRecordRequests = [], // Provide default empty array
+    requestedMedicalRecords = [], // Provide default empty array
+    onAuthorizeRecords, 
+    onRequestRecords, 
+    onCreateShareLink 
+}) {
   // Function to handle authorization of patient health records
   const handleAuthorizeRecords = () => {
     console.log("Patient health records authorized.");
