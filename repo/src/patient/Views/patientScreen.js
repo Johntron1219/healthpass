@@ -3,7 +3,7 @@ import placeholderImage from '../../public/Elf.webp';
 import PatientHomeScreen from './PatientHomeScreen';
 import PatientProfileScreen from './PatientProfileScreen';
 import ApprovalsScreen from './ApprovalsScreen';
-import getPatientData from '../Backend/getRecords/getPatientData'; // Correct import
+import getPatientData, { getAllPatientData } from '../Backend/getRecords/getPatientData'; // Correct import
 import getConditions from '../Backend/getRecords/getConditions';
 import getAllergies from '../Backend/getRecords/getAllergies';
 import getMedications from '../Backend/getRecords/getMedications';
@@ -16,21 +16,17 @@ function PatientScreen({ setCurrentScreen, patientID}) {
   const pt = patientID;
   useEffect(() => {
     async function fetchData() {
+      const patientData = await getAllPatientData(patientID);
+      
       setProfile({
-        name: await getPatientData(pt, "metadata.firstname")+" "+await getPatientData(pt, "metadata.middlename")+" "+await getPatientData(pt, "metadata.lastname"),
-        lastEditDate: "2024-02-17",
-        address: await getPatientData(pt, "metadata.address")+", "+await getPatientData(pt, "metadata.city")+", "+await getPatientData(pt, "metadata.state") +" "+await getPatientData(pt, "metadata.zip"),
-        photo: placeholderImage,
-        dob:await getPatientData(pt, "metadata.monthofbirth")+"/"+await getPatientData(pt, "metadata.dayofbirth")+"/"+await getPatientData(pt, "metadata.yearofbirth"),
-        email: await getPatientData(pt, "email"),
-        insurancePolicyNumber: await getPatientData(pt, "metadata.insurancename"),
-        insurancePlan: await getPatientData(pt, "metadata.insurancenum"),
-        conditions: await getConditions(pt),
-        allergies: await getAllergies(pt),
-        medications: await getMedications(pt),
-        procedures: await getProcedures(pt),
-        immunizations: await getImmunizations(pt),
-        labRecords: await getLabRecords(pt)
+        PID: patientData.PID,
+        name: patientData.name,
+        email: patientData.email,
+        password: patientData.password,
+        DOB: patientData.DOB,
+        authorizedNPIs: patientData.authorizedNPIs,
+        incomingRequests: patientData.incomingRequests,
+        metadata: patientData.metadata,
       });
     }
 
@@ -42,6 +38,7 @@ function PatientScreen({ setCurrentScreen, patientID}) {
   }
 
   let screen;
+  console.log(profile)
   switch (patientScreen) {
     case 'home':
       screen = <PatientHomeScreen profile={profile} />;
